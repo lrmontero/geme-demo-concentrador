@@ -1,0 +1,429 @@
+<h2 class="mb-4"><i class="fas fa-user-shield"></i> Administrador - Gestión de Solicitudes</h2>
+
+<div class="row mb-4">
+    <div class="col-md-2 mb-2">
+        <div class="card card-alcance text-white">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-clock"></i> SODI's Generadas</h5>
+                <h2 class="mb-0">12</h2>
+                <p class="card-text mb-0">GM - 2025</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="btn-group mt-1" id="zona-botonera-filtro" role="group" aria-label="Botonera">
+            <button id="showHideFilter" class="btn btn-secondary collapsed" type="button" data-toggle="collapse" data-target="#zona-filtro" aria-expanded="false" aria-controls="zona-filtro">
+                <i class="fa fa-filter mr-2 text-white" aria-hidden="true"></i>
+                Mostrar filtro
+            </button>
+            <button id="clearFilter" class="btn btn-outline-dark" type="button" onclick="limpiarFiltros()">
+                <i class="fas fa-broom mr-2" aria-hidden="true"></i>
+                <span>Limpiar filtro</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card collapse" id="zona-filtro">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Filtros de Búsqueda</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Tipo</label>
+                            <select class="form-control">
+                                <option>Todos</option>
+                                <option>SUCN</option>
+                                <option>SUCP</option>
+                                <option>SICN</option>
+                                <option>SICP</option>
+                                <option>IL</option>
+                                <option>RM</option>
+                                <option>MANT</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select class="form-control">
+                                <option>Todos</option>
+                                <option>Vigente</option>
+                                <option>Finalizado</option>
+                                <option>Programado</option>
+                                <option>Aprobado</option>
+                                <option>Rechazado</option>
+                                <option>No solicitado</option>
+                                <option>Suspendido</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Empresa Solicitante</label>
+                            <select class="form-control">
+                                <option>Todas</option>
+                                <option>CDEC</option>
+                                <option>GM</option>
+                                <option>Transelec Norte</option>
+                                <option>Transelec Sur</option>
+                                <option>Chilquinta</option>
+                                <option>Saesa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Fecha Desde</label>
+                            <input type="date" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="btns-accion-filtro">
+                    <a href="javascript:;" class="btn-filtrar text-decoration-none">
+                        <i class="fas fa-filter"></i> Filtrar
+                    </a>
+                    <a href="javascript:;" class="btn-limpiar text-decoration-none">
+                        <i class="fas fa-eraser"></i> Limpiar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4 align-items-center">
+    <div class="col-lg-6">
+        <div class="botonera">
+            <a class="btn btn-customized" href="javascript:;" role="button" onclick="abrirModalNuevaSolicitudAdmin()" id="btn-newDoc">
+                <i class="fa fa-plus"></i> Nueva Solicitud
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="row justify-content-end">
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 mb-0">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input class="cbxFilter" type="radio" aria-label="" name="flexRadioDefault" checked="" id="cbxEnProceso" autocomplete="off" onchange="filtrarPorEstado('proceso')">
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" disabled="" aria-label="" value="En Proceso" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 mb-0">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input class="cbxFilter" type="radio" aria-label="" name="flexRadioDefault" id="cbxFinalizadas" autocomplete="off" onchange="filtrarPorEstado('finalizadas')">
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" disabled="" aria-label="" value="Finalizadas" autocomplete="off">
+                </div>
+            </div>				
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="table-solicitudes" class="table table-sm table-hover table-bordered w-100">
+                        <thead>
+                            <tr class="table-group">
+                                <th class="text-center">Acciones</th>
+                                <th>ID Registro</th>
+                                <th>ID Solicitud</th>
+                                <th>Tipo</th>
+                                <th>Fecha Prog. Inicio</th>
+                                <th>Fecha Prog. Fin</th>
+                                <th>Instalación GM</th>
+                                <th>Administrador</th>
+                                <th>Solicitante</th>
+                                <th>Empresa Solicitante</th>
+                                <th>Empresa Receptora</th>
+                                <th>SODI</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Solicitud 1 - Pendiente -->
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+// Cambiar texto del botón al colapsar/expandir
+$('#zona-filtro').on('show.bs.collapse', function () {
+    $('#showHideFilter').html('<i class="fa fa-filter mr-2 text-white" aria-hidden="true"></i> Ocultar filtro');
+});
+
+$('#zona-filtro').on('hide.bs.collapse', function () {
+    $('#showHideFilter').html('<i class="fa fa-filter mr-2 text-white" aria-hidden="true"></i> Mostrar filtro');
+});
+
+// ============================================
+// CARGAR DATOS DINÁMICAMENTE DESDE solicitudesData
+// ============================================
+(function() {
+    console.log('🔄 Cargando solicitudes del administrador...');
+    
+    // Verificar que solicitudesData existe
+    if (typeof solicitudesData === 'undefined') {
+        console.error('❌ solicitudesData no está definido');
+        return;
+    }
+    
+    // El administrador puede ver TODAS las solicitudes
+    const solicitudes = solicitudesData;
+    console.log(`📊 Encontradas ${solicitudes.length} solicitudes totales`);
+    
+    const tbody = $('#table-solicitudes tbody');
+    tbody.empty(); // Limpiar tabla
+    
+    // Generar cada fila
+    solicitudes.forEach(solicitud => {
+        // Determinar función de ver según el estado
+        let funcionVer = '';
+        switch(solicitud.ESTADO) {
+            case 'Pendiente':
+                funcionVer = `verSolicitudPendienteAdmin(${solicitud.ID_REGISTRO})`;
+                break;
+            case 'Devuelta':
+                funcionVer = `verSolicitudDevueltaAdmin(${solicitud.ID_REGISTRO})`;
+                break;
+            case 'En Análisis':
+                funcionVer = `verSolicitudEnAnalisisAdmin(${solicitud.ID_REGISTRO})`;
+                break;
+            case 'Administrador Gestionando':
+                funcionVer = `verSolicitudAdminGestionandoAdmin(${solicitud.ID_REGISTRO})`;
+                break;
+            case 'Programada':
+                funcionVer = `verSolicitudProgramadaAdmin(${solicitud.ID_REGISTRO})`;
+                break;
+            case 'Vigente':
+                funcionVer = `verSolicitudVigenteAdmin(${solicitud.ID_REGISTRO})`;
+                break;
+            case 'Extendida':
+                funcionVer = `verSolicitudExtendidaAdmin(${solicitud.ID_REGISTRO})`;
+                break;
+            case 'Finalizada':
+                funcionVer = `verSolicitudFinalizada(${solicitud.ID_REGISTRO})`;
+                break;
+            case 'Rechazada':
+                funcionVer = `verSolicitudRechazada(${solicitud.ID_REGISTRO})`;
+                break;
+            case 'Suspendida':
+                funcionVer = `verSolicitudSuspendida(${solicitud.ID_REGISTRO})`;
+                break;
+            case 'No Solicitada':
+                funcionVer = `verSolicitudNoSolicitada(${solicitud.ID_REGISTRO})`;
+                break;
+            default:
+                funcionVer = `verSolicitudPendienteAdmin(${solicitud.ID_REGISTRO})`;
+        }
+        
+        // Determinar badge de tipo
+        let badgeTipo = 'badge-secondary';
+        switch(solicitud.TIPO) {
+            case 'SDCN': badgeTipo = 'badge-primary'; break;
+            case 'SICF': badgeTipo = 'badge-success'; break;
+            case 'SODI': badgeTipo = 'badge-danger'; break;
+            case 'IL': badgeTipo = 'badge-warning'; break;
+            case 'MM': badgeTipo = 'badge-info'; break;
+            case 'SDCF': badgeTipo = 'badge-dark'; break;
+            case 'SICN': badgeTipo = 'badge-secondary'; break;
+        }
+        
+        // Determinar badge de estado
+        let badgeEstado = 'badge-secondary';
+        let claseFinalizad = '';
+        switch(solicitud.ESTADO) {
+            case 'Pendiente': badgeEstado = 'badge-warning'; break;
+            case 'Devuelta': badgeEstado = 'badge-danger'; break;
+            case 'En Análisis': badgeEstado = 'badge-info'; break;
+            case 'Administrador Gestionando': badgeEstado = 'badge-warning text-dark'; break;
+            case 'Programada': badgeEstado = 'badge-success'; break;
+            case 'Vigente': badgeEstado = 'badge-primary'; break;
+            case 'Extendida': badgeEstado = 'badge-secondary'; break;
+            case 'Finalizada': 
+                badgeEstado = 'badge-secondary'; 
+                claseFinalizad = 'solicitud-finalizada';
+                break;
+            case 'Rechazada': 
+                badgeEstado = 'badge-danger'; 
+                claseFinalizad = 'solicitud-finalizada';
+                break;
+            case 'Suspendida': 
+                badgeEstado = 'badge-dark'; 
+                claseFinalizad = 'solicitud-finalizada';
+                break;
+            case 'No Solicitada': 
+                badgeEstado = 'badge-secondary'; 
+                claseFinalizad = 'solicitud-finalizada';
+                break;
+        }
+        
+        // Determinar acciones según el estado
+        let acciones = '';
+        if (['Pendiente', 'Devuelta', 'En Análisis', 'Administrador Gestionando'].includes(solicitud.ESTADO)) {
+            // Estados editables y gestionables
+            acciones = `
+                <a href="javascript:;" onclick="abrirModalEditarAdmin(${solicitud.ID_REGISTRO})" class="text-warning" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="javascript:;" onclick="${funcionVer}" class="text-primary ml-2" title="Ver">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <a href="javascript:;" onclick="clonarSolicitudAdmin(${solicitud.ID_REGISTRO})" class="text-info ml-2" title="Clonar">
+                    <i class="fas fa-copy"></i>
+                </a>
+                <a href="javascript:;" onclick="gestionarSolicitudAdmin(${solicitud.ID_REGISTRO})" class="text-danger ml-2" title="Gestionar">
+                    <i class="fas fa-arrow-circle-right"></i>
+                </a>
+                <a href="javascript:;" onclick="abrirBitacora(${solicitud.ID_REGISTRO})" class="text-success ml-2" title="Bitácora">
+                    <i class="fas fa-clipboard-list"></i>
+                </a>
+            `;
+        } else {
+            // Estados no editables (Programada, Vigente, Extendida, Finalizadas)
+            acciones = `
+                <a href="javascript:;" onclick="${funcionVer}" class="text-primary" title="Ver">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <a href="javascript:;" onclick="clonarSolicitudAdmin(${solicitud.ID_REGISTRO})" class="text-info ml-2" title="Clonar">
+                    <i class="fas fa-copy"></i>
+                </a>
+                <a href="javascript:;" onclick="abrirBitacora(${solicitud.ID_REGISTRO})" class="text-success ml-2" title="Bitácora">
+                    <i class="fas fa-clipboard-list"></i>
+                </a>
+            `;
+        }
+        
+        // Generar HTML de la fila
+        const fila = `
+            <tr class="${claseFinalizad}">
+                <td class="text-center">${acciones}</td>
+                <td>${solicitud.ID_REGISTRO}</td>
+                <td>${solicitud.ID_SOLICITUD}</td>
+                <td><span class="badge ${badgeTipo}">${solicitud.TIPO}</span></td>
+                <td>${solicitud.INICIO_PROGRAMADO}</td>
+                <td>${solicitud.FIN_PROGRAMADO}</td>
+                <td>${solicitud.INSTALACION_GM}</td>
+                <td>${solicitud.administrador}</td>
+                <td>${solicitud.solicitante}</td>
+                <td>${solicitud.EMPRESA_SOLICITANTE}</td>
+                <td>${solicitud.EMPRESA_RECEPTORA}</td>
+                <td>${solicitud.SODI}</td>
+                <td><span class="badge ${badgeEstado}">${solicitud.ESTADO}</span></td>
+            </tr>
+        `;
+        
+        tbody.append(fila);
+    });
+    
+    console.log('✅ Solicitudes cargadas exitosamente');
+})();
+
+// Encapsular TODO en una IIFE para evitar conflictos de variables
+(function() {
+    // Variable local para el filtro actual
+    let filtroActual = 'proceso';
+    
+    // Función para limpiar filtros
+    window.limpiarFiltros = function() {
+        $('#zona-filtro select').val('Todos');
+        $('#zona-filtro input').val('');
+    };
+    
+    // Función para filtrar por estado
+    window.filtrarPorEstado = function(tipo) {
+        console.log('Filtrando por:', tipo);
+        filtroActual = tipo;
+        
+        const table = $('#table-solicitudes').DataTable();
+        
+        // Aplicar el filtro y redibujar
+        table.draw();
+    };
+    
+    // Destruir DataTable si ya existe
+    if ($.fn.DataTable.isDataTable('#table-solicitudes')) {
+        $('#table-solicitudes').DataTable().destroy();
+    }
+    
+    // Limpiar filtros personalizados anteriores
+    $.fn.dataTable.ext.search = [];
+    
+    // Remover el display:none inline de las filas finalizadas para que DataTables las pueda procesar
+    $('.solicitud-finalizada').removeAttr('style');
+    
+    // Estados que se consideran "En Proceso" para Administrador
+    const estadosEnProceso = ['Pendiente', 'Devuelta', 'En Análisis', 'Administrador Gestionando', 'Programada', 'Vigente', 'Extendida'];
+    
+    // Estados que se consideran "Finalizadas"
+    const estadosFinalizadas = ['Finalizada', 'No Solicitada', 'Rechazada', 'Suspendida'];
+    
+    // Función de filtro personalizada
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            // data[12] es la columna del Estado (índice 12, la última columna)
+            const estadoColumna = data[12]; // Contiene el HTML del badge
+            
+            // Extraer el texto del estado del HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = estadoColumna;
+            const estado = tempDiv.textContent.trim();
+            
+            if (filtroActual === 'proceso') {
+                // Mostrar solo estados en proceso
+                return estadosEnProceso.includes(estado);
+            } else if (filtroActual === 'finalizadas') {
+                // Mostrar solo estados finalizadas
+                return estadosFinalizadas.includes(estado);
+            }
+            return true;
+        }
+    );
+    
+    $('#table-solicitudes').DataTable({
+        "language": {
+            "lengthMenu": "Mostrando _MENU_ solicitudes por página",
+            "zeroRecords": "No se encontraron resultados",
+            "info": "Total solicitudes: _TOTAL_. Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay solicitudes disponibles",
+            "infoFiltered": "(filtrado de _MAX_ solicitudes totales)",
+            "search": "Buscar",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
+        "pageLength": 10,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Mostrar todo"]],
+        "responsive": true,
+        "order": [[1, "desc"]],
+        "columnDefs": [
+            { "orderable": false, "targets": 0 }
+        ]
+    });
+})();
+</script>

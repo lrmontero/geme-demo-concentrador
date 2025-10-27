@@ -1,0 +1,202 @@
+<!-- MODAL EDITAR SOLICITUD -->
+<div class="modal fade" id="modalEditarSolicitudSolic" tabindex="-1" role="dialog" aria-labelledby="modalEditarSolicitudSolicLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalEditarSolicitudSolicLabel">
+                    <i class="fas fa-edit mr-2"></i>Editar Solicitud
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditarSolicitud">
+                    <!-- Estado (Solo lectura) -->
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="alert alert-info d-flex align-items-center" role="alert">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                <div>
+                                    <strong>Estado:</strong> <span class="badge badge-warning ml-2">Pendiente</span>
+                                    <small class="d-block mt-1">Solo se pueden editar solicitudes en estado Pendiente</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Fecha/hora programada inicio -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Fecha/hora programada inicio <span class="text-danger">*</span></label>
+                                <input type="datetime-local" class="form-control" id="editFechaInicio" name="fechaInicio" required>
+                                <small class="form-text text-muted">Debe ser una fecha futura</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Fecha/hora programada fin -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Fecha/hora programada fin <span class="text-danger">*</span></label>
+                                <input type="datetime-local" class="form-control" id="editFechaFin" name="fechaFin" required>
+                                <small class="form-text text-muted">Debe ser posterior a la fecha de inicio</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Instalación GM -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Instalación GM <span class="text-danger">*</span></label>
+                                <select class="form-control" id="editInstalacionGM" name="instalacionGM" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="CEME1">CEME1</option>
+                                    <option value="Nueva Renca">Nueva Renca</option>
+                                    <option value="Santa Lidia">Santa Lidia</option>
+                                    <option value="Los Vientos">Los Vientos</option>
+                                    <option value="Santiago Solar">Santiago Solar</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Instalaciones/equipos a intervenir -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Instalaciones/equipos a intervenir <span class="text-danger">*</span></label>
+                                <select class="form-control" id="editEquiposIntervenir" name="equiposIntervenir" required disabled>
+                                    <option value="">Primero seleccione Instalación GM</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Tipo de intervención -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Tipo de intervención <span class="text-danger">*</span></label>
+                                <select class="form-control" id="editTipoIntervencion" name="tipoIntervencion" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="Intervención">Intervención</option>
+                                    <option value="Desconexión">Desconexión</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Descripción del riesgo -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Descripción del riesgo <span class="text-danger">*</span></label>
+                                <select class="form-control" id="editRiesgo" name="riesgo" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="Bajo">Bajo</option>
+                                    <option value="Medio">Medio</option>
+                                    <option value="Alto">Alto</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Potencia -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Potencia (MW)</label>
+                                <input type="number" class="form-control" id="editPotencia" name="potencia" step="0.01" min="0" placeholder="Ej: 150.5">
+                                <small class="form-text text-muted">Campo opcional</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Descripción del trabajo -->
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Descripción del trabajo <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="editDescripcionTrabajo" name="descripcionTrabajo" rows="3" required minlength="10"></textarea>
+                                <small class="form-text text-muted">Mínimo 10 caracteres</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Condiciones requeridas -->
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Condiciones requeridas <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="editCondicionesRequeridas" name="condicionesRequeridas" rows="3" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Afectaciones -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Afectaciones <span class="text-danger">*</span></label>
+                                <select class="form-control" id="editAfectaciones" name="afectaciones" multiple required size="3">
+                                    <option value="SSCC">SSCC</option>
+                                    <option value="Protecciones">Protecciones</option>
+                                    <option value="Medidores">Medidores</option>
+                                </select>
+                                <small class="form-text text-muted">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
+                            </div>
+                        </div>
+
+                        <!-- SODI -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>SODI <span class="text-danger">*</span></label>
+                                <div class="mt-2">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="editSodi" id="editSodiSi" value="Si" required>
+                                        <label class="form-check-label" for="editSodiSi">Sí</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="editSodi" id="editSodiNo" value="No">
+                                        <label class="form-check-label" for="editSodiNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Comentarios opcionales -->
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Comentarios opcionales</label>
+                                <textarea class="form-control" id="editComentarios" name="comentarios" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Carga de archivo -->
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Carga de archivo</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="editArchivoAdjunto" name="archivoAdjunto" accept=".pdf,.doc,.docx,.xls,.xlsx">
+                                    <label class="custom-file-label" for="editArchivoAdjunto">Seleccionar archivo...</label>
+                                </div>
+                                <small class="form-text text-muted">Formatos permitidos: PDF, Word, Excel</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ID oculto de la solicitud -->
+                    <input type="hidden" id="editSolicitudId" name="solicitudId">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-times mr-2"></i>Cancelar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="actualizarSolicitud()">
+                    <i class="fas fa-save mr-2"></i>Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

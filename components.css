@@ -1,0 +1,1025 @@
+/* ============================================
+   ESTILOS GENERALES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    overflow-anchor: none;
+    scroll-behavior: auto;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    font-size: 13px !important;
+    overflow-x: hidden;
+    overflow-anchor: none; /* Prevenir scroll automático */
+}
+
+/* ============================================
+   PALETA DE COLORES GEME
+   ============================================ */
+/* 
+   Primary (Azul): #003773
+   Accent (Naranja): #e56000
+   Gris Oscuro: #4a4a49
+   Blanco: #ffffff
+*/
+
+/* ============================================
+   COLORES PRIMARY PERSONALIZADOS
+   ============================================ */
+.bg-primary {
+    background-color: #003773 !important;
+}
+
+.btn-primary {
+    background-color: #003773 !important;
+    border-color: #003773 !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #002554 !important;
+    border-color: #002554 !important;
+}
+
+.text-primary {
+    color: #003773 !important;
+}
+
+.badge-primary {
+    background-color: #003773 !important;
+}
+
+.card-header.bg-primary {
+    background-color: #003773 !important;
+    color: #ffffff !important;
+}
+
+/* ============================================
+   COLORES ACCENT (NARANJA)
+   ============================================ */
+.bg-accent {
+    background-color: #e56000 !important;
+}
+
+.btn-accent {
+    background-color: #e56000 !important;
+    border-color: #e56000 !important;
+    color: #ffffff !important;
+}
+
+.btn-accent:hover,
+.btn-accent:focus,
+.btn-accent:active {
+    background-color: #c74f00 !important;
+    border-color: #c74f00 !important;
+}
+
+.text-accent {
+    color: #e56000 !important;
+}
+
+.badge-accent {
+    background-color: #e56000 !important;
+    color: #ffffff !important;
+}
+
+/* ============================================
+   HEADER STYLES
+   ============================================ */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+}
+
+.header .navbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 0.5rem 1rem;
+    min-height: 70px;
+}
+
+.header .navbar-brand img {
+    height: 50px;
+    width: auto;
+    max-width: 200px;
+}
+
+.header .nav-link {
+    color: #ffffff !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.header .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.header .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    transform: translateY(-2px);
+}
+
+.header .navbar-toggler {
+    border: 2px solid #ffffff;
+}
+
+/* Estilos para los botones de tareas */
+#indicador-mis-tareas .btn {
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 8px 15px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+#indicador-mis-tareas .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#indicador-mis-tareas .badge {
+    font-size: 13px;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+#indicador-mis-tareas a {
+    cursor: pointer;
+}
+
+#indicador-mis-tareas a:hover {
+    text-decoration: underline !important;
+}
+
+/* Spinner animation */
+.spinner .fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+/* User info styles */
+#span-user-name {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.header a[href*="SignOut"] {
+    transition: transform 0.3s ease;
+}
+
+.header a[href*="SignOut"]:hover {
+    transform: scale(1.2);
+}
+
+/* ============================================
+   WRAPPER Y LAYOUT
+   ============================================ */
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    position: relative;
+    overflow-anchor: none;
+}
+
+/* ============================================
+   SIDEBAR STYLES
+   ============================================ */
+#sidebar {
+    min-width: 280px;
+    max-width: 280px;
+    background: rgba(74, 74, 73, 1);
+    color: #fff;
+    transition: all 0.3s ease;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+    overflow-anchor: none;
+    z-index: 999;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#sidebar.active {
+    margin-left: -280px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: rgba(74, 74, 73, 1);
+    border-bottom: 1px solid white;
+}
+
+#sidebar .sidebar-header h3 {
+    color: #fff;
+    font-size: 18px;
+    margin: 0;
+}
+
+#sidebar ul.components {
+    padding: 10px 0;
+    border-top: 1px solid white;
+}
+
+#sidebar ul li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#sidebar ul li a {
+    padding: 12px 20px;
+    font-size: 14px;
+    display: block;
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+#sidebar ul li a:hover {
+    color: #fff;
+    background: #e56000;
+    padding-left: 25px;
+}
+
+#sidebar ul li a.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f107";
+    transition: transform 0.3s ease;
+}
+
+#sidebar ul li a[aria-expanded="true"]::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+/* Submenu styles */
+#sidebar ul ul {
+    background: rgba(74, 74, 73, 1);
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Ocultar submenús por defecto con max-height */
+#sidebar ul ul.collapse {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+}
+
+#sidebar ul ul.collapse.show {
+    max-height: 2000px;
+    transition: max-height 0.5s ease;
+}
+
+#sidebar ul ul li {
+    border-bottom: 1px solid #2c3e50;
+}
+
+#sidebar ul ul a {
+    font-size: 13px;
+    padding-left: 40px;
+    color: #bdc3c7;
+}
+
+#sidebar ul ul a:hover {
+    background: #e56000;
+    color: #fff;
+    padding-left: 45px;
+}
+
+#sidebar ul ul a::before {
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+    opacity: 0.7;
+}
+
+/* Scrollbar personalizado para el sidebar */
+#sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+#sidebar::-webkit-scrollbar-track {
+    background: rgba(74, 74, 73, 1);
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+    background: #e56000;
+    border-radius: 4px;
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover {
+    background: #cd533d;
+}
+
+/* ============================================
+   CONTENT AREA
+   ============================================ */
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+    margin-left: 280px;
+    margin-top: 70px;
+    overflow-anchor: none;
+}
+
+#content.active {
+    margin-left: 0;
+}
+
+/* Botón para toggle sidebar */
+#sidebarCollapse {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+#sidebarCollapse:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#sidebarCollapse:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.4);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablets y dispositivos medianos */
+@media (max-width: 992px) {
+    #sidebar {
+        margin-left: -280px;
+    }
+    
+    #sidebar.active {
+        margin-left: 0;
+    }
+    
+    #content {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    #content.active {
+        margin-left: 0;
+    }
+    
+    .header .navbar-brand img {
+        height: 40px;
+    }
+    
+    #indicador-mis-tareas {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    #indicador-mis-tareas .btn {
+        margin-bottom: 10px;
+        margin-right: 0 !important;
+        width: 100%;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+    #content {
+        margin-top: 60px;
+    }
+    
+    .header .navbar {
+        min-height: 60px;
+    }
+    
+    #sidebar {
+        top: 60px;
+        height: calc(100vh - 60px);
+        min-width: 250px;
+        max-width: 250px;
+        margin-left: -250px;
+    }
+    
+    #sidebar.active {
+        margin-left: 0;
+    }
+    
+    #span-user-name {
+        font-size: 12px;
+    }
+    
+    .header .nav-link {
+        padding: 10px 15px !important;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 576px) {
+    #sidebar {
+        min-width: 100%;
+        max-width: 100%;
+        margin-left: -100%;
+    }
+    
+    #sidebar.active {
+        margin-left: 0;
+    }
+    
+    .header .navbar-brand img {
+        height: 35px;
+    }
+    
+    #indicador-mis-tareas .btn {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    
+    #indicador-mis-tareas a {
+        font-size: 12px;
+    }
+}
+
+/* ============================================
+   UTILIDADES Y ANIMACIONES
+   ============================================ */
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Smooth transitions */
+a, button, .btn {
+    transition: all 0.3s ease;
+}
+
+/* Card styles mejorados */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: 600;
+}
+
+/* ============================================
+   OVERLAY PARA MÓVILES
+   ============================================ */
+.overlay {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 998;
+    opacity: 0;
+    transition: all 0.3s ease;
+    top: 70px;
+    left: 0;
+}
+
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+@media (max-width: 992px) {
+    .overlay {
+        display: block;
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+    #sidebar,
+    #sidebarCollapse,
+    .header {
+        display: none !important;
+    }
+    
+    #content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+    }
+}
+
+/* ============================================
+   ESTILOS PERSONALIZADOS GEME
+   ============================================ */
+
+/* ACCESOS GENERALES */
+.card-alcance {
+    background: #0079C8;
+    cursor: pointer;
+}
+
+.card-alcance:hover {
+    color: #0079C8 !important;
+    background: white;
+    border: 1px #0079C8 solid;
+}
+
+.card-alcance h5.card-title {
+    font-size: 0.85rem !important;
+}
+
+#div_table {
+    margin: auto;
+    width: 90%;
+}
+
+.cardTipoG {
+    background-color: rgba(74, 74, 73, 1);
+    color: white;
+    height: 100%;
+}
+
+.cardTipoG:hover {
+    background-color: #e56000;
+    color: white;
+    cursor: pointer;
+}
+
+.cardTipoN {
+    background-color: #e56000;
+    color: white;
+    height: 100%;
+}
+
+.cardTipoN:hover {
+    background-color: rgba(74, 74, 73, 1);
+    color: white;
+    cursor: pointer;
+}
+
+.tituloAreas {
+    background-color: #003773;
+    border-radius: 41px;
+    color: white;
+}
+
+.h_area:hover {
+    background-color: #e56000;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+/* ============================================
+   BOTONES PERSONALIZADOS
+   ============================================ */
+
+a.btn-customized {
+    margin: 15px 0 !important;
+    padding: .45rem 1.5rem;
+    background: #E56000;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 300;
+    color: #fff;
+    box-shadow: none;
+    font-size: 1em;
+}
+
+a.btn-customized:hover,
+a.btn-customized:active,
+a.btn-customized:focus,
+a.btn-customized:active:focus,
+a.btn-customized.active:focus,
+a.btn-customized.btn.btn-primary:not(:disabled):not(.disabled):active,
+a.btn-customized.btn.btn-primary:not(:disabled):not(.disabled):active:focus {
+    outline: 0;
+    background: #cd533d;
+    background: rgba(74, 74, 73, 0.85);
+    border: 0;
+    color: #fff;
+    box-shadow: none;
+}
+
+a.btn-customized-2 {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: .45rem 1.5rem;
+    background: #fff;
+    border: 0;
+    border-radius: 4px;
+    font-size: 0.9em !important;
+    font-weight: 300;
+    color: #555;
+    box-shadow: none;
+}
+
+a.btn-customized-2:hover,
+a.btn-customized-2:active,
+a.btn-customized-2:focus,
+a.btn-customized-2:active:focus,
+a.btn-customized-2.active:focus,
+a.btn-customized-2.btn.btn-primary:not(:disabled):not(.disabled):active,
+a.btn-customized-2.btn.btn-primary:not(:disabled):not(.disabled):active:focus {
+    outline: 0;
+    background: #ccc;
+    background: rgba(255, 255, 255, 0.5);
+    border: 0;
+    color: #555;
+    box-shadow: none;
+}
+
+a.btn-customized-3 {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    padding: .45rem 1.5rem;
+    background: #444;
+    border: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #fff;
+    box-shadow: none;
+}
+
+a.btn-customized-3:hover,
+a.btn-customized-3:active,
+a.btn-customized-3:focus,
+a.btn-customized-3:active:focus,
+a.btn-customized-3.active:focus,
+a.btn-customized-3.btn.btn-primary:not(:disabled):not(.disabled):active,
+a.btn-customized-3.btn.btn-primary:not(:disabled):not(.disabled):active:focus {
+    outline: 0;
+    background: #555;
+    border: 0;
+    color: #fff;
+    box-shadow: none;
+}
+
+a.btn-customized i,
+a.btn-customized-2 i,
+a.btn-customized-3 i {
+    margin-right: 5px;
+}
+
+a.btn-customized-4 {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    margin: 0 3px;
+    padding: 0;
+    background: #444;
+    border: 0;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: 300;
+    color: #fff;
+    box-shadow: none;
+    text-indent: -999999px;
+}
+
+a.btn-customized-4.btn-customized-dark {
+    background: #222;
+}
+
+a.btn-customized-4.btn-customized-light {
+    background: #fff;
+}
+
+a.btn-customized-4.btn-customized-dark:hover,
+a.btn-customized-4.btn-customized-dark:active,
+a.btn-customized-4.btn-customized-dark:focus,
+a.btn-customized-4.btn-customized-dark:active:focus,
+a.btn-customized-4.btn-customized-dark.active:focus,
+a.btn-customized-4.btn-customized-dark.btn.btn-primary:not(:disabled):not(.disabled):active,
+a.btn-customized-4.btn-customized-dark.btn.btn-primary:not(:disabled):not(.disabled):active:focus {
+    outline: 0;
+    background: #555;
+    border: 0;
+    color: #fff;
+    box-shadow: none;
+}
+
+a.btn-customized-4.btn-customized-light:hover,
+a.btn-customized-4.btn-customized-light:active,
+a.btn-customized-4.btn-customized-light:focus,
+a.btn-customized-4.btn-customized-light:active:focus,
+a.btn-customized-4.btn-customized-light.active:focus,
+a.btn-customized-4.btn-customized-light.btn.btn-primary:not(:disabled):not(.disabled):active,
+a.btn-customized-4.btn-customized-light.btn.btn-primary:not(:disabled):not(.disabled):active:focus {
+    outline: 0;
+    background: #555;
+    border: 0;
+    color: #fff;
+    box-shadow: none;
+}
+
+.btn-filter {
+    background-color: #E56000;
+    color: white;
+}
+
+.table-group {
+    background-color: #ECECEC !important;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 273px;
+    min-width: 50px;
+}
+
+/* ============================================
+   ESTILOS ADICIONALES MASTER
+   ============================================ */
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 20px 0;
+}
+
+.main {
+    min-height: 100vh;
+    overflow-anchor: none;
+    position: relative;
+}
+
+/* Spinner adicional */
+.spinner {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   ESTILOS SIDEBAR ADICIONALES (MASTER NIVEL 2)
+   ============================================ */
+
+/* Wrapper con perspective para efectos 3D */
+.wrapper {
+    perspective: 1500px;
+}
+
+/* Content adicional */
+#content h2 {
+    color: #212529;
+}
+
+#content > .navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+/* Botón SidebarCollapse alternativo con animación de hamburguesa */
+#sidebarCollapse.hamburger-style {
+    width: 40px;
+    height: 40px;
+    min-width: auto;
+    background: rgba(74, 74, 73, 1);
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    margin-left: -20px;
+    border-radius: 0 0 10px 0;
+}
+
+#sidebarCollapse.hamburger-style span {
+    width: 80%;
+    height: 2px;
+    margin: 0 auto;
+    display: block;
+    background: white;
+    transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
+    transition-delay: 0.2s;
+}
+
+#sidebarCollapse.hamburger-style span:first-of-type {
+    transform: rotate(45deg) translate(2px, 2px);
+}
+
+#sidebarCollapse.hamburger-style span:nth-of-type(2) {
+    opacity: 0;
+}
+
+#sidebarCollapse.hamburger-style span:last-of-type {
+    transform: rotate(-45deg) translate(1px, -1px);
+}
+
+#sidebarCollapse.hamburger-style.active span {
+    transform: none;
+    opacity: 1;
+    margin: 5px auto;
+}
+
+/* Sidebar con colores GEME */
+#sidebar.geme-colors {
+    background: rgba(74, 74, 73, 1);
+}
+
+#sidebar.geme-colors .sidebar-header {
+    background: rgba(74, 74, 73, 1);
+    min-height: 40px;
+    padding: 13px 0 10px 20px;
+}
+
+#sidebar.geme-colors .sidebar-header h3 {
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 0;
+    line-height: 1;
+}
+
+#sidebar.geme-colors ul.components {
+    border-top: 1px solid white;
+}
+
+#sidebar.geme-colors ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar.geme-colors ul li label {
+    padding-left: 50px;
+}
+
+#sidebar.geme-colors ul li a {
+    color: #FFF;
+}
+
+#sidebar.geme-colors ul li a:hover {
+    color: #FFF !important;
+    background: #e56000;
+}
+
+#sidebar.geme-colors ul li ul li a.a-submenu {
+    padding-left: 1.75rem;
+    font-size: 0.95em !important;
+    padding-left: 30px !important;
+    background: rgba(74, 74, 73, 1);
+}
+
+#sidebar.geme-colors ul li ul li a.a-submenu:hover {
+    color: #FFF !important;
+    background: #e56000;
+}
+
+/* Botones de acción y filtro */
+.btns-accion-filtro {
+    padding: 20px;
+}
+
+.btns-accion-filtro a {
+    font-size: 1em !important;
+    background: #003773;
+    text-align: center;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+
+a.btn-filtrar {
+    background: #fff;
+    color: #212529;
+}
+
+a.btn-limpiar,
+a.btn-limpiar:hover {
+    background: #003773 !important;
+    color: #fff !important;
+}
+
+/* Modal fixes */
+.modal {
+    z-index: 9999 !important;
+}
+
+.modal-backdrop {
+    z-index: 9998 !important;
+}
+
+.modal-open {
+    overflow: auto !important;
+}
+
+.modal-dialog {
+    z-index: 10000 !important;
+}
+
+/* Tab panes */
+.tab-pane {
+    border-bottom: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+}
+
+/* ============================================
+   MEDIA QUERIES ADICIONALES
+   ============================================ */
+
+@media (max-width: 368px) {
+    a.nav-item {
+        height: 3rem;
+    }
+}
+
+/* Media queries para sidebar con efectos 3D */
+@media (max-width: 768px) {
+    #sidebar.geme-colors {
+        margin-left: -250px;
+        transform: rotateY(90deg);
+    }
+    
+    #sidebar.geme-colors.active {
+        margin-left: 0;
+        transform: none;
+    }
+    
+    #sidebarCollapse.hamburger-style span:first-of-type,
+    #sidebarCollapse.hamburger-style span:nth-of-type(2),
+    #sidebarCollapse.hamburger-style span:last-of-type {
+        transform: none;
+        opacity: 1;
+        margin: 5px auto;
+    }
+    
+    #sidebarCollapse.hamburger-style.active span {
+        margin: 0 auto;
+    }
+    
+    #sidebarCollapse.hamburger-style.active span:first-of-type {
+        transform: rotate(45deg) translate(2px, 2px);
+    }
+    
+    #sidebarCollapse.hamburger-style.active span:nth-of-type(2) {
+        opacity: 0;
+    }
+    
+    #sidebarCollapse.hamburger-style.active span:last-of-type {
+        transform: rotate(-45deg) translate(1px, -1px);
+    }
+}

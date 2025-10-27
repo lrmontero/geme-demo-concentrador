@@ -1,0 +1,129 @@
+<!-- MODAL CLONAR SOLICITUD -->
+<div class="modal fade" id="modalClonarSolicitudSolic" tabindex="-1" role="dialog" aria-labelledby="modalClonarSolicitudSolicLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="modalClonarSolicitudSolicLabel">
+                    <i class="fas fa-copy mr-2"></i>Clonar Solicitud
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Información de la solicitud origen -->
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="alert alert-info d-flex align-items-center" role="alert">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <div>
+                                <strong>Solicitud Origen:</strong> <span id="clonarIdSolicitud" class="ml-2">SOL-001</span>
+                                <small class="d-block mt-1">Se creará una nueva solicitud con los siguientes datos</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Datos a clonar -->
+                <h6 class="mb-3"><i class="fas fa-clipboard-check mr-2"></i>Datos que se copiarán:</h6>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Instalación GM</strong></label>
+                            <input type="text" class="form-control-plaintext" id="clonarInstalacionGM" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Instalaciones/equipos a intervenir</strong></label>
+                            <input type="text" class="form-control-plaintext" id="clonarEquiposIntervenir" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>Tipo de intervención</strong></label>
+                            <input type="text" class="form-control-plaintext" id="clonarTipoIntervencion" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>Descripción del riesgo</strong></label>
+                            <input type="text" class="form-control-plaintext" id="clonarRiesgo" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>Potencia (MW)</strong></label>
+                            <input type="text" class="form-control-plaintext" id="clonarPotencia" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Descripción del trabajo</strong></label>
+                            <textarea class="form-control-plaintext" id="clonarDescripcionTrabajo" rows="3" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Condiciones requeridas</strong></label>
+                            <textarea class="form-control-plaintext" id="clonarCondicionesRequeridas" rows="2" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>Afectaciones</strong></label>
+                            <input type="text" class="form-control-plaintext" id="clonarAfectaciones" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>SODI</strong></label>
+                            <input type="text" class="form-control-plaintext" id="clonarSODI" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>Comentarios</strong></label>
+                            <input type="text" class="form-control-plaintext" id="clonarComentarios" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            <strong>Nota:</strong> Se creará una nueva solicitud con estos datos. Deberá completar las fechas y otros campos requeridos.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-times mr-2"></i>Cancelar
+                </button>
+                <button type="button" class="btn btn-info" onclick="confirmarClonarSolicitud()">
+                    <i class="fas fa-copy mr-2"></i>Clonar Solicitud
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

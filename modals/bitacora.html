@@ -1,0 +1,96 @@
+<!-- MODAL BITÁCORA -->
+<div class="modal fade" id="modalBitacora" tabindex="-1" role="dialog" aria-labelledby="modalBitacoraLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="modalBitacoraLabel">
+                    <i class="fas fa-clipboard-list mr-2"></i>Bitácora de Solicitud
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Información de la solicitud -->
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="alert alert-info d-flex align-items-center" role="alert">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <div>
+                                <strong>ID Solicitud:</strong> <span id="bitacoraIdSolicitud" class="ml-2">SOL-001</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de bitácora -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="tableBitacora" class="table table-sm table-hover table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Adjuntos</th>
+                                        <th>Tarea Identificador</th>
+                                        <th>Fecha Inicial</th>
+                                        <th>Estado Inicial</th>
+                                        <th>Responsable</th>
+                                        <th>Tarea</th>
+                                        <th>Acción</th>
+                                        <th>Estado Final</th>
+                                        <th>Responsable Cierre</th>
+                                        <th>Fecha Término</th>
+                                        <th>Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Ejemplo de entrada -->
+                                    <tr>
+                                        <td>1</td>
+                                        <td class="text-center">
+                                            <a href="javascript:;" title="Ver adjuntos">
+                                                <i class="fas fa-paperclip text-primary"></i>
+                                            </a>
+                                        </td>
+                                        <td>TAREA-001</td>
+                                        <td>27/01/2025 10:00</td>
+                                        <td><span class="badge badge-warning">Pendiente</span></td>
+                                        <td>Juan Pérez</td>
+                                        <td>Revisión inicial</td>
+                                        <td>Análisis de documentación</td>
+                                        <td><span class="badge badge-info">En Análisis</span></td>
+                                        <td>María González</td>
+                                        <td>27/01/2025 14:30</td>
+                                        <td class="truncate">Documentación completa y aprobada</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td class="text-center">
+                                            <span class="text-muted">-</span>
+                                        </td>
+                                        <td>TAREA-002</td>
+                                        <td>27/01/2025 15:00</td>
+                                        <td><span class="badge badge-info">En Análisis</span></td>
+                                        <td>María González</td>
+                                        <td>Coordinación con operador</td>
+                                        <td>Solicitud de permisos</td>
+                                        <td><span class="badge badge-warning text-dark">Administrador Gestionando</span></td>
+                                        <td>Carlos Ramírez</td>
+                                        <td>27/01/2025 17:00</td>
+                                        <td class="truncate">Permisos solicitados al coordinador</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-times mr-2"></i>Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

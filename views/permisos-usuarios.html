@@ -1,0 +1,216 @@
+<h2 class="mb-4"><i class="fas fa-users-cog"></i> Permisos de Usuarios - Concentrador de Solicitudes</h2>
+
+<div id="container-datos" class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <table id="matrix" class="table table-sm bg-white table-bordered">
+                <thead id="matrix-header">
+                    <tr id="fila-acciones">
+                        <th class="bg-white border-0" colspan="3">
+                            <div class="row ml-0 mr-0">
+                                <div class="botonera mt-2">
+                                    <a class="btn btn-customized my-2" role="button" onclick="abrirModalNuevoUsuario()" id="btn-newUser">
+                                        <i class="fa fa-plus"></i> Nuevo Usuario
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row ml-0 mr-0">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i style="font-size: 15px;" class="fas fa-user mr-2 text-primary"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control mr-3" id="searchInput" placeholder="Buscar usuario por nombre" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                                </div>
+                            </div>
+                        </th>
+                        <td class="bg-info text-white text-center text-align-center" colspan="3" style="min-width: 100px;">
+                            <strong>Concentrador de Solicitudes</strong>
+                        </td>
+                    </tr>
+                    <tr id="fila-funciones">
+                        <th class="bg-light text-center" style="width: 30%;">Usuario</th>
+                        <th class="bg-light text-center" style="width: 20%;">Instalaciones</th>
+                        <th class="bg-light text-center" style="width: 10%;">Desvincular</th>
+                        <td class="bg-primary text-white text-center" style="width: 13%;">
+                            <i class="fas fa-user mr-1"></i>Solicitante
+                        </td>
+                        <td class="bg-success text-white text-center" style="width: 13%;">
+                            <i class="fas fa-user-shield mr-1"></i>Administrador
+                        </td>
+                        <td class="bg-warning text-white text-center" style="width: 14%;">
+                            <i class="fas fa-clipboard-list mr-1"></i>Despachador
+                        </td>
+                    </tr>
+                </thead>
+                <tbody id="matrix-body">
+                    <!-- Usuario 1 -->
+                    <tr>
+                        <td class="pl-4 primera-celda" data-userid="1" data-login="usuario1@ejemplo.com">
+                            <i class="fas fa-user-circle mr-2 text-primary"></i>Juan Pérez
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary" onclick="abrirModalInstalaciones(1, 'Juan Pérez')" title="Gestionar Instalaciones">
+                                <i class="fas fa-building mr-1"></i>
+                                <span class="badge badge-primary" id="count-inst-1">3</span>
+                            </button>
+                        </td>
+                        <td class="text-center">
+                            <i title="Desvincular Usuario" style="font-size: 15px; cursor: pointer;" class="fas fa-trash mr-2 text-danger" aria-hidden="true" onclick="desvincularUsuario(1, 'Juan Pérez')"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 1, 'solicitante')">
+                            <i class="fa fa-check-circle text-success" style="font-size: 20px;"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 1, 'administrador')">
+                            <i class="fa fa-check-circle text-success" style="font-size: 20px;"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 1, 'despachador')">
+                            <i class="fa fa-times-circle text-muted" style="font-size: 20px;"></i>
+                        </td>
+                    </tr>
+                    
+                    <!-- Usuario 2 -->
+                    <tr>
+                        <td class="pl-4 primera-celda" data-userid="2" data-login="usuario2@ejemplo.com">
+                            <i class="fas fa-user-circle mr-2 text-primary"></i>María González
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary" onclick="abrirModalInstalaciones(2, 'María González')" title="Gestionar Instalaciones">
+                                <i class="fas fa-building mr-1"></i>
+                                <span class="badge badge-primary" id="count-inst-2">5</span>
+                            </button>
+                        </td>
+                        <td class="text-center">
+                            <i title="Desvincular Usuario" style="font-size: 15px; cursor: pointer;" class="fas fa-trash mr-2 text-danger" aria-hidden="true" onclick="desvincularUsuario(2, 'María González')"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 2, 'solicitante')">
+                            <i class="fa fa-check-circle text-success" style="font-size: 20px;"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 2, 'administrador')">
+                            <i class="fa fa-times-circle text-muted" style="font-size: 20px;"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 2, 'despachador')">
+                            <i class="fa fa-check-circle text-success" style="font-size: 20px;"></i>
+                        </td>
+                    </tr>
+                    
+                    <!-- Usuario 3 -->
+                    <tr>
+                        <td class="pl-4 primera-celda" data-userid="3" data-login="usuario3@ejemplo.com">
+                            <i class="fas fa-user-circle mr-2 text-primary"></i>Carlos Rodríguez
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary" onclick="abrirModalInstalaciones(3, 'Carlos Rodríguez')" title="Gestionar Instalaciones">
+                                <i class="fas fa-building mr-1"></i>
+                                <span class="badge badge-primary" id="count-inst-3">2</span>
+                            </button>
+                        </td>
+                        <td class="text-center">
+                            <i title="Desvincular Usuario" style="font-size: 15px; cursor: pointer;" class="fas fa-trash mr-2 text-danger" aria-hidden="true" onclick="desvincularUsuario(3, 'Carlos Rodríguez')"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 3, 'solicitante')">
+                            <i class="fa fa-check-circle text-success" style="font-size: 20px;"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 3, 'administrador')">
+                            <i class="fa fa-times-circle text-muted" style="font-size: 20px;"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 3, 'despachador')">
+                            <i class="fa fa-times-circle text-muted" style="font-size: 20px;"></i>
+                        </td>
+                    </tr>
+                    
+                    <!-- Usuario 4 -->
+                    <tr>
+                        <td class="pl-4 primera-celda" data-userid="4" data-login="usuario4@ejemplo.com">
+                            <i class="fas fa-user-circle mr-2 text-primary"></i>Ana Martínez
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary" onclick="abrirModalInstalaciones(4, 'Ana Martínez')" title="Gestionar Instalaciones">
+                                <i class="fas fa-building mr-1"></i>
+                                <span class="badge badge-primary" id="count-inst-4">1</span>
+                            </button>
+                        </td>
+                        <td class="text-center">
+                            <i title="Desvincular Usuario" style="font-size: 15px; cursor: pointer;" class="fas fa-trash mr-2 text-danger" aria-hidden="true" onclick="desvincularUsuario(4, 'Ana Martínez')"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 4, 'solicitante')">
+                            <i class="fa fa-times-circle text-muted" style="font-size: 20px;"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 4, 'administrador')">
+                            <i class="fa fa-check-circle text-success" style="font-size: 20px;"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 4, 'despachador')">
+                            <i class="fa fa-check-circle text-success" style="font-size: 20px;"></i>
+                        </td>
+                    </tr>
+                    
+                    <!-- Usuario 5 -->
+                    <tr>
+                        <td class="pl-4 primera-celda" data-userid="5" data-login="usuario5@ejemplo.com">
+                            <i class="fas fa-user-circle mr-2 text-primary"></i>Pedro López
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary" onclick="abrirModalInstalaciones(5, 'Pedro López')" title="Gestionar Instalaciones">
+                                <i class="fas fa-building mr-1"></i>
+                                <span class="badge badge-primary" id="count-inst-5">5</span>
+                            </button>
+                        </td>
+                        <td class="text-center">
+                            <i title="Desvincular Usuario" style="font-size: 15px; cursor: pointer;" class="fas fa-trash mr-2 text-danger" aria-hidden="true" onclick="desvincularUsuario(5, 'Pedro López')"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 5, 'solicitante')">
+                            <i class="fa fa-check-circle text-success" style="font-size: 20px;"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 5, 'administrador')">
+                            <i class="fa fa-check-circle text-success" style="font-size: 20px;"></i>
+                        </td>
+                        <td class="text-center" style="cursor: pointer;" onclick="togglePermiso(this, 5, 'despachador')">
+                            <i class="fa fa-check-circle text-success" style="font-size: 20px;"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL INSTALACIONES ahora está en modals/control-sitio/modals-control-sitio.html -->
+<!-- Las funciones JavaScript están en js/permisos-usuarios.js -->
+
+<style>
+#matrix {
+    font-size: 14px;
+}
+
+#matrix thead th,
+#matrix thead td {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    font-weight: bold;
+}
+
+#matrix tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.primera-celda {
+    font-weight: 500;
+}
+
+#searchInput {
+    max-width: 400px;
+}
+
+.btn-customized {
+    background-color: #667eea;
+    color: white;
+    border: none;
+}
+
+.btn-customized:hover {
+    background-color: #5568d3;
+    color: white;
+}
+</style>

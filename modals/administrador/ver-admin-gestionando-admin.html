@@ -1,0 +1,190 @@
+<!-- MODAL VER SOLICITUD - ADMINISTRADOR GESTIONANDO -->
+<div class="modal fade" id="modalVerAdminGestionandoAdmin" tabindex="-1" role="dialog" aria-labelledby="modalVerAdminGestionandoAdminLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="modalVerAdminGestionandoAdminLabel">
+                    <i class="fas fa-user-shield mr-2"></i>Detalle de Solicitud - Administrador Gestionando
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Estado -->
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <i class="fas fa-user-shield mr-2"></i>
+                            <div>
+                                <strong>Estado:</strong> <span class="badge badge-warning ml-2">Administrador Gestionando</span>
+                                <small class="d-block mt-1">Esta solicitud está siendo gestionada por el administrador</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Fecha/hora programada inicio</strong></label>
+                            <input type="text" class="form-control-plaintext" id="verAdminFechaInicio" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Fecha/hora programada fin</strong></label>
+                            <input type="text" class="form-control-plaintext" id="verAdminFechaFin" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Instalación GM</strong></label>
+                            <input type="text" class="form-control-plaintext" id="verAdminInstalacionGM" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Instalaciones/equipos a intervenir</strong></label>
+                            <input type="text" class="form-control-plaintext" id="verAdminEquiposIntervenir" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>Tipo de intervención</strong></label>
+                            <input type="text" class="form-control-plaintext" id="verAdminTipoIntervencion" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>Descripción del riesgo</strong></label>
+                            <input type="text" class="form-control-plaintext" id="verAdminRiesgo" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>Potencia (MW)</strong></label>
+                            <input type="text" class="form-control-plaintext" id="verAdminPotencia" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Descripción del trabajo</strong></label>
+                            <textarea class="form-control-plaintext" id="verAdminDescripcionTrabajo" rows="3" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Condiciones requeridas</strong></label>
+                            <textarea class="form-control-plaintext" id="verAdminCondicionesRequeridas" rows="3" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Afectaciones</strong></label>
+                            <input type="text" class="form-control-plaintext" id="verAdminAfectaciones" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>SODI</strong></label>
+                            <input type="text" class="form-control-plaintext" id="verAdminSODI" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Comentarios</strong></label>
+                            <textarea class="form-control-plaintext" id="verAdminComentarios" rows="2" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Archivos adjuntos</strong></label>
+                            <div id="verAdminArchivos" class="border rounded p-2 bg-light">
+                                <small class="text-muted">No hay archivos adjuntos</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metadata del Sistema -->
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6 class="text-muted mb-3">
+                            <i class="fas fa-info-circle mr-2"></i>Información del Sistema
+                        </h6>
+                    </div>
+                </div>
+                <div class="row bg-light p-3 rounded">
+                    <div class="col-md-2">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>ID</strong></label>
+                            <p class="mb-0" id="verAdminID">-</p>
+                            <small class="text-muted">ID de sistema asignado a la solicitud</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>Usuario Creador</strong></label>
+                            <p class="mb-0" id="verAdminUsuarioCreador">-</p>
+                            <small class="text-muted">Nombre del usuario que creó la solicitud</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>Fecha Creación</strong></label>
+                            <p class="mb-0" id="verAdminFechaCreacion">-</p>
+                            <small class="text-muted">Fecha de creación de la solicitud</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>Última Actualización</strong></label>
+                            <p class="mb-0" id="verAdminFechaActualizacion">-</p>
+                            <small class="text-muted">Fecha de última actualización de la solicitud</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>Administrador</strong></label>
+                            <p class="mb-0" id="verAdminAdministrador">-</p>
+                            <small class="text-muted">Administrador que toma la solicitud</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-times mr-2"></i>Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
