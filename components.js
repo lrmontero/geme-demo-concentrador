@@ -597,17 +597,17 @@ function guardarSolicitud() {
     
     // Recopilar datos del formulario
     const formData = {
-        fechaInicio: $('#fechaInicio').val(),
-        fechaFin: $('#fechaFin').val(),
-        instalacionGM: $('#instalacionGM').val(),
-        equiposIntervenir: $('#equiposIntervenir').val(),
-        tipoIntervencion: $('#tipoIntervencion').val(),
-        riesgo: $('#riesgo').val(),
-        descripcionTrabajo: $('#descripcionTrabajo').val(),
-        condicionesRequeridas: $('#condicionesRequeridas').val(),
-        afectaciones: $('#afectaciones').val(),
-        sodi: $('input[name="sodi"]:checked').val(),
-        comentarios: $('#comentarios').val(),
+        INICIO_PROGRAMADO: $('#fechaInicio').val(),
+        FIN_PROGRAMADO: $('#fechaFin').val(),
+        INSTALACION_GM: $('#instalacionGM').val(),
+        EQUIPOS: $('#equiposIntervenir').val(),
+        TIPO_INTERVENCION: $('#tipoIntervencion').val(),
+        RIESGOS: $('#riesgo').val(),
+        DESCRIPCION: $('#descripcionTrabajo').val(),
+        CONDICIONES: $('#condicionesRequeridas').val(),
+        AFECTACIONES: $('#afectaciones').val(),
+        SODI: $('input[name="sodi"]:checked').val(),
+        OBSERVACIONES: $('#comentarios').val(),
         archivo: $('#archivoAdjunto')[0].files[0]
     };
     
@@ -632,37 +632,38 @@ function abrirModalEditar(solicitudId) {
     // Por ahora usamos datos de ejemplo
     const solicitudEjemplo = {
         id: solicitudId,
-        fechaInicio: '2025-01-28T10:00',
-        fechaFin: '2025-01-28T18:00',
-        instalacionGM: 'Santa Lidia',
-        equiposIntervenir: 'Paño SL1',
-        tipoIntervencion: 'Intervención',
-        riesgo: 'Medio',
-        descripcionTrabajo: 'Mantenimiento preventivo del equipo',
-        condicionesRequeridas: 'Desenergización completa',
-        afectaciones: ['SSCC', 'Protecciones'],
-        sodi: 'Si',
-        comentarios: 'Coordinar con operador'
+        INICIO_PROGRAMADO: '2025-01-28T10:00',
+        FIN_PROGRAMADO: '2025-01-28T18:00',
+        INSTALACION_GM: 'Santa Lidia',
+        EQUIPOS: 'Paño SL1',
+        TIPO_INTERVENCION: 'Intervención',
+        RIESGOS: 'Medio',
+        DESCRIPCION: 'Mantenimiento preventivo del equipo',
+        CONDICIONES: 'Desenergización completa',
+        AFECTACIONES: ['SSCC', 'Protecciones'],
+        SODI: 'Si',
+        OBSERVACIONES: 'Coordinar con operador',
+        ADJUNTO: ''
     };
     
     // Llenar el formulario
     $('#editSolicitudId').val(solicitudEjemplo.id);
-    $('#editFechaInicio').val(solicitudEjemplo.fechaInicio);
-    $('#editFechaFin').val(solicitudEjemplo.fechaFin);
-    $('#editInstalacionGM').val(solicitudEjemplo.instalacionGM).trigger('change');
+    $('#editFechaInicio').val(solicitudEjemplo.INICIO_PROGRAMADO);
+    $('#editFechaFin').val(solicitudEjemplo.FIN_PROGRAMADO);
+    $('#editInstalacionGM').val(solicitudEjemplo.INSTALACION_GM).trigger('change');
     
     // Esperar a que se carguen los equipos
     setTimeout(() => {
-        $('#editEquiposIntervenir').val(solicitudEjemplo.equiposIntervenir);
+        $('#editEquiposIntervenir').val(solicitudEjemplo.EQUIPOS);
     }, 100);
     
-    $('#editTipoIntervencion').val(solicitudEjemplo.tipoIntervencion);
-    $('#editRiesgo').val(solicitudEjemplo.riesgo);
-    $('#editDescripcionTrabajo').val(solicitudEjemplo.descripcionTrabajo);
-    $('#editCondicionesRequeridas').val(solicitudEjemplo.condicionesRequeridas);
-    $('#editAfectaciones').val(solicitudEjemplo.afectaciones);
-    $(`input[name="editSodi"][value="${solicitudEjemplo.sodi}"]`).prop('checked', true);
-    $('#editComentarios').val(solicitudEjemplo.comentarios);
+    $('#editTipoIntervencion').val(solicitudEjemplo.TIPO_INTERVENCION);
+    $('#editRiesgo').val(solicitudEjemplo.RIESGOS);
+    $('#editDescripcionTrabajo').val(solicitudEjemplo.DESCRIPCION);
+    $('#editCondicionesRequeridas').val(solicitudEjemplo.CONDICIONES);
+    $('#editAfectaciones').val(solicitudEjemplo.AFECTACIONES);
+    $(`input[name="editSodi"][value="${solicitudEjemplo.SODI}"]`).prop('checked', true);
+    $('#editComentarios').val(solicitudEjemplo.OBSERVACIONES);
     
     $('#modalEditarSolicitud').modal('show');
 }
@@ -699,17 +700,17 @@ function actualizarSolicitud() {
     
     const formData = {
         id: $('#editSolicitudId').val(),
-        fechaInicio: $('#editFechaInicio').val(),
-        fechaFin: $('#editFechaFin').val(),
-        instalacionGM: $('#editInstalacionGM').val(),
-        equiposIntervenir: $('#editEquiposIntervenir').val(),
-        tipoIntervencion: $('#editTipoIntervencion').val(),
-        riesgo: $('#editRiesgo').val(),
-        descripcionTrabajo: $('#editDescripcionTrabajo').val(),
-        condicionesRequeridas: $('#editCondicionesRequeridas').val(),
-        afectaciones: $('#editAfectaciones').val(),
-        sodi: $('input[name="editSodi"]:checked').val(),
-        comentarios: $('#editComentarios').val(),
+        INICIO_PROGRAMADO: $('#editFechaInicio').val(),
+        FIN_PROGRAMADO: $('#editFechaFin').val(),
+        INSTALACION_GM: $('#editInstalacionGM').val(),
+        EQUIPOS: $('#editEquiposIntervenir').val(),
+        TIPO_INTERVENCION: $('#editTipoIntervencion').val(),
+        RIESGOS: $('#editRiesgo').val(),
+        DESCRIPCION: $('#editDescripcionTrabajo').val(),
+        CONDICIONES: $('#editCondicionesRequeridas').val(),
+        AFECTACIONES: $('#editAfectaciones').val(),
+        SODI: $('input[name="editSodi"]:checked').val(),
+        OBSERVACIONES: $('#editComentarios').val(),
         archivo: $('#editArchivoAdjunto')[0].files[0]
     };
     
@@ -732,19 +733,19 @@ function verSolicitudEnAnalisis(solicitudId) {
         usuarioCreador: 'María González',
         fechaCreacion: '22/01/2025 09:30',
         fechaActualizacion: '26/01/2025 14:20',
-        administrador: 'Carlos Ramírez',
-        fechaInicio: '28/01/2025 10:00',
-        fechaFin: '28/01/2025 18:00',
-        instalacionGM: 'Santa Lidia',
-        equiposIntervenir: 'Paño SL1, Paño SL2',
-        tipoIntervencion: 'Intervención',
-        riesgo: 'Medio',
-        potencia: '200.0',
-        descripcionTrabajo: 'Mantenimiento preventivo del equipo',
-        condicionesRequeridas: 'Desenergización completa',
-        afectaciones: 'SSCC, Protecciones',
-        sodi: 'Sí',
-        comentarios: 'Coordinar con operador'
+        ADMINISTRADOR: 'Carlos Ramírez',
+        INICIO_PROGRAMADO: '28/01/2025 10:00',
+        FIN_PROGRAMADO: '28/01/2025 18:00',
+        INSTALACION_GM: 'Santa Lidia',
+        EQUIPOS: 'Paño SL1, Paño SL2',
+        TIPO_INTERVENCION: 'Intervención',
+        RIESGOS: 'Medio',
+        POTENCIA: '200.0',
+        DESCRIPCION: 'Mantenimiento preventivo del equipo',
+        CONDICIONES: 'Desenergización completa',
+        AFECTACIONES: 'SSCC, Protecciones',
+        SODI: 'Sí',
+        OBSERVACIONES: 'Coordinar con operador'
     };
     
     // Metadata del sistema
@@ -752,7 +753,7 @@ function verSolicitudEnAnalisis(solicitudId) {
     $('#verAnalisisUsuarioCreador').text(solicitud.usuarioCreador);
     $('#verAnalisisFechaCreacion').text(solicitud.fechaCreacion);
     $('#verAnalisisFechaActualizacion').text(solicitud.fechaActualizacion);
-    $('#verAnalisisAdministrador').text(solicitud.administrador);
+    $('#verAnalisisAdministrador').text(solicitud.ADMINISTRADOR);
     
     // Campos de solicitud
     $('#verAnalisisFechaInicio').val(solicitud.fechaInicio);
@@ -780,19 +781,19 @@ function verSolicitudAdminGestionandoAdmin(solicitudId) {
         usuarioCreador: 'Pedro Sánchez',
         fechaCreacion: '21/01/2025 11:15',
         fechaActualizacion: '27/01/2025 16:45',
-        administrador: 'Ana Torres',
-        fechaInicio: '28/01/2025 10:00',
-        fechaFin: '28/01/2025 18:00',
-        instalacionGM: 'Nueva Renca',
-        equiposIntervenir: 'Transformador TNR1',
-        tipoIntervencion: 'Desconexión',
-        riesgo: 'Alto',
-        potencia: '300.0',
-        descripcionTrabajo: 'Reemplazo de transformador',
-        condicionesRequeridas: 'Desenergización y aislamiento',
-        afectaciones: 'SSCC, Protecciones, Medidores',
-        sodi: 'Sí',
-        comentarios: 'Requiere supervisión continua'
+        ADMINISTRADOR: 'Ana Torres',
+        INICIO_PROGRAMADO: '28/01/2025 10:00',
+        FIN_PROGRAMADO: '28/01/2025 18:00',
+        INSTALACION_GM: 'Nueva Renca',
+        EQUIPOS: 'Transformador TNR1',
+        TIPO_INTERVENCION: 'Desconexión',
+        RIESGOS: 'Alto',
+        POTENCIA: '300.0',
+        DESCRIPCION: 'Reemplazo de transformador',
+        CONDICIONES: 'Desenergización y aislamiento',
+        AFECTACIONES: 'SSCC, Protecciones, Medidores',
+        SODI: 'Sí',
+        OBSERVACIONES: 'Requiere supervisión continua'
     };
     
     // Metadata del sistema
@@ -800,7 +801,7 @@ function verSolicitudAdminGestionandoAdmin(solicitudId) {
     $('#verAdminUsuarioCreador').text(solicitud.usuarioCreador);
     $('#verAdminFechaCreacion').text(solicitud.fechaCreacion);
     $('#verAdminFechaActualizacion').text(solicitud.fechaActualizacion);
-    $('#verAdminAdministrador').text(solicitud.administrador);
+    $('#verAdminAdministrador').text(solicitud.ADMINISTRADOR);
     
     // Campos de solicitud
     $('#verAdminFechaInicio').val(solicitud.fechaInicio);
@@ -828,19 +829,19 @@ function verSolicitudAdminGestionandoDesp(solicitudId) {
         usuarioCreador: 'Pedro Sánchez',
         fechaCreacion: '21/01/2025 11:15',
         fechaActualizacion: '27/01/2025 16:45',
-        administrador: 'Ana Torres',
-        fechaInicio: '28/01/2025 10:00',
-        fechaFin: '28/01/2025 18:00',
-        instalacionGM: 'Nueva Renca',
-        equiposIntervenir: 'Transformador TNR1',
-        tipoIntervencion: 'Desconexión',
-        riesgo: 'Alto',
-        potencia: '300.0',
-        descripcionTrabajo: 'Reemplazo de transformador',
-        condicionesRequeridas: 'Desenergización y aislamiento',
-        afectaciones: 'SSCC, Protecciones, Medidores',
-        sodi: 'Sí',
-        comentarios: 'Requiere supervisión continua'
+        ADMINISTRADOR: 'Ana Torres',
+        INICIO_PROGRAMADO: '28/01/2025 10:00',
+        FIN_PROGRAMADO: '28/01/2025 18:00',
+        INSTALACION_GM: 'Nueva Renca',
+        EQUIPOS: 'Transformador TNR1',
+        TIPO_INTERVENCION: 'Desconexión',
+        RIESGOS: 'Alto',
+        POTENCIA: '300.0',
+        DESCRIPCION: 'Reemplazo de transformador',
+        CONDICIONES: 'Desenergización y aislamiento',
+        AFECTACIONES: 'SSCC, Protecciones, Medidores',
+        SODI: 'Sí',
+        OBSERVACIONES: 'Requiere supervisión continua'
     };
     
     // Metadata del sistema
@@ -848,7 +849,7 @@ function verSolicitudAdminGestionandoDesp(solicitudId) {
     $('#verAdminUsuarioCreador').text(solicitud.usuarioCreador);
     $('#verAdminFechaCreacion').text(solicitud.fechaCreacion);
     $('#verAdminFechaActualizacion').text(solicitud.fechaActualizacion);
-    $('#verAdminAdministrador').text(solicitud.administrador);
+    $('#verAdminAdministrador').text(solicitud.ADMINISTRADOR);
     
     // Campos de solicitud
     $('#verAdminFechaInicio').val(solicitud.fechaInicio);
@@ -876,19 +877,19 @@ function verSolicitudAdminGestionandoSolic(solicitudId) {
         usuarioCreador: 'Pedro Sánchez',
         fechaCreacion: '21/01/2025 11:15',
         fechaActualizacion: '27/01/2025 16:45',
-        administrador: 'Ana Torres',
-        fechaInicio: '28/01/2025 10:00',
-        fechaFin: '28/01/2025 18:00',
-        instalacionGM: 'Nueva Renca',
-        equiposIntervenir: 'Transformador TNR1',
-        tipoIntervencion: 'Desconexión',
-        riesgo: 'Alto',
-        potencia: '300.0',
-        descripcionTrabajo: 'Reemplazo de transformador',
-        condicionesRequeridas: 'Desenergización y aislamiento',
-        afectaciones: 'SSCC, Protecciones, Medidores',
-        sodi: 'Sí',
-        comentarios: 'Requiere supervisión continua'
+        ADMINISTRADOR: 'Ana Torres',
+        INICIO_PROGRAMADO: '28/01/2025 10:00',
+        FIN_PROGRAMADO: '28/01/2025 18:00',
+        INSTALACION_GM: 'Nueva Renca',
+        EQUIPOS: 'Transformador TNR1',
+        TIPO_INTERVENCION: 'Desconexión',
+        RIESGOS: 'Alto',
+        POTENCIA: '300.0',
+        DESCRIPCION: 'Reemplazo de transformador',
+        CONDICIONES: 'Desenergización y aislamiento',
+        AFECTACIONES: 'SSCC, Protecciones, Medidores',
+        SODI: 'Sí',
+        OBSERVACIONES: 'Requiere supervisión continua'
     };
     
     // Metadata del sistema
@@ -896,7 +897,7 @@ function verSolicitudAdminGestionandoSolic(solicitudId) {
     $('#verAdminUsuarioCreador').text(solicitud.usuarioCreador);
     $('#verAdminFechaCreacion').text(solicitud.fechaCreacion);
     $('#verAdminFechaActualizacion').text(solicitud.fechaActualizacion);
-    $('#verAdminAdministrador').text(solicitud.administrador);
+    $('#verAdminAdministrador').text(solicitud.ADMINISTRADOR);
     
     // Campos de solicitud
     $('#verAdminFechaInicio').val(solicitud.fechaInicio);
@@ -924,19 +925,19 @@ function verSolicitudProgramada(solicitudId) {
         usuarioCreador: 'Juan Pérez',
         fechaCreacion: '20/01/2025 10:00',
         fechaActualizacion: '24/01/2025 15:30',
-        administrador: 'Luis Fernández',
-        fechaInicio: '25/01/2025 09:00',
-        fechaFin: '25/01/2025 17:00',
-        instalacionGM: 'CEME1',
-        equiposIntervenir: 'Paño 1, Paño 2',
-        tipoIntervencion: 'Intervención',
-        riesgo: 'Bajo',
-        potencia: '150.5',
-        descripcionTrabajo: 'Inspección rutinaria programada',
-        condicionesRequeridas: 'Acceso controlado',
-        afectaciones: 'SSCC',
-        sodi: 'No',
-        comentarios: 'Trabajo programado y aprobado'
+        ADMINISTRADOR: 'Luis Fernández',
+        INICIO_PROGRAMADO: '25/01/2025 09:00',
+        FIN_PROGRAMADO: '25/01/2025 17:00',
+        INSTALACION_GM: 'CEME1',
+        EQUIPOS: 'Paño 1, Paño 2',
+        TIPO_INTERVENCION: 'Intervención',
+        RIESGOS: 'Bajo',
+        POTENCIA: '150.5',
+        DESCRIPCION: 'Inspección rutinaria programada',
+        CONDICIONES: 'Acceso controlado',
+        AFECTACIONES: 'SSCC',
+        SODI: 'No',
+        OBSERVACIONES: 'Trabajo programado y aprobado'
     };
     
     // Verificar si el modal existe
@@ -986,18 +987,18 @@ function verSolicitudPendiente(solicitudId) {
         usuarioCreador: 'Roberto Díaz',
         fechaCreacion: '19/01/2025 08:45',
         fechaActualizacion: '25/01/2025 11:20',
-        fechaInicio: '28/01/2025 09:00',
-        fechaFin: '28/01/2025 17:00',
-        instalacionGM: 'Santa Lidia',
-        equiposIntervenir: 'Paño SL1',
-        tipoIntervencion: 'Intervención',
-        riesgo: 'Bajo',
-        potencia: '100.0',
-        descripcionTrabajo: 'Mantenimiento preventivo anual',
-        condicionesRequeridas: 'Desenergización parcial',
-        afectaciones: 'SSCC',
-        sodi: 'Sí',
-        comentarios: 'Solicitud pendiente de aprobación'
+        INICIO_PROGRAMADO: '28/01/2025 09:00',
+        FIN_PROGRAMADO: '28/01/2025 17:00',
+        INSTALACION_GM: 'Santa Lidia',
+        EQUIPOS: 'Paño SL1',
+        TIPO_INTERVENCION: 'Intervención',
+        RIESGOS: 'Bajo',
+        POTENCIA: '100.0',
+        DESCRIPCION: 'Mantenimiento preventivo anual',
+        CONDICIONES: 'Desenergización parcial',
+        AFECTACIONES: 'SSCC',
+        SODI: 'Sí',
+        OBSERVACIONES: 'Solicitud pendiente de aprobación'
     };
     
     // Verificar si el modal existe
@@ -1084,16 +1085,16 @@ function clonarSolicitud(solicitudId) {
     // Datos de ejemplo de la solicitud a clonar
     const solicitud = {
         id: 'SOL-' + String(solicitudId).padStart(3, '0'),
-        instalacionGM: 'CEME1',
-        equiposIntervenir: 'Paño 1, Paño 2',
-        tipoIntervencion: 'Intervención',
-        riesgo: 'Bajo',
-        potencia: '150.5',
-        descripcionTrabajo: 'Inspección rutinaria de equipos',
-        condicionesRequeridas: 'Acceso controlado, personal autorizado',
-        afectaciones: 'SSCC',
-        sodi: 'No',
-        comentarios: 'Trabajo programado'
+        INSTALACION_GM: 'CEME1',
+        EQUIPOS: 'Paño 1, Paño 2',
+        TIPO_INTERVENCION: 'Intervención',
+        RIESGOS: 'Bajo',
+        POTENCIA: '150.5',
+        DESCRIPCION: 'Inspección rutinaria de equipos',
+        CONDICIONES: 'Acceso controlado, personal autorizado',
+        AFECTACIONES: 'SSCC',
+        SODI: 'No',
+        OBSERVACIONES: 'Trabajo programado'
     };
     
     // Verificar si el modal existe
@@ -1149,14 +1150,14 @@ function gestionarSolicitud(solicitudId) {
         usuarioCreador: 'Roberto Díaz',
         fechaCreacion: '19/01/2025 08:45',
         fechaActualizacion: '25/01/2025 11:20',
-        fechaInicio: '28/01/2025 09:00',
-        fechaFin: '28/01/2025 17:00',
-        instalacionGM: 'Santa Lidia',
-        equiposIntervenir: 'Paño SL1',
-        tipoIntervencion: 'Intervención',
-        riesgo: 'Bajo',
-        potencia: '100.0',
-        descripcionTrabajo: 'Mantenimiento preventivo anual'
+        INICIO_PROGRAMADO: '28/01/2025 09:00',
+        FIN_PROGRAMADO: '28/01/2025 17:00',
+        INSTALACION_GM: 'Santa Lidia',
+        EQUIPOS: 'Paño SL1',
+        TIPO_INTERVENCION: 'Intervención',
+        RIESGOS: 'Bajo',
+        POTENCIA: '100.0',
+        DESCRIPCION: 'Mantenimiento preventivo anual'
     };
     
     // Verificar si el modal existe
@@ -1250,6 +1251,16 @@ function verSolicitudPendienteAdmin(solicitudId) {
         poblarModalVerPendiente(solicitud, 'Admin');
     }
     $('#modalVerPendienteAdmin').modal('show');
+}
+
+// Función para ver solicitud devuelta - Administrador
+function verSolicitudDevueltaAdmin(solicitudId) {
+    console.log('Ver solicitud Devuelta (Administrador):', solicitudId);
+    const solicitud = obtenerSolicitud(solicitudId);
+    if (solicitud) {
+        poblarModalVerDevuelta(solicitud, 'Admin');
+    }
+    $('#modalVerDevueltaAdmin').modal('show');
 }
 
 // Función para ver solicitud en análisis - Administrador
@@ -1436,6 +1447,16 @@ function verSolicitudPendienteSolic(solicitudId) {
         poblarModalVerPendiente(solicitud, 'Solic');
     }
     $('#modalVerPendienteSolic').modal('show');
+}
+
+// Función para ver solicitud devuelta - Solicitante
+function verSolicitudDevueltaSolic(solicitudId) {
+    console.log('Ver solicitud Devuelta (Solicitante):', solicitudId);
+    const solicitud = obtenerSolicitud(solicitudId);
+    if (solicitud) {
+        poblarModalVerDevuelta(solicitud, 'Solic');
+    }
+    $('#modalVerDevueltaSolic').modal('show');
 }
 
 // Función para ver solicitud en análisis - Solicitante

@@ -8,6 +8,7 @@
         'modals/solicitante/nueva-solicitud-solic.html',
         'modals/solicitante/editar-solicitud-solic.html',
         'modals/solicitante/ver-pendiente-solic.html',
+        'modals/solicitante/ver-devuelta-solic.html',
         'modals/solicitante/ver-en-analisis-solic.html',
         'modals/solicitante/ver-admin-gestionando-solic.html',
         'modals/solicitante/ver-programada-solic.html',

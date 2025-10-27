@@ -8,7 +8,7 @@ function cargarSolicitudesSolicitante() {
     tbody.empty(); // Limpiar tabla
     
     // Filtrar solo solicitudes creadas por solicitante
-    const solicitudes = solicitudesData.filter(sol => sol.creadoPor === 'Solicitante');
+    const solicitudes = solicitudesData.filter(sol => sol.CREADO_POR === 'Solicitante');
     
     solicitudes.forEach(solicitud => {
         const fila = generarFilaSolicitud(solicitud);

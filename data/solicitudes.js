@@ -5,8 +5,8 @@
 const solicitudesData = [
     {
         ID_REGISTRO: 1,
-        ID_SOLICITUD: "CEN-2025-001",
-        TIPO: "SDCN",
+        ID_SOLICITUD: "",
+        TIPO: "",
         TIPO_INTERVENCION: "Intervención",
         INSTALACION_GM: "Santa Lidia",
         EQUIPOS: "Paño SL1",
@@ -14,8 +14,8 @@ const solicitudesData = [
         RIESGOS: "Bajo",
         CONDICIONES: "Paño desenergizado y con tarjeta de seguridad",
         AFECTACIONES: "Protecciones",
-        EMPRESA_SOLICITANTE: "GM",
-        EMPRESA_RECEPTORA: "CDC",
+        EMPRESA_SOLICITANTE: "",
+        EMPRESA_RECEPTORA: "",
         INICIO_PROGRAMADO: "28/01/2025 09:00",
         FIN_PROGRAMADO: "28/01/2025 17:00",
         INICIO_EFECTIVO: "",
@@ -24,9 +24,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Juan Pérez",
-        solicitante: "María González",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Juan Pérez",
+        SOLICITANTE: "María González",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 2,
@@ -49,14 +52,17 @@ const solicitudesData = [
         OBSERVACIONES: "Coordinar con área de facturación",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Pedro Sánchez",
-        solicitante: "Ana Torres",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Pedro Sánchez",
+        SOLICITANTE: "Ana Torres",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 3,
-        ID_SOLICITUD: "1",
-        TIPO: "SODI",
+        ID_SOLICITUD: "",
+        TIPO: "",
         TIPO_INTERVENCION: "Intervención",
         INSTALACION_GM: "Nueva Renca",
         EQUIPOS: "Paño NR1, Paño NR2",
@@ -64,8 +70,8 @@ const solicitudesData = [
         RIESGOS: "Bajo",
         CONDICIONES: "Ambos paños desenergizados, tarjetas de seguridad instaladas",
         AFECTACIONES: "SSCC, Protecciones",
-        EMPRESA_SOLICITANTE: "CDC",
-        EMPRESA_RECEPTORA: "Transelec Sur",
+        EMPRESA_SOLICITANTE: "",
+        EMPRESA_RECEPTORA: "",
         INICIO_PROGRAMADO: "30/01/2025 08:00",
         FIN_PROGRAMADO: "30/01/2025 16:00",
         INICIO_EFECTIVO: "",
@@ -74,9 +80,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Carlos Rojas",
-        solicitante: "Luis Fernández",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Carlos Rojas",
+        SOLICITANTE: "Luis Fernández",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 4,
@@ -99,9 +108,12 @@ const solicitudesData = [
         OBSERVACIONES: "Urgente - Transformador con temperatura elevada",
         ADJUNTO: "informe_termografia.pdf",
         SODI: "Sí",
-        administrador: "Roberto Méndez",
-        solicitante: "Camila Bravo",
-        creadoPor: "Administrador"
+        POTENCIA: "150.5",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Roberto Méndez",
+        SOLICITANTE: "Camila Bravo",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 5,
@@ -124,14 +136,17 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Elena Vargas",
-        solicitante: "Martín Herrera",
-        creadoPor: "Administrador"
+        POTENCIA: "85.2",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Elena Vargas",
+        SOLICITANTE: "Martín Herrera",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 6,
-        ID_SOLICITUD: "CEN-2025-006",
-        TIPO: "MM",
+        ID_SOLICITUD: "",
+        TIPO: "",
         TIPO_INTERVENCION: "Intervención",
         INSTALACION_GM: "Santa Lidia",
         EQUIPOS: "SCADA",
@@ -139,8 +154,8 @@ const solicitudesData = [
         RIESGOS: "Medio",
         CONDICIONES: "Sistema SCADA en modo mantenimiento",
         AFECTACIONES: "SSCC",
-        EMPRESA_SOLICITANTE: "Chilquinta",
-        EMPRESA_RECEPTORA: "CDC",
+        EMPRESA_SOLICITANTE: "",
+        EMPRESA_RECEPTORA: "",
         INICIO_PROGRAMADO: "31/01/2025 11:00",
         FIN_PROGRAMADO: "31/01/2025 19:00",
         INICIO_EFECTIVO: "",
@@ -149,9 +164,12 @@ const solicitudesData = [
         OBSERVACIONES: "Requiere coordinación con centro de control",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Fernando Castro",
-        solicitante: "Francisca Vega",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Fernando Castro",
+        SOLICITANTE: "Francisca Vega",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 7,
@@ -174,14 +192,17 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Gabriela Ortiz",
-        solicitante: "Daniela Campos",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Gabriela Ortiz",
+        SOLICITANTE: "Daniela Campos",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 8,
-        ID_SOLICITUD: "SOL-001",
-        TIPO: "SDCN",
+        ID_SOLICITUD: "",
+        TIPO: "",
         TIPO_INTERVENCION: "Desconexión",
         INSTALACION_GM: "Los Vientos",
         EQUIPOS: "Línea L1",
@@ -189,8 +210,8 @@ const solicitudesData = [
         RIESGOS: "Medio",
         CONDICIONES: "Línea desenergizada y con tarjeta de seguridad",
         AFECTACIONES: "Protecciones",
-        EMPRESA_SOLICITANTE: "GM",
-        EMPRESA_RECEPTORA: "Saesa",
+        EMPRESA_SOLICITANTE: "",
+        EMPRESA_RECEPTORA: "",
         INICIO_PROGRAMADO: "05/02/2025 10:00",
         FIN_PROGRAMADO: "05/02/2025 18:00",
         INICIO_EFECTIVO: "",
@@ -199,14 +220,17 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Juan Pérez",
-        solicitante: "Andrés Muñoz",
-        creadoPor: "Solicitante"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Juan Pérez",
+        SOLICITANTE: "Andrés Muñoz",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 9,
-        ID_SOLICITUD: "SOL-002",
-        TIPO: "SICF",
+        ID_SOLICITUD: "",
+        TIPO: "",
         TIPO_INTERVENCION: "Intervención",
         INSTALACION_GM: "CEME1",
         EQUIPOS: "Transformador T2",
@@ -214,8 +238,8 @@ const solicitudesData = [
         RIESGOS: "Alto",
         CONDICIONES: "Transformador desenergizado y enfriado",
         AFECTACIONES: "SSCC, Protecciones",
-        EMPRESA_SOLICITANTE: "Transelec Norte",
-        EMPRESA_RECEPTORA: "CDC",
+        EMPRESA_SOLICITANTE: "",
+        EMPRESA_RECEPTORA: "",
         INICIO_PROGRAMADO: "06/02/2025 08:00",
         FIN_PROGRAMADO: "06/02/2025 16:00",
         INICIO_EFECTIVO: "",
@@ -224,14 +248,17 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Pedro Sánchez",
-        solicitante: "Valentina Reyes",
-        creadoPor: "Solicitante"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Pedro Sánchez",
+        SOLICITANTE: "Valentina Reyes",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 10,
-        ID_SOLICITUD: "SOL-003",
-        TIPO: "SICN",
+        ID_SOLICITUD: "",
+        TIPO: "",
         TIPO_INTERVENCION: "Intervención",
         INSTALACION_GM: "Santa Lidia",
         EQUIPOS: "Barra B1",
@@ -239,8 +266,8 @@ const solicitudesData = [
         RIESGOS: "Medio",
         CONDICIONES: "Barra desenergizada con tarjeta de seguridad",
         AFECTACIONES: "Protecciones",
-        EMPRESA_SOLICITANTE: "CDC",
-        EMPRESA_RECEPTORA: "Chilquinta",
+        EMPRESA_SOLICITANTE: "",
+        EMPRESA_RECEPTORA: "",
         INICIO_PROGRAMADO: "07/02/2025 09:00",
         FIN_PROGRAMADO: "07/02/2025 17:00",
         INICIO_EFECTIVO: "",
@@ -249,9 +276,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Carlos Rojas",
-        solicitante: "Sebastián Lagos",
-        creadoPor: "Solicitante"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Carlos Rojas",
+        SOLICITANTE: "Sebastián Lagos",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 11,
@@ -274,9 +304,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Roberto Méndez",
-        solicitante: "Camila Bravo",
-        creadoPor: "Solicitante"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Roberto Méndez",
+        SOLICITANTE: "Camila Bravo",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 12,
@@ -299,9 +332,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Pedro Sánchez",
-        solicitante: "Martín Herrera",
-        creadoPor: "Solicitante"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Pedro Sánchez",
+        SOLICITANTE: "Martín Herrera",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 13,
@@ -324,9 +360,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Carlos Rojas",
-        solicitante: "Francisca Vega",
-        creadoPor: "Solicitante"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Carlos Rojas",
+        SOLICITANTE: "Francisca Vega",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 14,
@@ -349,9 +388,12 @@ const solicitudesData = [
         OBSERVACIONES: "Trabajo crítico - Sistema de respaldo",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Gabriela Ortiz",
-        solicitante: "Daniela Campos",
-        creadoPor: "Solicitante"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Gabriela Ortiz",
+        SOLICITANTE: "Daniela Campos",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 15,
@@ -374,9 +416,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Juan Pérez",
-        solicitante: "Ignacio Soto",
-        creadoPor: "Solicitante"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Juan Pérez",
+        SOLICITANTE: "Ignacio Soto",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 16,
@@ -399,9 +444,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Pedro Sánchez",
-        solicitante: "Javiera Rojas",
-        creadoPor: "Solicitante"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Pedro Sánchez",
+        SOLICITANTE: "Javiera Rojas",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 17,
@@ -424,9 +472,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Carlos Rojas",
-        solicitante: "Tomás Navarro",
-        creadoPor: "Solicitante"
+        POTENCIA: "120.8",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Carlos Rojas",
+        SOLICITANTE: "Tomás Navarro",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 18,
@@ -449,9 +500,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "informe_danos.pdf",
         SODI: "Sí",
-        administrador: "Roberto Méndez",
-        solicitante: "Antonia Flores",
-        creadoPor: "Solicitante"
+        POTENCIA: "200.5",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Roberto Méndez",
+        SOLICITANTE: "Antonia Flores",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 19,
@@ -474,9 +528,12 @@ const solicitudesData = [
         OBSERVACIONES: "Trabajo extendido por problemas técnicos",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Elena Vargas",
-        solicitante: "Matías Vera",
-        creadoPor: "Solicitante"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Elena Vargas",
+        SOLICITANTE: "Matías Vera",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 20,
@@ -499,9 +556,12 @@ const solicitudesData = [
         OBSERVACIONES: "Migración compleja - Requiere tiempo adicional",
         ADJUNTO: "plan_migracion.pdf",
         SODI: "Sí",
-        administrador: "Fernando Castro",
-        solicitante: "Sofía Parra",
-        creadoPor: "Solicitante"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Fernando Castro",
+        SOLICITANTE: "Sofía Parra",
+        CREADO_POR: "Solicitante"
     },
     {
         ID_REGISTRO: 21,
@@ -524,9 +584,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Roberto Méndez",
-        solicitante: "Roberto Méndez",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Roberto Méndez",
+        SOLICITANTE: "Roberto Méndez",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 22,
@@ -549,9 +612,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Elena Vargas",
-        solicitante: "Elena Vargas",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Elena Vargas",
+        SOLICITANTE: "Elena Vargas",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 23,
@@ -574,9 +640,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Fernando Castro",
-        solicitante: "Fernando Castro",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Fernando Castro",
+        SOLICITANTE: "Fernando Castro",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 24,
@@ -599,9 +668,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Gabriela Ortiz",
-        solicitante: "Gabriela Ortiz",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Gabriela Ortiz",
+        SOLICITANTE: "Gabriela Ortiz",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 25,
@@ -624,9 +696,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Juan Pérez",
-        solicitante: "Andrés Muñoz",
-        creadoPor: "Administrador"
+        POTENCIA: "95.3",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Juan Pérez",
+        SOLICITANTE: "Andrés Muñoz",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 26,
@@ -649,9 +724,12 @@ const solicitudesData = [
         OBSERVACIONES: "Trabajo extendido por complejidad técnica",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Pedro Sánchez",
-        solicitante: "Valentina Reyes",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Pedro Sánchez",
+        SOLICITANTE: "Valentina Reyes",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 27,
@@ -674,14 +752,17 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Carlos Rojas",
-        solicitante: "Sebastián Lagos",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Carlos Rojas",
+        SOLICITANTE: "Sebastián Lagos",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 28,
-        ID_SOLICITUD: "5",
-        TIPO: "SODI",
+        ID_SOLICITUD: "",
+        TIPO: "",
         TIPO_INTERVENCION: "Intervención",
         INSTALACION_GM: "Nueva Renca",
         EQUIPOS: "Paño NR3",
@@ -689,8 +770,8 @@ const solicitudesData = [
         RIESGOS: "Medio",
         CONDICIONES: "Paño desenergizado con tarjeta de seguridad",
         AFECTACIONES: "SSCC, Protecciones",
-        EMPRESA_SOLICITANTE: "Saesa",
-        EMPRESA_RECEPTORA: "GM",
+        EMPRESA_SOLICITANTE: "",
+        EMPRESA_RECEPTORA: "",
         INICIO_PROGRAMADO: "25/02/2025 11:00",
         FIN_PROGRAMADO: "25/02/2025 19:00",
         INICIO_EFECTIVO: "",
@@ -699,9 +780,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Roberto Méndez",
-        solicitante: "Camila Bravo",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Roberto Méndez",
+        SOLICITANTE: "Camila Bravo",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 29,
@@ -724,9 +808,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Elena Vargas",
-        solicitante: "Martín Herrera",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Elena Vargas",
+        SOLICITANTE: "Martín Herrera",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 30,
@@ -749,9 +836,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Fernando Castro",
-        solicitante: "Francisca Vega",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Fernando Castro",
+        SOLICITANTE: "Francisca Vega",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 31,
@@ -774,9 +864,12 @@ const solicitudesData = [
         OBSERVACIONES: "Trabajo extendido por actualización compleja",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Gabriela Ortiz",
-        solicitante: "Daniela Campos",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Gabriela Ortiz",
+        SOLICITANTE: "Daniela Campos",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 32,
@@ -799,9 +892,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Juan Pérez",
-        solicitante: "Ignacio Soto",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Juan Pérez",
+        SOLICITANTE: "Ignacio Soto",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 33,
@@ -824,9 +920,12 @@ const solicitudesData = [
         OBSERVACIONES: "",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Pedro Sánchez",
-        solicitante: "Javiera Rojas",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Pedro Sánchez",
+        SOLICITANTE: "Javiera Rojas",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 34,
@@ -849,9 +948,12 @@ const solicitudesData = [
         OBSERVACIONES: "Trabajo extendido por condiciones climáticas",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Carlos Rojas",
-        solicitante: "Tomás Navarro",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Carlos Rojas",
+        SOLICITANTE: "Tomás Navarro",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 35,
@@ -874,9 +976,12 @@ const solicitudesData = [
         OBSERVACIONES: "Trabajo finalizado exitosamente",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Roberto Méndez",
-        solicitante: "Antonia Flores",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Roberto Méndez",
+        SOLICITANTE: "Antonia Flores",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 36,
@@ -899,9 +1004,12 @@ const solicitudesData = [
         OBSERVACIONES: "Rechazada por conflicto de horarios",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Elena Vargas",
-        solicitante: "Matías Vera",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Elena Vargas",
+        SOLICITANTE: "Matías Vera",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 37,
@@ -924,9 +1032,12 @@ const solicitudesData = [
         OBSERVACIONES: "Suspendida por condiciones climáticas adversas",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Fernando Castro",
-        solicitante: "Sofía Parra",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Fernando Castro",
+        SOLICITANTE: "Sofía Parra",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 38,
@@ -949,9 +1060,12 @@ const solicitudesData = [
         OBSERVACIONES: "Trabajo cancelado - No solicitado formalmente",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Gabriela Ortiz",
-        solicitante: "Lucas Medina",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Gabriela Ortiz",
+        SOLICITANTE: "Lucas Medina",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 39,
@@ -974,9 +1088,12 @@ const solicitudesData = [
         OBSERVACIONES: "Trabajo finalizado exitosamente",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Juan Pérez",
-        solicitante: "Emilia Rojas",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Juan Pérez",
+        SOLICITANTE: "Emilia Rojas",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 40,
@@ -999,9 +1116,12 @@ const solicitudesData = [
         OBSERVACIONES: "Rechazada por falta de equipos",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Pedro Sánchez",
-        solicitante: "Benjamín Castro",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Pedro Sánchez",
+        SOLICITANTE: "Benjamín Castro",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 41,
@@ -1024,9 +1144,12 @@ const solicitudesData = [
         OBSERVACIONES: "Suspendida por emergencia operacional",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Carlos Rojas",
-        solicitante: "Isidora Núñez",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Carlos Rojas",
+        SOLICITANTE: "Isidora Núñez",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 42,
@@ -1049,9 +1172,12 @@ const solicitudesData = [
         OBSERVACIONES: "Trabajo finalizado exitosamente",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Roberto Méndez",
-        solicitante: "Agustín Vargas",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Roberto Méndez",
+        SOLICITANTE: "Agustín Vargas",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 43,
@@ -1074,9 +1200,12 @@ const solicitudesData = [
         OBSERVACIONES: "Trabajo cancelado - No solicitado formalmente",
         ADJUNTO: "",
         SODI: "Sí",
-        administrador: "Elena Vargas",
-        solicitante: "Catalina Soto",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Elena Vargas",
+        SOLICITANTE: "Catalina Soto",
+        CREADO_POR: "Administrador"
     },
     {
         ID_REGISTRO: 44,
@@ -1099,9 +1228,152 @@ const solicitudesData = [
         OBSERVACIONES: "Rechazada por falta de personal especializado",
         ADJUNTO: "",
         SODI: "No",
-        administrador: "Fernando Castro",
-        solicitante: "Vicente Mora",
-        creadoPor: "Administrador"
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Fernando Castro",
+        SOLICITANTE: "Vicente Mora",
+        CREADO_POR: "Administrador"
+    },
+    {
+        ID_REGISTRO: 45,
+        ID_SOLICITUD: "",
+        TIPO: "",
+        TIPO_INTERVENCION: "Intervención",
+        INSTALACION_GM: "Santa Lidia",
+        EQUIPOS: "Paño SL4",
+        DESCRIPCION: "Mantenimiento correctivo del paño SL4 por falla en interruptor",
+        RIESGOS: "Alto",
+        CONDICIONES: "Paño desenergizado con tarjeta de seguridad",
+        AFECTACIONES: "SSCC, Protecciones",
+        EMPRESA_SOLICITANTE: "",
+        EMPRESA_RECEPTORA: "",
+        INICIO_PROGRAMADO: "10/03/2025 08:00",
+        FIN_PROGRAMADO: "10/03/2025 16:00",
+        INICIO_EFECTIVO: "",
+        FIN_EFECTIVO: "",
+        ESTADO: "Devuelta",
+        OBSERVACIONES: "Falta información técnica del equipo. Por favor completar especificaciones del interruptor.",
+        ADJUNTO: "",
+        SODI: "No",
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Juan Pérez",
+        SOLICITANTE: "María González",
+        CREADO_POR: "Solicitante"
+    },
+    {
+        ID_REGISTRO: 46,
+        ID_SOLICITUD: "",
+        TIPO: "",
+        TIPO_INTERVENCION: "Desconexión",
+        INSTALACION_GM: "Los Vientos",
+        EQUIPOS: "Línea L3",
+        DESCRIPCION: "Desconexión de línea L3 para mantenimiento de torres",
+        RIESGOS: "Medio",
+        CONDICIONES: "Línea desenergizada",
+        AFECTACIONES: "Protecciones",
+        EMPRESA_SOLICITANTE: "",
+        EMPRESA_RECEPTORA: "",
+        INICIO_PROGRAMADO: "12/03/2025 09:00",
+        FIN_PROGRAMADO: "12/03/2025 17:00",
+        INICIO_EFECTIVO: "",
+        FIN_EFECTIVO: "",
+        ESTADO: "Devuelta",
+        OBSERVACIONES: "Debe coordinar con empresa receptora antes de enviar solicitud. Falta aprobación previa.",
+        ADJUNTO: "",
+        SODI: "No",
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Carlos Rojas",
+        SOLICITANTE: "Andrés Muñoz",
+        CREADO_POR: "Solicitante"
+    },
+    {
+        ID_REGISTRO: 47,
+        ID_SOLICITUD: "",
+        TIPO: "",
+        TIPO_INTERVENCION: "Intervención",
+        INSTALACION_GM: "Nueva Renca",
+        EQUIPOS: "Transformador TNR2",
+        DESCRIPCION: "Cambio de aceite del transformador TNR2",
+        RIESGOS: "Alto",
+        CONDICIONES: "Transformador desenergizado y enfriado",
+        AFECTACIONES: "SSCC, Protecciones, Medidores",
+        EMPRESA_SOLICITANTE: "",
+        EMPRESA_RECEPTORA: "",
+        INICIO_PROGRAMADO: "15/03/2025 10:00",
+        FIN_PROGRAMADO: "15/03/2025 18:00",
+        INICIO_EFECTIVO: "",
+        FIN_EFECTIVO: "",
+        ESTADO: "Devuelta",
+        OBSERVACIONES: "Falta análisis de riesgo detallado. Debe incluir plan de contingencia por criticidad del equipo.",
+        ADJUNTO: "",
+        SODI: "Sí",
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Pedro Sánchez",
+        SOLICITANTE: "Valentina Reyes",
+        CREADO_POR: "Solicitante"
+    },
+    {
+        ID_REGISTRO: 48,
+        ID_SOLICITUD: "",
+        TIPO: "",
+        TIPO_INTERVENCION: "Intervención",
+        INSTALACION_GM: "Santiago Solar",
+        EQUIPOS: "Inversor I3, Inversor I4",
+        DESCRIPCION: "Actualización de firmware de inversores I3 e I4",
+        RIESGOS: "Bajo",
+        CONDICIONES: "Inversores desconectados de red",
+        AFECTACIONES: "",
+        EMPRESA_SOLICITANTE: "",
+        EMPRESA_RECEPTORA: "",
+        INICIO_PROGRAMADO: "18/03/2025 08:00",
+        FIN_PROGRAMADO: "18/03/2025 14:00",
+        INICIO_EFECTIVO: "",
+        FIN_EFECTIVO: "",
+        ESTADO: "Devuelta",
+        OBSERVACIONES: "Debe especificar versión de firmware a instalar y adjuntar release notes del fabricante.",
+        ADJUNTO: "",
+        SODI: "No",
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Elena Vargas",
+        SOLICITANTE: "Sebastián Lagos",
+        CREADO_POR: "Solicitante"
+    },
+    {
+        ID_REGISTRO: 49,
+        ID_SOLICITUD: "",
+        TIPO: "",
+        TIPO_INTERVENCION: "Intervención",
+        INSTALACION_GM: "CEME1",
+        EQUIPOS: "Sistema de Protecciones",
+        DESCRIPCION: "Calibración y pruebas del sistema de protecciones",
+        RIESGOS: "Medio",
+        CONDICIONES: "Sistema en modo prueba",
+        AFECTACIONES: "Protecciones",
+        EMPRESA_SOLICITANTE: "",
+        EMPRESA_RECEPTORA: "",
+        INICIO_PROGRAMADO: "20/03/2025 11:00",
+        FIN_PROGRAMADO: "20/03/2025 19:00",
+        INICIO_EFECTIVO: "",
+        FIN_EFECTIVO: "",
+        ESTADO: "Devuelta",
+        OBSERVACIONES: "Falta protocolo de pruebas. Debe adjuntar procedimiento detallado de calibración.",
+        ADJUNTO: "",
+        SODI: "Sí",
+        POTENCIA: "",
+        CREADO: "27/01/2025 10:30",
+        ACTUALIZADO: "27/01/2025 10:30",
+        ADMINISTRADOR: "Roberto Méndez",
+        SOLICITANTE: "Camila Bravo",
+        CREADO_POR: "Solicitante"
     }
 ];
 

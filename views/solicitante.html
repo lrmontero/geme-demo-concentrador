@@ -170,11 +170,12 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
     // Verificar que solicitudesData existe
     if (typeof solicitudesData === 'undefined') {
         console.error('❌ solicitudesData no está definido');
+        setTimeout(arguments.callee, 100); // Reintentar en 100ms
         return;
     }
     
     // Filtrar solo solicitudes creadas por solicitante
-    const solicitudes = solicitudesData.filter(sol => sol.creadoPor === 'Solicitante');
+    const solicitudes = solicitudesData.filter(sol => sol.CREADO_POR === 'Solicitante');
     console.log(`📊 Encontradas ${solicitudes.length} solicitudes del solicitante`);
     
     const tbody = $('#tablaSolicitudesSolicitante tbody');
@@ -187,6 +188,9 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
         switch(solicitud.ESTADO) {
             case 'Pendiente':
                 funcionVer = `verSolicitudPendienteSolic(${solicitud.ID_REGISTRO})`;
+                break;
+            case 'Devuelta':
+                funcionVer = `verSolicitudDevueltaSolic(${solicitud.ID_REGISTRO})`;
                 break;
             case 'En Análisis':
                 funcionVer = `verSolicitudEnAnalisisSolic(${solicitud.ID_REGISTRO})`;
@@ -219,6 +223,7 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
         let badgeEstado = 'badge-secondary';
         switch(solicitud.ESTADO) {
             case 'Pendiente': badgeEstado = 'badge-warning'; break;
+            case 'Devuelta': badgeEstado = 'badge-danger'; break;
             case 'En Análisis': badgeEstado = 'badge-info'; break;
             case 'Administrador Gestionando': badgeEstado = 'badge-warning text-dark'; break;
             case 'Programada': badgeEstado = 'badge-success'; break;
@@ -228,23 +233,43 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
             case 'Rechazada': badgeEstado = 'badge-danger'; break;
         }
         
+        // Determinar acciones según el estado
+        let acciones = '';
+        if (['Pendiente', 'Devuelta'].includes(solicitud.ESTADO)) {
+            // Estados editables para el solicitante
+            acciones = `
+                <a href="javascript:;" onclick="abrirModalEditarSolic(${solicitud.ID_REGISTRO})" class="text-warning" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="javascript:;" onclick="${funcionVer}" class="text-primary ml-2" title="Ver">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <a href="javascript:;" onclick="clonarSolicitudSolic(${solicitud.ID_REGISTRO})" class="text-info ml-2" title="Clonar">
+                    <i class="fas fa-copy"></i>
+                </a>
+                <a href="javascript:;" onclick="abrirBitacora(${solicitud.ID_REGISTRO})" class="text-success ml-2" title="Bitácora">
+                    <i class="fas fa-clipboard-list"></i>
+                </a>
+            `;
+        } else {
+            // Estados no editables (solo ver, clonar y bitácora)
+            acciones = `
+                <a href="javascript:;" onclick="${funcionVer}" class="text-primary" title="Ver">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <a href="javascript:;" onclick="clonarSolicitudSolic(${solicitud.ID_REGISTRO})" class="text-info ml-2" title="Clonar">
+                    <i class="fas fa-copy"></i>
+                </a>
+                <a href="javascript:;" onclick="abrirBitacora(${solicitud.ID_REGISTRO})" class="text-success ml-2" title="Bitácora">
+                    <i class="fas fa-clipboard-list"></i>
+                </a>
+            `;
+        }
+        
         // Generar HTML de la fila
         const fila = `
             <tr>
-                <td class="text-center">
-                    <a href="javascript:;" onclick="abrirModalEditarSolic(${solicitud.ID_REGISTRO})" class="text-warning" title="Editar">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <a href="javascript:;" onclick="${funcionVer}" class="text-primary ml-2" title="Ver">
-                        <i class="fas fa-eye"></i>
-                    </a>
-                    <a href="javascript:;" onclick="clonarSolicitudSolic(${solicitud.ID_REGISTRO})" class="text-info ml-2" title="Clonar">
-                        <i class="fas fa-copy"></i>
-                    </a>
-                    <a href="javascript:;" onclick="abrirBitacora(${solicitud.ID_REGISTRO})" class="text-success ml-2" title="Bitácora">
-                        <i class="fas fa-clipboard-list"></i>
-                    </a>
-                </td>
+                <td class="text-center">${acciones}</td>
                 <td>${solicitud.ID_REGISTRO}</td>
                 <td>${solicitud.INICIO_PROGRAMADO}</td>
                 <td>${solicitud.FIN_PROGRAMADO}</td>
@@ -296,7 +321,7 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
     // Remover el display:none inline de las filas finalizadas para que DataTables las pueda procesar
     $('.solicitud-finalizada').removeAttr('style');
     
-    // Estados que se consideran "En Proceso"
+    // Estados que se consideran "En Proceso" para Solicitante
     const estadosEnProceso = ['Pendiente', 'Devuelta', 'En Análisis', 'Administrador Gestionando', 'Programada'];
     
     // Estados que se consideran "Finalizadas"
@@ -349,3 +374,6 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
     });
 })();
 </script>
+
+<!-- Cargar modales del solicitante -->
+<script src="modals/solicitante/modals-loader.js?v=2" defer></script>
