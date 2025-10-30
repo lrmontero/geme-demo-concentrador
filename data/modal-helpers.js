@@ -187,22 +187,3 @@ function poblarModalEditar(solicitud, sufijo = '') {
     
     $(`#${prefix}Comentarios`).val(solicitud.OBSERVACIONES);
 }
-
-// Función para poblar modal de clonar solicitud
-function poblarModalClonar(solicitud, sufijo = '') {
-    console.log('Poblando modal clonar:', solicitud, 'sufijo:', sufijo);
-    
-    // Para el solicitante, los IDs son diferentes (sin sufijo Solic)
-    const prefix = sufijo === 'Solic' ? 'clonar' : `clonar${sufijo}`;
-    
-    $(`#${prefix}IdSolicitud`).text(solicitud.ID_REGISTRO);
-    $(`#${prefix}InstalacionGM`).val(solicitud.INSTALACION_GM);
-    $(`#${prefix}EquiposIntervenir`).val(solicitud.EQUIPOS);
-    $(`#${prefix}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION);
-    $(`#${prefix}Riesgo`).val(solicitud.RIESGOS);
-    $(`#${prefix}SODI`).val(solicitud.SODI);
-    $(`#${prefix}DescripcionTrabajo`).val(solicitud.DESCRIPCION);
-    $(`#${prefix}CondicionesRequeridas`).val(solicitud.CONDICIONES);
-    $(`#${prefix}Afectaciones`).val(solicitud.AFECTACIONES);
-    $(`#${prefix}Comentarios`).val(solicitud.OBSERVACIONES);
-}

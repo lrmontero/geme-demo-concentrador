@@ -11,218 +11,211 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formNuevaSolicitud">
-                    <div class="row">
-                        <!-- Fecha/hora programada inicio -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Fecha/hora programada inicio <span class="text-danger">*</span></label>
-                                <input type="datetime-local" class="form-control" id="fechaInicio" name="fechaInicio" required>
-                                <small class="form-text text-muted">Debe ser una fecha futura</small>
-                            </div>
+                <form id="formNuevaSolicitudDesp">
+                    <!-- Header: Estado -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-info-circle mr-2"></i>Estado</h6>
                         </div>
-                        
-                        <!-- Fecha/hora programada fin -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Fecha/hora programada fin <span class="text-danger">*</span></label>
-                                <input type="datetime-local" class="form-control" id="fechaFin" name="fechaFin" required>
-                                <small class="form-text text-muted">Debe ser posterior a la fecha de inicio</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Fecha efectiva inicio -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Fecha efectiva inicio</label>
-                                <input type="datetime-local" class="form-control" id="fechaEfectivaInicio" name="fechaEfectivaInicio">
-                                <small class="form-text text-muted">Campo opcional</small>
-                            </div>
-                        </div>
-                        
-                        <!-- Fecha efectiva fin -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Fecha efectiva fin</label>
-                                <input type="datetime-local" class="form-control" id="fechaEfectivaFin" name="fechaEfectivaFin">
-                                <small class="form-text text-muted">Campo opcional</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- ID CEN -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>ID CEN <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="idCEN" name="idCEN" required placeholder="Ej: 12345">
-                                <small class="form-text text-muted">Identificador de solicitud en el CEN</small>
-                            </div>
-                        </div>
-
-                        <!-- Empresa Solicitante -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Empresa Solicitante <span class="text-danger">*</span></label>
-                                <select class="form-control" id="empresaSolicitante" name="empresaSolicitante" required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="CDC">CDC</option>
-                                    <option value="GM">GM</option>
-                                    <option value="Transelec Norte">Transelec Norte</option>
-                                    <option value="Transelec Sur">Transelec Sur</option>
-                                    <option value="Chilquinta">Chilquinta</option>
-                                    <option value="Saesa">Saesa</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Empresa Receptora -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Empresa Receptora <span class="text-danger">*</span></label>
-                                <select class="form-control" id="empresaReceptora" name="empresaReceptora" required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="CDC">CDC</option>
-                                    <option value="GM">GM</option>
-                                    <option value="Transelec Norte">Transelec Norte</option>
-                                    <option value="Transelec Sur">Transelec Sur</option>
-                                    <option value="Chilquinta">Chilquinta</option>
-                                    <option value="Saesa">Saesa</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Estado -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Estado</label>
-                                <input type="text" class="form-control" id="estado" name="estado" value="Programado" readonly disabled>
-                                <small class="form-text text-muted">Estado inicial de la solicitud</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Instalación GM -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Instalación GM <span class="text-danger">*</span></label>
-                                <select class="form-control" id="instalacionGM" name="instalacionGM" required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="CEME1">CEME1</option>
-                                    <option value="Nueva Renca">Nueva Renca</option>
-                                    <option value="Santa Lidia">Santa Lidia</option>
-                                    <option value="Los Vientos">Los Vientos</option>
-                                    <option value="Santiago Solar">Santiago Solar</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Tipo -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Tipo <span class="text-danger">*</span></label>
-                                <select class="form-control" id="tipo" name="tipo" required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="SDCN">SDCN</option>
-                                    <option value="SDCF">SDCF</option>
-                                    <option value="SICN">SICN</option>
-                                    <option value="SICF">SICF</option>
-                                    <option value="IL">IL</option>
-                                    <option value="MM">MM</option>
-                                    <option value="SODI">SODI</option>
-                                </select>
-                                <small class="form-text text-muted">Clasificación específica del trabajo</small>
-                            </div>
-                        </div>
-
-                        <!-- Potencia -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Potencia (MW)</label>
-                                <input type="number" class="form-control" id="potencia" name="potencia" step="0.01" min="0" placeholder="Ej: 150.5">
-                                <small class="form-text text-muted">Campo opcional</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Descripción del trabajo -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Descripción del trabajo <span class="text-danger">*</span></label>
-                                <textarea class="form-control" id="descripcionTrabajo" name="descripcionTrabajo" rows="3" required minlength="10"></textarea>
-                                <small class="form-text text-muted">Mínimo 10 caracteres</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Condiciones requeridas -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Condiciones requeridas <span class="text-danger">*</span></label>
-                                <textarea class="form-control" id="condicionesRequeridas" name="condicionesRequeridas" rows="3" required></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Afectaciones -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Afectaciones <span class="text-danger">*</span></label>
-                                <select class="form-control" id="afectaciones" name="afectaciones" multiple required size="3">
-                                    <option value="SSCC">SSCC</option>
-                                    <option value="Protecciones">Protecciones</option>
-                                    <option value="Medidores">Medidores</option>
-                                </select>
-                                <small class="form-text text-muted">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
-                            </div>
-                        </div>
-
-                        <!-- SODI -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>SODI <span class="text-danger">*</span></label>
-                                <div class="mt-2">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="sodi" id="sodiSi" value="Si" required>
-                                        <label class="form-check-label" for="sodiSi">Sí</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="sodi" id="sodiNo" value="No">
-                                        <label class="form-check-label" for="sodiNo">No</label>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="alert alert-info mb-0" role="alert">
+                                        <i class="fas fa-user-clock mr-2"></i>
+                                        <strong>Estado por defecto:</strong> <span class="badge badge-info ml-2">Despachador Gestionando</span>
+                                        <small class="d-block mt-1 text-muted">Las solicitudes creadas por el despachador inician en este estado</small>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <!-- Comentarios opcionales -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Comentarios opcionales</label>
-                                <textarea class="form-control" id="comentarios" name="comentarios" rows="2"></textarea>
+                    <!-- Sección: Identificación -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-id-card mr-2"></i>Identificación</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">ID Solicitud <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="nuevaDespIDSolicitud" name="idSolicitud" required placeholder="Ej: CEN-2025-001">
+                                        <small class="form-text text-muted">ID de la solicitud CEN o SODI</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Tipo <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaDespTipo" name="tipo" required>
+                                            <option value="">Seleccione...</option>
+                                            <option value="SDCN">SDCN - Solicitud de Desconexión Cliente No Facturado</option>
+                                            <option value="SDCF">SDCF - Solicitud de Desconexión Cliente Facturado</option>
+                                            <option value="SICN">SICN - Solicitud de Intervención Cliente No Facturado</option>
+                                            <option value="SICF">SICF - Solicitud de Intervención Cliente Facturado</option>
+                                            <option value="IL">IL - Intervención en Línea</option>
+                                            <option value="MM">MM - Mantención Mayor</option>
+                                            <option value="SODI">SODI - Solicitud de Disponibilidad</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Relación SODI-CEN</label>
+                                        <input type="text" class="form-control" id="nuevaDespRelacionSODICEN" name="relacionSODICEN" placeholder="Ej: CEN-2025-001, SODI-123">
+                                        <small class="form-text text-muted">Opcional</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <!-- Carga de archivo -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Carga de archivo</label>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="archivoAdjunto" name="archivoAdjunto" accept=".pdf,.doc,.docx,.xls,.xlsx">
-                                    <label class="custom-file-label" for="archivoAdjunto">Seleccionar archivo...</label>
+                    <!-- Sección: Fechas Programadas -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="far fa-calendar-alt mr-2"></i>Fechas Programadas</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Fecha y hora programada de inicio <span class="text-danger">*</span></label>
+                                        <input type="datetime-local" class="form-control" id="nuevaDespInicioProgramado" name="inicioProgramado" required>
+                                        <small class="form-text text-muted">Debe ser una fecha futura</small>
+                                    </div>
                                 </div>
-                                <small class="form-text text-muted">Formatos permitidos: PDF, Word, Excel</small>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Fecha y hora programada de fin <span class="text-danger">*</span></label>
+                                        <input type="datetime-local" class="form-control" id="nuevaDespFinProgramado" name="finProgramado" required>
+                                        <small class="form-text text-muted">Debe ser posterior a la fecha de inicio</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección: Empresas Involucradas -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-handshake mr-2"></i>Empresas Involucradas</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Empresa Solicitante <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaDespEmpresaSolicitante" name="empresaSolicitante" required>
+                                            <option value="">Seleccione...</option>
+                                            <option value="CDC">CDC</option>
+                                            <option value="GM">GM</option>
+                                            <option value="Transelec Norte">Transelec Norte</option>
+                                            <option value="Transelec Sur">Transelec Sur</option>
+                                            <option value="Chilquinta">Chilquinta</option>
+                                            <option value="Saesa">Saesa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Empresa Receptora <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaDespEmpresaReceptora" name="empresaReceptora" required>
+                                            <option value="">Seleccione...</option>
+                                            <option value="CDC">CDC</option>
+                                            <option value="GM">GM</option>
+                                            <option value="Transelec Norte">Transelec Norte</option>
+                                            <option value="Transelec Sur">Transelec Sur</option>
+                                            <option value="Chilquinta">Chilquinta</option>
+                                            <option value="Saesa">Saesa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección: Instalación y Características -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-cogs mr-2"></i>Instalación y Características</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Instalación GM <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaDespInstalacionGM" name="instalacionGM" required>
+                                            <option value="">Seleccione...</option>
+                                            <option value="Santiago Solar">Santiago Solar</option>
+                                            <option value="Nueva Renca">Nueva Renca</option>
+                                            <option value="Los Vientos">Los Vientos</option>
+                                            <option value="Santa Lidia">Santa Lidia</option>
+                                            <option value="CEME1">CEME1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Potencia (KwH)</label>
+                                        <input type="number" class="form-control" id="nuevaDespPotencia" name="potencia" step="0.01" min="0" placeholder="Ej: 150.5">
+                                        <small class="form-text text-muted">Opcional</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección: Descripción y Condiciones -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-file-alt mr-2"></i>Descripción y Condiciones</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Descripción del trabajo a realizar <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="nuevaDespDescripcion" name="descripcion" rows="3" required minlength="10" placeholder="Describa detalladamente el trabajo a realizar..."></textarea>
+                                        <small class="form-text text-muted">Mínimo 10 caracteres</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Condiciones requeridas <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="nuevaDespCondiciones" name="condiciones" rows="3" required placeholder="Especifique las condiciones necesarias para realizar el trabajo..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Comentarios</label>
+                                        <textarea class="form-control" id="nuevaDespComentarios" name="comentarios" rows="2" placeholder="Comentarios adicionales (opcional)..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección: Archivos Adjuntos -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-paperclip mr-2"></i>Archivos Adjuntos</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Carga de archivo</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="nuevaDespAdjunto" name="adjunto" accept=".pdf,.doc,.docx,.xls,.xlsx">
+                                            <label class="custom-file-label" for="nuevaDespAdjunto">Seleccionar archivo...</label>
+                                        </div>
+                                        <small class="form-text text-muted">Formatos permitidos: PDF, Word, Excel</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 <!-- MODAL CLONAR SOLICITUD -->
 <div class="modal fade" id="modalClonarSolicitudSolic" tabindex="-1" role="dialog" aria-labelledby="modalClonarSolicitudSolicLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info text-white">
                 <h5 class="modal-title" id="modalClonarSolicitudSolicLabel">
@@ -11,110 +11,218 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Información de la solicitud origen -->
-                <div class="row mb-3">
-                    <div class="col-md-12">
-                        <div class="alert alert-info d-flex align-items-center" role="alert">
-                            <i class="fas fa-info-circle mr-2"></i>
-                            <div>
-                                <strong>Solicitud Origen:</strong> <span id="clonarIdSolicitud" class="ml-2">SOL-001</span>
-                                <small class="d-block mt-1">Se creará una nueva solicitud con los siguientes datos</small>
+                <form id="formClonarSolicitud">
+                <!-- Leyenda de Colores -->
+                <div class="alert alert-info mb-3" role="alert">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <i class="fas fa-check-circle text-success mr-2"></i>
+                            <strong class="text-success">Verde:</strong> Valores copiados de la solicitud original (editables)
+                        </div>
+                        <div class="col-md-6">
+                            <i class="fas fa-exclamation-circle text-warning mr-2"></i>
+                            <strong class="text-warning">Amarillo:</strong> Valores por definir (debe completarlos)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Header: Estado -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-info-circle mr-2"></i>Estado</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-warning mb-0" role="alert">
+                                    <i class="fas fa-copy mr-2"></i>
+                                    <strong>Estado por defecto al clonar:</strong> <span class="badge badge-warning ml-2">Pendiente</span>
+                                    <small class="d-block mt-1 text-muted">La solicitud clonada se creará en estado Pendiente</small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Datos a clonar -->
-                <h6 class="mb-3"><i class="fas fa-clipboard-check mr-2"></i>Datos que se copiarán:</h6>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Instalación GM</strong></label>
-                            <input type="text" class="form-control-plaintext" id="clonarInstalacionGM" readonly>
-                        </div>
+                <!-- Sección: Fechas Programadas (EDITABLE - QUEDAN VACÍAS) -->
+                <div class="card mb-3">
+                    <div class="card-header bg-warning text-dark py-2">
+                        <h6 class="mb-0"><i class="far fa-calendar-alt mr-2"></i>Fechas Programadas <span class="badge badge-light ml-2">EDITABLE</span></h6>
                     </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Instalaciones/equipos a intervenir</strong></label>
-                            <input type="text" class="form-control-plaintext" id="clonarEquiposIntervenir" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Tipo de intervención</strong></label>
-                            <input type="text" class="form-control-plaintext" id="clonarTipoIntervencion" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Descripción del riesgo</strong></label>
-                            <input type="text" class="form-control-plaintext" id="clonarRiesgo" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Potencia (MW)</strong></label>
-                            <input type="text" class="form-control-plaintext" id="clonarPotencia" readonly>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Fecha y hora programada de inicio <span class="text-danger">*</span></label>
+                                    <input type="datetime-local" class="form-control" id="clonarSolicInicioProgramado" name="inicioProgramado" required>
+                                    <small class="form-text text-muted">Debe ser una fecha futura</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Fecha y hora programada de fin <span class="text-danger">*</span></label>
+                                    <input type="datetime-local" class="form-control" id="clonarSolicFinProgramado" name="finProgramado" required>
+                                    <small class="form-text text-muted">Debe ser posterior a la fecha de inicio</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label><strong>Descripción del trabajo</strong></label>
-                            <textarea class="form-control-plaintext" id="clonarDescripcionTrabajo" rows="3" readonly></textarea>
+                <!-- Sección: Instalación y Equipos (EDITABLE - SE COPIA VALOR) -->
+                <div class="card mb-3">
+                    <div class="card-header bg-success text-white py-2">
+                        <h6 class="mb-0"><i class="fas fa-edit mr-2"></i>Instalación y Equipos <span class="badge badge-light ml-2">EDITABLE</span></h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Instalación GM <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="clonarSolicInstalacionGM" name="instalacionGM" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Santiago Solar">Santiago Solar</option>
+                                        <option value="Nueva Renca">Nueva Renca</option>
+                                        <option value="Los Vientos">Los Vientos</option>
+                                        <option value="Santa Lidia">Santa Lidia</option>
+                                        <option value="CEME1">CEME1</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Instalaciones/equipos a intervenir <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="clonarSolicEquipos" name="equipos" required disabled>
+                                        <option value="">Primero seleccione Instalación GM</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label><strong>Condiciones requeridas</strong></label>
-                            <textarea class="form-control-plaintext" id="clonarCondicionesRequeridas" rows="2" readonly></textarea>
+                <!-- Sección: Características de la Intervención (EDITABLE - SE COPIA VALOR) -->
+                <div class="card mb-3">
+                    <div class="card-header bg-success text-white py-2">
+                        <h6 class="mb-0"><i class="fas fa-edit mr-2"></i>Características de la Intervención <span class="badge badge-light ml-2">EDITABLE</span></h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Tipo de intervención <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="clonarSolicTipoIntervencion" name="tipoIntervencion" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Intervención">Intervención</option>
+                                        <option value="Desconexión">Desconexión</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Descripción del riesgo <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="clonarSolicRiesgo" name="riesgo" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Bajo">Bajo</option>
+                                        <option value="Medio">Medio</option>
+                                        <option value="Alto">Alto</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">SODI <span class="text-danger">*</span></label>
+                                    <div class="mt-2">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="clonarSolicSODI" id="clonarSolicSODISi" value="Sí" required>
+                                            <label class="form-check-label" for="clonarSolicSODISi">Sí</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="clonarSolicSODI" id="clonarSolicSODINo" value="No">
+                                            <label class="form-check-label" for="clonarSolicSODINo">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Potencia (KwH)</label>
+                                    <input type="number" class="form-control" id="clonarSolicPotencia" name="potencia" step="0.01" min="0" placeholder="Ej: 150.5">
+                                    <small class="form-text text-muted">Opcional</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Afectaciones</strong></label>
-                            <input type="text" class="form-control-plaintext" id="clonarAfectaciones" readonly>
-                        </div>
+                <!-- Sección: Descripción y Condiciones (EDITABLE - SE COPIA VALOR) -->
+                <div class="card mb-3">
+                    <div class="card-header bg-success text-white py-2">
+                        <h6 class="mb-0"><i class="fas fa-edit mr-2"></i>Descripción y Condiciones <span class="badge badge-light ml-2">EDITABLE</span></h6>
                     </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>SODI</strong></label>
-                            <input type="text" class="form-control-plaintext" id="clonarSODI" readonly>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Descripción del trabajo a realizar <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="clonarSolicDescripcion" name="descripcion" rows="3" required minlength="10" placeholder="Describa detalladamente el trabajo a realizar..."></textarea>
+                                    <small class="form-text text-muted">Mínimo 10 caracteres</small>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Comentarios</strong></label>
-                            <input type="text" class="form-control-plaintext" id="clonarComentarios" readonly>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Condiciones requeridas <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="clonarSolicCondiciones" name="condiciones" rows="3" required placeholder="Especifique las condiciones necesarias..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Afectaciones <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="clonarSolicAfectaciones" name="afectaciones" multiple required size="3">
+                                        <option value="SSCC">SSCC</option>
+                                        <option value="Protecciones">Protecciones</option>
+                                        <option value="Medidores">Medidores</option>
+                                    </select>
+                                    <small class="form-text text-muted">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Comentarios</label>
+                                    <textarea class="form-control" id="clonarSolicComentarios" name="comentarios" rows="2" placeholder="Comentarios adicionales (opcional)..."></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <div class="alert alert-warning" role="alert">
-                            <i class="fas fa-exclamation-triangle mr-2"></i>
-                            <strong>Nota:</strong> Se creará una nueva solicitud con estos datos. Deberá completar las fechas y otros campos requeridos.
+                <!-- Sección: Archivos Adjuntos (EDITABLE - QUEDAN VACÍOS) -->
+                <div class="card mb-3">
+                    <div class="card-header bg-warning text-dark py-2">
+                        <h6 class="mb-0"><i class="fas fa-paperclip mr-2"></i>Archivos Adjuntos <span class="badge badge-light ml-2">EDITABLE</span></h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Carga de archivo</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="clonarSolicAdjunto" name="adjunto" accept=".pdf,.doc,.docx,.xls,.xlsx">
+                                        <label class="custom-file-label" for="clonarSolicAdjunto">Seleccionar archivo...</label>
+                                    </div>
+                                    <small class="form-text text-muted">Formatos permitidos: PDF, Word, Excel (Opcional)</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">

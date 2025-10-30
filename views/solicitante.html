@@ -184,32 +184,8 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
     // Generar cada fila
     solicitudes.forEach(solicitud => {
         // Determinar función de ver según el estado
-        let funcionVer = '';
-        switch(solicitud.ESTADO) {
-            case 'Pendiente':
-                funcionVer = `verSolicitudPendienteSolic(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'Devuelta':
-                funcionVer = `verSolicitudDevueltaSolic(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'En Análisis':
-                funcionVer = `verSolicitudEnAnalisisSolic(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'Administrador Gestionando':
-                funcionVer = `verSolicitudAdminGestionandoSolic(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'Programada':
-                funcionVer = `verSolicitudProgramadaSolic(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'Vigente':
-                funcionVer = `verSolicitudVigenteSolic(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'Extendida':
-                funcionVer = `verSolicitudExtendidaSolic(${solicitud.ID_REGISTRO})`;
-                break;
-            default:
-                funcionVer = `verSolicitudPendienteSolic(${solicitud.ID_REGISTRO})`;
-        }
+        // Usar función unificada para ver solicitudes
+        const funcionVer = `verSolicitudSolic(${solicitud.ID_REGISTRO})`;
         
         // Determinar badge de riesgo
         let badgeRiesgo = 'badge-secondary';
@@ -235,10 +211,11 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
         
         // Determinar acciones según el estado
         let acciones = '';
-        if (['Pendiente', 'Devuelta'].includes(solicitud.ESTADO)) {
-            // Estados editables para el solicitante
+        if (['Devuelta'].includes(solicitud.ESTADO)) {
+            // Estados editables para el solicitante (Devuelta)
             acciones = `
-                <a href="javascript:;" onclick="abrirModalEditarSolic(${solicitud.ID_REGISTRO})" class="text-warning" title="Editar">
+
+                <a href="javascript:;" onclick="abrirModalEditarSolic(${solicitud.ID_REGISTRO})" class="text-warning ml-2" title="Editar">
                     <i class="fas fa-edit"></i>
                 </a>
                 <a href="javascript:;" onclick="${funcionVer}" class="text-primary ml-2" title="Ver">
@@ -246,6 +223,9 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
                 </a>
                 <a href="javascript:;" onclick="clonarSolicitudSolic(${solicitud.ID_REGISTRO})" class="text-info ml-2" title="Clonar">
                     <i class="fas fa-copy"></i>
+                </a>
+                <a href="javascript:;" onclick="gestionarSolicitudSolic(${solicitud.ID_REGISTRO})" class="text-danger ml-2" title="Gestionar">
+                    <i class="fas fa-arrow-circle-right"></i>
                 </a>
                 <a href="javascript:;" onclick="abrirBitacora(${solicitud.ID_REGISTRO})" class="text-success ml-2" title="Bitácora">
                     <i class="fas fa-clipboard-list"></i>
@@ -376,4 +356,4 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
 </script>
 
 <!-- Cargar modales del solicitante -->
-<script src="modals/solicitante/modals-loader.js?v=2" defer></script>
+<script src="modals/solicitante/modals-loader.js?v=4" defer></script>

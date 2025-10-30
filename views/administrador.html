@@ -283,11 +283,16 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
         // Determinar acciones según el estado
         let acciones = '';
         if (['Pendiente', 'Devuelta', 'En Análisis', 'Administrador Gestionando'].includes(solicitud.ESTADO)) {
-            // Estados editables y gestionables
-            acciones = `
-                <a href="javascript:;" onclick="abrirModalEditarAdmin(${solicitud.ID_REGISTRO})" class="text-warning" title="Editar">
+            // Estados gestionables
+            // Botón Editar: Para "Administrador Gestionando" y "En Análisis"
+            const botonEditar = ['Administrador Gestionando', 'En Análisis'].includes(solicitud.ESTADO)
+                ? `<a href="javascript:;" onclick="editarSolicitudAdmin(${solicitud.ID_REGISTRO})" class="text-warning" title="Editar">
                     <i class="fas fa-edit"></i>
-                </a>
+                </a>` 
+                : '';
+            
+            acciones = `
+                ${botonEditar}
                 <a href="javascript:;" onclick="${funcionVer}" class="text-primary ml-2" title="Ver">
                     <i class="fas fa-eye"></i>
                 </a>
@@ -427,3 +432,6 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
     });
 })();
 </script>
+
+<!-- Cargar modales del administrador -->
+<script src="modals/administrador/modals-loader.js?v=12" defer></script>

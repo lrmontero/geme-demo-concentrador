@@ -1,9 +1,9 @@
-<!-- MODAL CLONAR SOLICITUD -->
-<div class="modal fade" id="modalClonarSolicitudAdmin" tabindex="-1" role="dialog" aria-labelledby="modalClonarSolicitudAdminLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+<!-- MODAL CLONAR SOLICITUD - DESPACHADOR -->
+<div class="modal fade" id="modalClonarSolicitudDesp" tabindex="-1" role="dialog" aria-labelledby="modalClonarSolicitudDespLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info text-white">
-                <h5 class="modal-title" id="modalClonarSolicitudAdminLabel">
+                <h5 class="modal-title" id="modalClonarSolicitudDespLabel">
                     <i class="fas fa-copy mr-2"></i>Clonar Solicitud
                 </h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
@@ -11,7 +11,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formClonarSolicitudAdmin">
+                <form id="formClonarSolicitudDesp">
                 <!-- Leyenda de Colores -->
                 <div class="alert alert-info mb-3" role="alert">
                     <div class="row">
@@ -34,10 +34,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="alert alert-secondary mb-0" role="alert">
-                                    <i class="fas fa-user-cog mr-2"></i>
-                                    <strong>Estado por defecto al clonar:</strong> <span class="badge badge-secondary ml-2">Administrador Gestionando</span>
-                                    <small class="d-block mt-1 text-muted">La solicitud clonada se creará en estado Administrador Gestionando</small>
+                                <div class="alert alert-info mb-0" role="alert">
+                                    <i class="fas fa-user-clock mr-2"></i>
+                                    <strong>Estado por defecto al clonar:</strong> <span class="badge badge-info ml-2">Despachador Gestionando</span>
+                                    <small class="d-block mt-1 text-muted">La solicitud clonada se creará en estado Despachador Gestionando</small>
                                 </div>
                             </div>
                         </div>
@@ -54,14 +54,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">ID Solicitud <span class="badge badge-warning">VACÍO</span></label>
-                                    <input type="text" class="form-control" id="clonarAdminIDSolicitud" name="idSolicitud" placeholder="Ej: CEN-2025-001">
+                                    <input type="text" class="form-control" id="clonarDespIDSolicitud" name="idSolicitud" placeholder="Ej: CEN-2025-001">
                                     <small class="form-text text-muted">Debe completarlo</small>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Tipo <span class="text-danger">*</span> <span class="badge badge-success">COPIADO</span></label>
-                                    <select class="form-control" id="clonarAdminTipo" name="tipo" required>
+                                    <select class="form-control" id="clonarDespTipo" name="tipo" required>
                                         <option value="">Seleccione...</option>
                                         <option value="SDCN">SDCN - Solicitud de Desconexión Cliente No Facturado</option>
                                         <option value="SDCF">SDCF - Solicitud de Desconexión Cliente Facturado</option>
@@ -76,7 +76,7 @@
                             <div class="col-md-4">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Relación SODI-CEN <span class="badge badge-success">COPIADO</span></label>
-                                    <input type="text" class="form-control" id="clonarAdminRelacionSODICEN" name="relacionSODICEN" placeholder="Ej: CEN-2025-001, SODI-123">
+                                    <input type="text" class="form-control" id="clonarDespRelacionSODICEN" name="relacionSODICEN" placeholder="Ej: CEN-2025-001, SODI-123">
                                 </div>
                             </div>
                         </div>
@@ -93,14 +93,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Fecha y hora programada de inicio <span class="text-danger">*</span></label>
-                                    <input type="datetime-local" class="form-control" id="clonarAdminInicioProgramado" name="inicioProgramado" required>
+                                    <input type="datetime-local" class="form-control" id="clonarDespInicioProgramado" name="inicioProgramado" required>
                                     <small class="form-text text-muted">Debe ser una fecha futura</small>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Fecha y hora programada de fin <span class="text-danger">*</span></label>
-                                    <input type="datetime-local" class="form-control" id="clonarAdminFinProgramado" name="finProgramado" required>
+                                    <input type="datetime-local" class="form-control" id="clonarDespFinProgramado" name="finProgramado" required>
                                     <small class="form-text text-muted">Debe ser posterior a la fecha de inicio</small>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Empresa Solicitante <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="clonarAdminEmpresaSolicitante" name="empresaSolicitante" required>
+                                    <select class="form-control" id="clonarDespEmpresaSolicitante" name="empresaSolicitante" required>
                                         <option value="">Seleccione...</option>
                                         <option value="CDC">CDC</option>
                                         <option value="GM">GM</option>
@@ -132,7 +132,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Empresa Receptora <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="clonarAdminEmpresaReceptora" name="empresaReceptora" required>
+                                    <select class="form-control" id="clonarDespEmpresaReceptora" name="empresaReceptora" required>
                                         <option value="">Seleccione...</option>
                                         <option value="CDC">CDC</option>
                                         <option value="GM">GM</option>
@@ -157,7 +157,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Instalación GM <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="clonarAdminInstalacionGM" name="instalacionGM" required>
+                                    <select class="form-control" id="clonarDespInstalacionGM" name="instalacionGM" required>
                                         <option value="">Seleccione...</option>
                                         <option value="Santiago Solar">Santiago Solar</option>
                                         <option value="Nueva Renca">Nueva Renca</option>
@@ -170,7 +170,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Potencia (KwH)</label>
-                                    <input type="number" class="form-control" id="clonarAdminPotencia" name="potencia" placeholder="Ej: 1500" step="0.01" min="0">
+                                    <input type="number" class="form-control" id="clonarDespPotencia" name="potencia" placeholder="Ej: 1500" step="0.01" min="0">
                                     <small class="form-text text-muted">Opcional</small>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Descripción del trabajo a realizar <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="clonarAdminDescripcion" name="descripcion" rows="3" required minlength="10" placeholder="Describa detalladamente el trabajo a realizar..."></textarea>
+                                    <textarea class="form-control" id="clonarDespDescripcion" name="descripcion" rows="3" required minlength="10" placeholder="Describa detalladamente el trabajo a realizar..."></textarea>
                                     <small class="form-text text-muted">Mínimo 10 caracteres</small>
                                 </div>
                             </div>
@@ -197,7 +197,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Condiciones requeridas <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="clonarAdminCondiciones" name="condiciones" rows="3" required placeholder="Especifique las condiciones necesarias..."></textarea>
+                                    <textarea class="form-control" id="clonarDespCondiciones" name="condiciones" rows="3" required placeholder="Especifique las condiciones necesarias..."></textarea>
                                 </div>
                             </div>
                         </div>
@@ -205,7 +205,7 @@
                             <div class="col-md-12">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Comentarios</label>
-                                    <textarea class="form-control" id="clonarAdminComentarios" name="comentarios" rows="2" placeholder="Comentarios adicionales (opcional)..."></textarea>
+                                    <textarea class="form-control" id="clonarDespComentarios" name="comentarios" rows="2" placeholder="Comentarios adicionales (opcional)..."></textarea>
                                 </div>
                             </div>
                         </div>
@@ -223,8 +223,8 @@
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Carga de archivo</label>
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="clonarAdminAdjunto" name="adjunto" accept=".pdf,.doc,.docx,.xls,.xlsx">
-                                        <label class="custom-file-label" for="clonarAdminAdjunto">Seleccionar archivo...</label>
+                                        <input type="file" class="custom-file-input" id="clonarDespAdjunto" name="adjunto" accept=".pdf,.doc,.docx,.xls,.xlsx">
+                                        <label class="custom-file-label" for="clonarDespAdjunto">Seleccionar archivo...</label>
                                     </div>
                                     <small class="form-text text-muted">Formatos permitidos: PDF, Word, Excel (Opcional)</small>
                                 </div>
@@ -239,7 +239,7 @@
                     <i class="fas fa-times mr-2"></i>Cancelar
                 </button>
                 <button type="button" class="btn btn-info" onclick="confirmarClonarSolicitud()">
-                    <i class="fas fa-copy mr-2"></i>Crear Solicitud Clonada
+                    <i class="fas fa-copy mr-2"></i>Clonar Solicitud
                 </button>
             </div>
         </div>

@@ -6,13 +6,11 @@
     // Lista de modales a cargar
     const modalsToLoadDesp = [
         'modals/despachador/nueva-solicitud-desp.html',
-        'modals/despachador/editar-solicitud-desp.html',
-        'modals/despachador/ver-pendiente-desp.html',
-        'modals/despachador/ver-en-analisis-desp.html',
-        'modals/despachador/ver-admin-gestionando-desp.html',
-        'modals/despachador/ver-programada-desp.html',
+        'modals/despachador/editar-solicitud-despachador.html',  // Modal de edición
+        'modals/despachador/ver-despachador.html',  // Modal unificado para todos los estados
+        'modals/despachador/gestionar-solicitud-despachador.html',  // Modal de gestión unificado
         'modals/despachador/gestionar-solicitud-programada-desp.html',
-        'modals/despachador/clonar-solicitud-desp.html',
+        'modals/despachador/clonar-solicitud-despachador.html',  // Modal de clonación
         'modals/bitacora.html'
     ];
 

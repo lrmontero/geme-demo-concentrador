@@ -1,0 +1,312 @@
+<!-- MODAL VER SOLICITUD - DESPACHADOR (UNIFICADO) -->
+<div class="modal fade" id="modalVerDespachador" tabindex="-1" role="dialog" aria-labelledby="modalVerDespachadorLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalVerDespachadorLabel">
+                    <i class="fas fa-eye mr-2"></i>Detalle de Solicitud
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Header: Estado y Observaciones -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-info-circle mr-2"></i>Estado y Observaciones</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="alert mb-0 d-flex align-items-center" role="alert" id="verDespEstadoAlert">
+                                    <i class="fas fa-circle mr-2"></i>
+                                    <div>
+                                        <strong>Estado:</strong> <span class="badge ml-2" id="verDespEstadoBadge">-</span>
+                                        <small class="d-block mt-1 text-muted" id="verDespEstadoDescripcion">-</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1"><strong>Observaciones:</strong></label>
+                                    <p class="mb-0" id="verDespObservaciones">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Identificación -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-id-card mr-2"></i>Identificación</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">ID Solicitud</label>
+                                    <input type="text" class="form-control" id="verDespIDSolicitud" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Tipo</label>
+                                    <input type="text" class="form-control" id="verDespTipo" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Relación SODI-CEN</label>
+                                    <input type="text" class="form-control" id="verDespRelacionSODICEN" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Fechas Programadas -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="far fa-calendar-alt mr-2"></i>Fechas Programadas</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Inicio Programado</label>
+                                    <input type="text" class="form-control" id="verDespInicioProgramado" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Fin Programado</label>
+                                    <input type="text" class="form-control" id="verDespFinProgramado" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Fechas Efectivas de Ejecución -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-clock mr-2"></i>Fechas Efectivas de Ejecución</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Inicio Efectivo</label>
+                                    <input type="text" class="form-control" id="verDespInicioEfectivo" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Fin Efectivo</label>
+                                    <input type="text" class="form-control" id="verDespFinEfectivo" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Empresas Involucradas -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-building mr-2"></i>Empresas Involucradas</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Empresa Solicitante</label>
+                                    <input type="text" class="form-control" id="verDespEmpresaSolicitante" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Empresa Receptora</label>
+                                    <input type="text" class="form-control" id="verDespEmpresaReceptora" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Instalación y Equipos -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-cogs mr-2"></i>Instalación y Equipos</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Instalación GM</label>
+                                    <input type="text" class="form-control" id="verDespInstalacionGM" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Instalaciones/equipos a intervenir</label>
+                                    <input type="text" class="form-control" id="verDespEquipos" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Características de la Intervención -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-wrench mr-2"></i>Características de la Intervención</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Tipo de intervención</label>
+                                    <input type="text" class="form-control" id="verDespTipoIntervencion" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Riesgo</label>
+                                    <input type="text" class="form-control" id="verDespRiesgo" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">SODI</label>
+                                    <input type="text" class="form-control" id="verDespSODI" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Potencia (KwH)</label>
+                                    <input type="text" class="form-control" id="verDespPotencia" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Descripción y Condiciones -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-file-alt mr-2"></i>Descripción y Condiciones</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Descripción del trabajo</label>
+                                    <textarea class="form-control" id="verDespDescripcion" rows="2" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Condiciones requeridas</label>
+                                    <textarea class="form-control" id="verDespCondiciones" rows="2" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Afectaciones</label>
+                                    <input type="text" class="form-control" id="verDespAfectaciones" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Comentarios</label>
+                                    <textarea class="form-control" id="verDespComentarios" rows="2" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Archivos Adjuntos -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-paperclip mr-2"></i>Archivos Adjuntos</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <span id="verDespAdjunto" class="text-muted">-</span>
+                                    <button type="button" class="btn btn-sm btn-primary ml-2" id="verDespDescargarAdjunto" style="display:none;">
+                                        <i class="fas fa-download mr-1"></i>Descargar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer: Información del Sistema -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-info mr-2"></i>Información del Sistema</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">ID</label>
+                                    <input type="text" class="form-control form-control-sm" id="verDespIDRegistro" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Creado</label>
+                                    <input type="text" class="form-control form-control-sm" id="verDespCreado" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Actualizado</label>
+                                    <input type="text" class="form-control form-control-sm" id="verDespActualizado" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Administrador</label>
+                                    <input type="text" class="form-control form-control-sm" id="verDespAdministrador" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Solicitante</label>
+                                    <input type="text" class="form-control form-control-sm" id="verDespSolicitante" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Creado Por</label>
+                                    <input type="text" class="form-control form-control-sm" id="verDespCreadoPor" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-times mr-2"></i>Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

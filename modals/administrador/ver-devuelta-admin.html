@@ -1,10 +1,10 @@
-<!-- MODAL VER SOLICITUD - EN ANÁLISIS -->
-<div class="modal fade" id="modalVerEnAnalisisAdmin" tabindex="-1" role="dialog" aria-labelledby="modalVerEnAnalisisAdminLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+<!-- MODAL VER SOLICITUD - DEVUELTA (ADMINISTRADOR) -->
+<div class="modal fade" id="modalVerDevueltaAdmin" tabindex="-1" role="dialog" aria-labelledby="modalVerDevueltaAdminLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-            <div class="modal-header bg-info text-white">
-                <h5 class="modal-title" id="modalVerEnAnalisisAdminLabel">
-                    <i class="fas fa-search mr-2"></i>Detalle de Solicitud - En Análisis
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="modalVerDevueltaAdminLabel">
+                    <i class="fas fa-undo mr-2"></i>Detalle de Solicitud - Devuelta
                 </h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -14,11 +14,11 @@
                 <!-- Estado y Observaciones -->
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        <div class="alert alert-info d-flex align-items-center" role="alert">
-                            <i class="fas fa-search mr-2"></i>
+                        <div class="alert alert-danger d-flex align-items-center" role="alert">
+                            <i class="fas fa-undo mr-2"></i>
                             <div>
-                                <strong>Estado:</strong> <span class="badge badge-info ml-2" id="verAnalisisEstado">-</span>
-                                <small class="d-block mt-1">Observación: <span id="verAnalisisObservaciones">-</span></small>
+                                <strong>Estado:</strong> <span class="badge badge-danger ml-2" id="verDevueltaAdminEstado">-</span>
+                                <small class="d-block mt-1">Observación: <span id="verDevueltaAdminObservaciones">-</span></small>
                             </div>
                         </div>
                     </div>
@@ -34,19 +34,19 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">ID Solicitud</label>
-                                    <input type="text" class="form-control" id="verAnalisisIDSolicitud" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminIDSolicitud" readonly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Tipo</label>
-                                    <input type="text" class="form-control" id="verAnalisisTipo" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminTipo" readonly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Relación SODI-CEN</label>
-                                    <input type="text" class="form-control" id="verAnalisisRelacionSODICEN" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminRelacionSODICEN" readonly>
                                 </div>
                             </div>
                         </div>
@@ -63,13 +63,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Inicio Programado</label>
-                                    <input type="text" class="form-control" id="verAnalisisInicioProgramado" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminInicioProgramado" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Fin Programado</label>
-                                    <input type="text" class="form-control" id="verAnalisisFinProgramado" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminFinProgramado" readonly>
                                 </div>
                             </div>
                         </div>
@@ -86,13 +86,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Inicio Efectivo</label>
-                                    <input type="text" class="form-control" id="verAnalisisInicioEfectivo" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminInicioEfectivo" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Fin Efectivo</label>
-                                    <input type="text" class="form-control" id="verAnalisisFinEfectivo" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminFinEfectivo" readonly>
                                 </div>
                             </div>
                         </div>
@@ -109,13 +109,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Empresa Solicitante</label>
-                                    <input type="text" class="form-control" id="verAnalisisEmpresaSolicitante" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminEmpresaSolicitante" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Empresa Receptora</label>
-                                    <input type="text" class="form-control" id="verAnalisisEmpresaReceptora" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminEmpresaReceptora" readonly>
                                 </div>
                             </div>
                         </div>
@@ -132,13 +132,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Instalación GM</label>
-                                    <input type="text" class="form-control" id="verAnalisisInstalacionGM" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminInstalacionGM" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Equipos a intervenir</label>
-                                    <input type="text" class="form-control" id="verAnalisisEquiposIntervenir" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminEquiposIntervenir" readonly>
                                 </div>
                             </div>
                         </div>
@@ -155,25 +155,25 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Tipo de intervención</label>
-                                    <input type="text" class="form-control" id="verAnalisisTipoIntervencion" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminTipoIntervencion" readonly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Descripción del riesgo</label>
-                                    <input type="text" class="form-control" id="verAnalisisRiesgo" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminRiesgo" readonly>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">SODI</label>
-                                    <input type="text" class="form-control" id="verAnalisisSODI" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminSODI" readonly>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Potencia (MW)</label>
-                                    <input type="text" class="form-control" id="verAnalisisPotencia" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminPotencia" readonly>
                                 </div>
                             </div>
                         </div>
@@ -188,23 +188,23 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label class="text-muted small mb-1">Descripción del trabajo</label>
-                            <textarea class="form-control" id="verAnalisisDescripcion" rows="3" readonly></textarea>
+                            <textarea class="form-control" id="verDevueltaAdminDescripcion" rows="3" readonly></textarea>
                         </div>
                         <div class="form-group">
                             <label class="text-muted small mb-1">Condiciones requeridas</label>
-                            <textarea class="form-control" id="verAnalisisCondiciones" rows="3" readonly></textarea>
+                            <textarea class="form-control" id="verDevueltaAdminCondiciones" rows="3" readonly></textarea>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Afectaciones</label>
-                                    <input type="text" class="form-control" id="verAnalisisAfectaciones" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminAfectaciones" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Comentarios</label>
-                                    <input type="text" class="form-control" id="verAnalisisComentarios" readonly>
+                                    <input type="text" class="form-control" id="verDevueltaAdminComentarios" readonly>
                                 </div>
                             </div>
                         </div>
@@ -219,7 +219,7 @@
                     <div class="card-body">
                         <div class="form-group mb-0">
                             <label class="text-muted small mb-1">Adjunto</label>
-                            <input type="text" class="form-control" id="verAnalisisAdjunto" readonly>
+                            <input type="text" class="form-control" id="verDevueltaAdminAdjunto" readonly>
                         </div>
                     </div>
                 </div>
@@ -237,37 +237,37 @@
                     <div class="col-md-2">
                         <div class="form-group mb-0">
                             <label class="text-muted small"><strong>ID Registro</strong></label>
-                            <p class="mb-0" id="verAnalisisID">-</p>
+                            <p class="mb-0" id="verDevueltaAdminID">-</p>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group mb-0">
                             <label class="text-muted small"><strong>Solicitante</strong></label>
-                            <p class="mb-0" id="verAnalisisSolicitante">-</p>
+                            <p class="mb-0" id="verDevueltaAdminSolicitante">-</p>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group mb-0">
                             <label class="text-muted small"><strong>Administrador</strong></label>
-                            <p class="mb-0" id="verAnalisisAdministrador">-</p>
+                            <p class="mb-0" id="verDevueltaAdminAdministrador">-</p>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group mb-0">
                             <label class="text-muted small"><strong>Creado Por</strong></label>
-                            <p class="mb-0" id="verAnalisisCreadoPor">-</p>
+                            <p class="mb-0" id="verDevueltaAdminCreadoPor">-</p>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group mb-0">
                             <label class="text-muted small"><strong>Fecha Creación</strong></label>
-                            <p class="mb-0" id="verAnalisisCreado">-</p>
+                            <p class="mb-0" id="verDevueltaAdminCreado">-</p>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group mb-0">
                             <label class="text-muted small"><strong>Última Actualización</strong></label>
-                            <p class="mb-0" id="verAnalisisActualizado">-</p>
+                            <p class="mb-0" id="verDevueltaAdminActualizado">-</p>
                         </div>
                     </div>
                 </div>

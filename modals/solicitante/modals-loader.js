@@ -7,11 +7,8 @@
     const modalsToLoadSolic = [
         'modals/solicitante/nueva-solicitud-solic.html',
         'modals/solicitante/editar-solicitud-solic.html',
-        'modals/solicitante/ver-pendiente-solic.html',
-        'modals/solicitante/ver-devuelta-solic.html',
-        'modals/solicitante/ver-en-analisis-solic.html',
-        'modals/solicitante/ver-admin-gestionando-solic.html',
-        'modals/solicitante/ver-programada-solic.html',
+        'modals/solicitante/ver-solicitante.html',  // Modal unificado para todos los estados
+        'modals/solicitante/gestionar-solicitud-solicitante.html',  // Modal para gestionar solicitudes devueltas
         'modals/solicitante/clonar-solicitud-solic.html',
         'modals/bitacora.html'
     ];

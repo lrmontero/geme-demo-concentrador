@@ -11,124 +11,216 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Estado -->
+                <!-- Estado y Observaciones -->
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <div class="alert alert-warning d-flex align-items-center" role="alert">
                             <i class="fas fa-user-shield mr-2"></i>
                             <div>
-                                <strong>Estado:</strong> <span class="badge badge-warning ml-2">Administrador Gestionando</span>
-                                <small class="d-block mt-1">Esta solicitud está siendo gestionada por el administrador</small>
+                                <strong>Estado:</strong> <span class="badge badge-warning ml-2" id="verAdminEstado">-</span>
+                                <small class="d-block mt-1">Observación: <span id="verAdminObservaciones">-</span></small>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Fecha/hora programada inicio</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verAdminFechaInicio" readonly>
-                        </div>
+                <!-- Sección: Identificación -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-id-card mr-2"></i>Identificación</h6>
                     </div>
-                    
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Fecha/hora programada fin</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verAdminFechaFin" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Instalación GM</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verAdminInstalacionGM" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Instalaciones/equipos a intervenir</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verAdminEquiposIntervenir" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Tipo de intervención</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verAdminTipoIntervencion" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Descripción del riesgo</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verAdminRiesgo" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Potencia (MW)</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verAdminPotencia" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label><strong>Descripción del trabajo</strong></label>
-                            <textarea class="form-control-plaintext" id="verAdminDescripcionTrabajo" rows="3" readonly></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label><strong>Condiciones requeridas</strong></label>
-                            <textarea class="form-control-plaintext" id="verAdminCondicionesRequeridas" rows="3" readonly></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Afectaciones</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verAdminAfectaciones" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>SODI</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verAdminSODI" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label><strong>Comentarios</strong></label>
-                            <textarea class="form-control-plaintext" id="verAdminComentarios" rows="2" readonly></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label><strong>Archivos adjuntos</strong></label>
-                            <div id="verAdminArchivos" class="border rounded p-2 bg-light">
-                                <small class="text-muted">No hay archivos adjuntos</small>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">ID Solicitud</label>
+                                    <input type="text" class="form-control" id="verAdminIDSolicitud" readonly>
+                                </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Tipo</label>
+                                    <input type="text" class="form-control" id="verAdminTipo" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Relación SODI-CEN</label>
+                                    <input type="text" class="form-control" id="verAdminRelacionSODICEN" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Fechas Programadas -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="far fa-calendar-alt mr-2"></i>Fechas Programadas</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Inicio Programado</label>
+                                    <input type="text" class="form-control" id="verAdminInicioProgramado" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Fin Programado</label>
+                                    <input type="text" class="form-control" id="verAdminFinProgramado" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Fechas Efectivas de Ejecución -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-clock mr-2"></i>Fechas Efectivas de Ejecución</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Inicio Efectivo</label>
+                                    <input type="text" class="form-control" id="verAdminInicioEfectivo" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Fin Efectivo</label>
+                                    <input type="text" class="form-control" id="verAdminFinEfectivo" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Empresas Involucradas -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-industry mr-2"></i>Empresas Involucradas</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Empresa Solicitante</label>
+                                    <input type="text" class="form-control" id="verAdminEmpresaSolicitante" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Empresa Receptora</label>
+                                    <input type="text" class="form-control" id="verAdminEmpresaReceptora" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Sección: Instalación y Equipos -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-building mr-2"></i>Instalación y Equipos</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Instalación GM</label>
+                                    <input type="text" class="form-control" id="verAdminInstalacionGM" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Equipos a intervenir</label>
+                                    <input type="text" class="form-control" id="verAdminEquiposIntervenir" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Características de la Intervención -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-cogs mr-2"></i>Características de la Intervención</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Tipo de intervención</label>
+                                    <input type="text" class="form-control" id="verAdminTipoIntervencion" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Descripción del riesgo</label>
+                                    <input type="text" class="form-control" id="verAdminRiesgo" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">SODI</label>
+                                    <input type="text" class="form-control" id="verAdminSODI" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Potencia (MW)</label>
+                                    <input type="text" class="form-control" id="verAdminPotencia" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Descripción y Condiciones -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-file-alt mr-2"></i>Descripción y Condiciones</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="text-muted small mb-1">Descripción del trabajo</label>
+                            <textarea class="form-control" id="verAdminDescripcion" rows="3" readonly></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-muted small mb-1">Condiciones requeridas</label>
+                            <textarea class="form-control" id="verAdminCondiciones" rows="3" readonly></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Afectaciones</label>
+                                    <input type="text" class="form-control" id="verAdminAfectaciones" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Comentarios</label>
+                                    <input type="text" class="form-control" id="verAdminComentarios" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Archivos Adjuntos -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-paperclip mr-2"></i>Archivos Adjuntos</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small mb-1">Adjunto</label>
+                            <input type="text" class="form-control" id="verAdminAdjunto" readonly>
                         </div>
                     </div>
                 </div>
@@ -142,40 +234,41 @@
                         </h6>
                     </div>
                 </div>
-                <div class="row bg-light p-3 rounded">
+                <div class="row bg-light p-3 rounded mb-2">
                     <div class="col-md-2">
                         <div class="form-group mb-0">
-                            <label class="text-muted small"><strong>ID</strong></label>
+                            <label class="text-muted small"><strong>ID Registro</strong></label>
                             <p class="mb-0" id="verAdminID">-</p>
-                            <small class="text-muted">ID de sistema asignado a la solicitud</small>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group mb-0">
-                            <label class="text-muted small"><strong>Usuario Creador</strong></label>
-                            <p class="mb-0" id="verAdminUsuarioCreador">-</p>
-                            <small class="text-muted">Nombre del usuario que creó la solicitud</small>
+                            <label class="text-muted small"><strong>Solicitante</strong></label>
+                            <p class="mb-0" id="verAdminSolicitante">-</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>Administrador</strong></label>
+                            <p class="mb-0" id="verAdminAdministrador">-</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>Creado Por</strong></label>
+                            <p class="mb-0" id="verAdminCreadoPor">-</p>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group mb-0">
                             <label class="text-muted small"><strong>Fecha Creación</strong></label>
-                            <p class="mb-0" id="verAdminFechaCreacion">-</p>
-                            <small class="text-muted">Fecha de creación de la solicitud</small>
+                            <p class="mb-0" id="verAdminCreado">-</p>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group mb-0">
                             <label class="text-muted small"><strong>Última Actualización</strong></label>
-                            <p class="mb-0" id="verAdminFechaActualizacion">-</p>
-                            <small class="text-muted">Fecha de última actualización de la solicitud</small>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group mb-0">
-                            <label class="text-muted small"><strong>Administrador</strong></label>
-                            <p class="mb-0" id="verAdminAdministrador">-</p>
-                            <small class="text-muted">Administrador que toma la solicitud</small>
+                            <p class="mb-0" id="verAdminActualizado">-</p>
                         </div>
                     </div>
                 </div>

@@ -12,169 +12,199 @@
             </div>
             <div class="modal-body">
                 <form id="formNuevaSolicitud">
-                    <div class="row">
-                        <!-- Fecha/hora programada inicio -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Fecha/hora programada inicio <span class="text-danger">*</span></label>
-                                <input type="datetime-local" class="form-control" id="fechaInicio" name="fechaInicio" required>
-                                <small class="form-text text-muted">Debe ser una fecha futura</small>
-                            </div>
+                    <!-- Header: Estado -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-info-circle mr-2"></i>Estado</h6>
                         </div>
-                        
-                        <!-- Fecha/hora programada fin -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Fecha/hora programada fin <span class="text-danger">*</span></label>
-                                <input type="datetime-local" class="form-control" id="fechaFin" name="fechaFin" required>
-                                <small class="form-text text-muted">Debe ser posterior a la fecha de inicio</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!-- Instalación GM -->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Instalación GM <span class="text-danger">*</span></label>
-                                <select class="form-control" id="instalacionGM" name="instalacionGM" required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="CEME1">CEME1</option>
-                                    <option value="Nueva Renca">Nueva Renca</option>
-                                    <option value="Santa Lidia">Santa Lidia</option>
-                                    <option value="Los Vientos">Los Vientos</option>
-                                    <option value="Santiago Solar">Santiago Solar</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Instalaciones/equipos a intervenir -->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Instalaciones/equipos a intervenir <span class="text-danger">*</span></label>
-                                <select class="form-control" id="equiposIntervenir" name="equiposIntervenir" required disabled>
-                                    <option value="">Primero seleccione Instalación GM</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Estado -->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Estado</label>
-                                <input type="text" class="form-control" id="estadoSolicitante" name="estadoSolicitante" value="Pendiente" readonly disabled>
-                                <small class="form-text text-muted">Estado inicial de la solicitud</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Tipo de intervención -->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Tipo de intervención <span class="text-danger">*</span></label>
-                                <select class="form-control" id="tipoIntervencion" name="tipoIntervencion" required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="Intervención">Intervención</option>
-                                    <option value="Desconexión">Desconexión</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Descripción del riesgo -->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Descripción del riesgo <span class="text-danger">*</span></label>
-                                <select class="form-control" id="riesgo" name="riesgo" required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="Bajo">Bajo</option>
-                                    <option value="Medio">Medio</option>
-                                    <option value="Alto">Alto</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Potencia -->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Potencia (MW)</label>
-                                <input type="number" class="form-control" id="potencia" name="potencia" step="0.01" min="0" placeholder="Ej: 150.5">
-                                <small class="form-text text-muted">Campo opcional</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Descripción del trabajo -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Descripción del trabajo <span class="text-danger">*</span></label>
-                                <textarea class="form-control" id="descripcionTrabajo" name="descripcionTrabajo" rows="3" required minlength="10"></textarea>
-                                <small class="form-text text-muted">Mínimo 10 caracteres</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Condiciones requeridas -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Condiciones requeridas <span class="text-danger">*</span></label>
-                                <textarea class="form-control" id="condicionesRequeridas" name="condicionesRequeridas" rows="3" required></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Afectaciones -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Afectaciones <span class="text-danger">*</span></label>
-                                <select class="form-control" id="afectaciones" name="afectaciones" multiple required size="3">
-                                    <option value="SSCC">SSCC</option>
-                                    <option value="Protecciones">Protecciones</option>
-                                    <option value="Medidores">Medidores</option>
-                                </select>
-                                <small class="form-text text-muted">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
-                            </div>
-                        </div>
-
-                        <!-- SODI -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Aplica SODI? <span class="text-danger">*</span></label>
-                                <div class="mt-2">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="sodi" id="sodiSi" value="Si" required>
-                                        <label class="form-check-label" for="sodiSi">Sí</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="sodi" id="sodiNo" value="No">
-                                        <label class="form-check-label" for="sodiNo">No</label>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="alert alert-warning mb-0" role="alert">
+                                        <i class="fas fa-clock mr-2"></i>
+                                        <strong>Estado por defecto:</strong> <span class="badge badge-warning ml-2">Pendiente</span>
+                                        <small class="d-block mt-1 text-muted">Las solicitudes creadas por el solicitante inician en este estado</small>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <!-- Comentarios opcionales -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Comentarios opcionales</label>
-                                <textarea class="form-control" id="comentarios" name="comentarios" rows="2"></textarea>
+                    <!-- Sección: Fechas Programadas -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="far fa-calendar-alt mr-2"></i>Fechas Programadas</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Fecha y hora programada de inicio <span class="text-danger">*</span></label>
+                                        <input type="datetime-local" class="form-control" id="nuevaSolicInicioProgramado" name="inicioProgramado" required>
+                                        <small class="form-text text-muted">Debe ser una fecha futura</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Fecha y hora programada de fin <span class="text-danger">*</span></label>
+                                        <input type="datetime-local" class="form-control" id="nuevaSolicFinProgramado" name="finProgramado" required>
+                                        <small class="form-text text-muted">Debe ser posterior a la fecha de inicio</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <!-- Carga de archivo -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Carga de archivo</label>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="archivoAdjunto" name="archivoAdjunto" accept=".pdf,.doc,.docx,.xls,.xlsx">
-                                    <label class="custom-file-label" for="archivoAdjunto">Seleccionar archivo...</label>
+                    <!-- Sección: Instalación y Equipos -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-cogs mr-2"></i>Instalación y Equipos</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Instalación GM <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaSolicInstalacionGM" name="instalacionGM" required>
+                                            <option value="">Seleccione...</option>
+                                            <option value="Santiago Solar">Santiago Solar</option>
+                                            <option value="Nueva Renca">Nueva Renca</option>
+                                            <option value="Los Vientos">Los Vientos</option>
+                                            <option value="Santa Lidia">Santa Lidia</option>
+                                            <option value="CEME1">CEME1</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <small class="form-text text-muted">Formatos permitidos: PDF, Word, Excel</small>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Instalaciones/equipos a intervenir <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaSolicEquipos" name="equipos" required disabled>
+                                            <option value="">Primero seleccione Instalación GM</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección: Características de la Intervención -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-wrench mr-2"></i>Características de la Intervención</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Tipo de intervención <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaSolicTipoIntervencion" name="tipoIntervencion" required>
+                                            <option value="">Seleccione...</option>
+                                            <option value="Intervención">Intervención</option>
+                                            <option value="Desconexión">Desconexión</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Descripción del riesgo <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaSolicRiesgo" name="riesgo" required>
+                                            <option value="">Seleccione...</option>
+                                            <option value="Bajo">Bajo</option>
+                                            <option value="Medio">Medio</option>
+                                            <option value="Alto">Alto</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">SODI <span class="text-danger">*</span></label>
+                                        <div class="mt-2">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="nuevaSolicSODI" id="nuevaSolicSODISi" value="Sí" required>
+                                                <label class="form-check-label" for="nuevaSolicSODISi">Sí</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="nuevaSolicSODI" id="nuevaSolicSODINo" value="No">
+                                                <label class="form-check-label" for="nuevaSolicSODINo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Potencia (KwH)</label>
+                                        <input type="number" class="form-control" id="nuevaSolicPotencia" name="potencia" step="0.01" min="0" placeholder="Ej: 150.5">
+                                        <small class="form-text text-muted">Opcional</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección: Descripción y Condiciones -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-file-alt mr-2"></i>Descripción y Condiciones</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Descripción del trabajo a realizar <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="nuevaSolicDescripcion" name="descripcion" rows="3" required minlength="10" placeholder="Describa detalladamente el trabajo a realizar..."></textarea>
+                                        <small class="form-text text-muted">Mínimo 10 caracteres</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Condiciones requeridas <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="nuevaSolicCondiciones" name="condiciones" rows="3" required placeholder="Especifique las condiciones necesarias..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Afectaciones <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaSolicAfectaciones" name="afectaciones" multiple required size="3">
+                                            <option value="SSCC">SSCC</option>
+                                            <option value="Protecciones">Protecciones</option>
+                                            <option value="Medidores">Medidores</option>
+                                        </select>
+                                        <small class="form-text text-muted">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Comentarios</label>
+                                        <textarea class="form-control" id="nuevaSolicComentarios" name="comentarios" rows="2" placeholder="Comentarios adicionales (opcional)..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección: Archivos Adjuntos -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-paperclip mr-2"></i>Archivos Adjuntos</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Carga de archivo</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="nuevaSolicAdjunto" name="adjunto" accept=".pdf,.doc,.docx,.xls,.xlsx">
+                                            <label class="custom-file-label" for="nuevaSolicAdjunto">Seleccionar archivo...</label>
+                                        </div>
+                                        <small class="form-text text-muted">Formatos permitidos: PDF, Word, Excel</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

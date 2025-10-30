@@ -1,0 +1,362 @@
+<!-- MODAL GESTIONAR SOLICITUD SOLICITANTE - Para solicitudes DEVUELTAS -->
+<div class="modal fade" id="modalGestionarSolicitudSolicitante" tabindex="-1" role="dialog" aria-labelledby="modalGestionarSolicitudSolicitanteLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalGestionarSolicitudSolicitanteLabel">
+                    <i class="fas fa-tasks mr-2"></i>Gestionar Solicitud Devuelta
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Header: Estado y Observaciones -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-info-circle mr-2"></i>Estado y Observaciones</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="alert mb-0 d-flex align-items-center" role="alert" id="gestionarSolEstadoAlert">
+                                    <i class="fas fa-circle mr-2"></i>
+                                    <div>
+                                        <strong>Estado:</strong> <span class="badge ml-2" id="gestionarSolEstadoBadge">-</span>
+                                        <small class="d-block mt-1 text-muted" id="gestionarSolEstadoDescripcion">-</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1"><strong>Observaciones del Administrador:</strong></label>
+                                    <p class="mb-0" id="gestionarSolObservacionesHeader">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Identificación (SOLO LECTURA) -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-id-card mr-2"></i>Identificación</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">ID Solicitud</label>
+                                    <input type="text" class="form-control" id="gestionarSolIDSolicitud" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Tipo</label>
+                                    <input type="text" class="form-control" id="gestionarSolTipo" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Relación SODI-CEN</label>
+                                    <input type="text" class="form-control" id="gestionarSolRelacionSODICEN" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Fechas Programadas (EDITABLE) -->
+                <div class="card mb-3 border-warning">
+                    <div class="card-header bg-warning text-dark py-2">
+                        <h6 class="mb-0"><i class="fas fa-edit mr-2"></i>Fechas Programadas <span class="badge badge-light ml-2">EDITABLE</span></h6>
+                    </div>
+                    <div class="card-body bg-light">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Inicio Programado <span class="text-danger">*</span></label>
+                                    <input type="datetime-local" class="form-control" id="gestionarSolInicioProgramado" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Fin Programado <span class="text-danger">*</span></label>
+                                    <input type="datetime-local" class="form-control" id="gestionarSolFinProgramado" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Empresas Involucradas (SOLO LECTURA) -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-building mr-2"></i>Empresas Involucradas</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Empresa Solicitante</label>
+                                    <input type="text" class="form-control" id="gestionarSolEmpresaSolicitante" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Empresa Receptora</label>
+                                    <input type="text" class="form-control" id="gestionarSolEmpresaReceptora" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Instalación y Equipos (EDITABLE) -->
+                <div class="card mb-3 border-warning">
+                    <div class="card-header bg-warning text-dark py-2">
+                        <h6 class="mb-0"><i class="fas fa-edit mr-2"></i>Instalación y Equipos <span class="badge badge-light ml-2">EDITABLE</span></h6>
+                    </div>
+                    <div class="card-body bg-light">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Instalación GM <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="gestionarSolInstalacionGM" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Santiago Solar">Santiago Solar</option>
+                                        <option value="Nueva Renca">Nueva Renca</option>
+                                        <option value="Los Vientos">Los Vientos</option>
+                                        <option value="Santa Lidia">Santa Lidia</option>
+                                        <option value="CEME1">CEME1</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Instalaciones/equipos a intervenir <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="gestionarSolEquipos" placeholder="Ej: Paños, Transformador, etc." required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Características de la Intervención (EDITABLE) -->
+                <div class="card mb-3 border-warning">
+                    <div class="card-header bg-warning text-dark py-2">
+                        <h6 class="mb-0"><i class="fas fa-edit mr-2"></i>Características de la Intervención <span class="badge badge-light ml-2">EDITABLE</span></h6>
+                    </div>
+                    <div class="card-body bg-light">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Tipo de intervención <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="gestionarSolTipoIntervencion" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Intervención">Intervención</option>
+                                        <option value="Desconexión">Desconexión</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Riesgo <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="gestionarSolRiesgo" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Bajo">Bajo</option>
+                                        <option value="Medio">Medio</option>
+                                        <option value="Alto">Alto</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">SODI <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="gestionarSolSODI" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="No Aplica">No Aplica</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Potencia (KwH) <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="gestionarSolPotencia" placeholder="0" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Descripción y Condiciones (EDITABLE) -->
+                <div class="card mb-3 border-warning">
+                    <div class="card-header bg-warning text-dark py-2">
+                        <h6 class="mb-0"><i class="fas fa-edit mr-2"></i>Descripción y Condiciones <span class="badge badge-light ml-2">EDITABLE</span></h6>
+                    </div>
+                    <div class="card-body bg-light">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Descripción del trabajo <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="gestionarSolDescripcion" rows="2" placeholder="Describa el trabajo a realizar..." required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Condiciones requeridas <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="gestionarSolCondiciones" rows="2" placeholder="Especifique las condiciones necesarias..." required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Afectaciones <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="gestionarSolAfectaciones" placeholder="Ej: SSCC, Protecciones, Medidores" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Comentarios</label>
+                                    <textarea class="form-control" id="gestionarSolComentariosActuales" rows="2" placeholder="Comentarios adicionales..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Archivo Adjunto (EDITABLE) -->
+                <div class="card mb-3 border-warning">
+                    <div class="card-header bg-warning text-dark py-2">
+                        <h6 class="mb-0"><i class="fas fa-edit mr-2"></i>Archivo Adjunto <span class="badge badge-light ml-2">EDITABLE</span></h6>
+                    </div>
+                    <div class="card-body bg-light">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Archivo Actual</label>
+                                    <div>
+                                        <span id="gestionarSolAdjuntoActual" class="text-muted">-</span>
+                                        <button type="button" class="btn btn-sm btn-primary ml-2" id="gestionarSolDescargarAdjunto" style="display:none;">
+                                            <i class="fas fa-download mr-1"></i>Descargar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Cargar nuevo archivo</label>
+                                    <input type="file" class="form-control-file" id="gestionarSolAdjunto" accept=".pdf,.doc,.docx,.xls,.xlsx">
+                                    <small class="form-text text-muted">Formatos permitidos: PDF, Word, Excel</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de Gestión -->
+                <div class="card mb-3 border-success">
+                    <div class="card-header bg-success text-white py-2">
+                        <h6 class="mb-0"><i class="fas fa-tasks mr-2"></i>Gestión de la Solicitud</h6>
+                    </div>
+                    <div class="card-body">
+                        <!-- Observaciones actuales (solo lectura) -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-warning" role="alert">
+                                    <strong><i class="fas fa-exclamation-triangle mr-2"></i>Solicitud Devuelta</strong>
+                                    <p class="mb-0 mt-2">Esta solicitud fue devuelta por el administrador. Por favor, corrija los campos marcados como editables y agregue sus observaciones antes de reenviarla.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nuevas observaciones del solicitante -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Observaciones del Solicitante <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="gestionarSolObservaciones" rows="3" placeholder="Ingrese las correcciones realizadas y observaciones adicionales..." required></textarea>
+                                    <small class="form-text text-muted"><i class="fas fa-exclamation-circle mr-1"></i>Estas observaciones se agregarán al historial de la solicitud</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Acción: Reenviar a Pendiente -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-info mb-0" role="alert">
+                                    <strong><i class="fas fa-info-circle mr-2"></i>Acción:</strong> Al confirmar, la solicitud volverá al estado <strong>"Pendiente"</strong> para revisión del administrador.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metadata del Sistema -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6 class="text-muted mb-3">
+                            <i class="fas fa-info-circle mr-2"></i>Información del Sistema
+                        </h6>
+                    </div>
+                </div>
+                <div class="row bg-light p-3 rounded">
+                    <div class="col-md-2">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>ID</strong></label>
+                            <p class="mb-0" id="gestionarSolIDRegistro">-</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>Creado</strong></label>
+                            <p class="mb-0" id="gestionarSolCreado">-</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>Actualizado</strong></label>
+                            <p class="mb-0" id="gestionarSolActualizado">-</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>Administrador</strong></label>
+                            <p class="mb-0" id="gestionarSolAdministrador">-</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>Solicitante</strong></label>
+                            <p class="mb-0" id="gestionarSolSolicitante">-</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small"><strong>Creado Por</strong></label>
+                            <p class="mb-0" id="gestionarSolCreadoPor">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-times mr-2"></i>Cancelar
+                </button>
+                <button type="button" class="btn btn-success" onclick="confirmarGestionSolicitudSolicitante()">
+                    <i class="fas fa-paper-plane mr-2"></i>Reenviar a Pendiente
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -187,41 +187,8 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
     // Generar cada fila
     solicitudes.forEach(solicitud => {
         // Determinar función de ver según el estado
-        let funcionVer = '';
-        switch(solicitud.ESTADO) {
-            case 'Pendiente':
-                funcionVer = `verSolicitudPendienteDesp(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'En Análisis':
-                funcionVer = `verSolicitudEnAnalisisDesp(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'Administrador Gestionando':
-                funcionVer = `verSolicitudAdminGestionandoDesp(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'Programada':
-                funcionVer = `verSolicitudProgramadaDesp(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'Vigente':
-                funcionVer = `verSolicitudVigenteDesp(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'Extendida':
-                funcionVer = `verSolicitudExtendidaDesp(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'Finalizada':
-                funcionVer = `verSolicitudFinalizada(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'Rechazada':
-                funcionVer = `verSolicitudRechazada(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'Suspendida':
-                funcionVer = `verSolicitudSuspendida(${solicitud.ID_REGISTRO})`;
-                break;
-            case 'No Solicitada':
-                funcionVer = `verSolicitudNoSolicitada(${solicitud.ID_REGISTRO})`;
-                break;
-            default:
-                funcionVer = `verSolicitudPendienteDesp(${solicitud.ID_REGISTRO})`;
-        }
+        // Usar función unificada para ver solicitudes
+        const funcionVer = `verSolicitudDesp(${solicitud.ID_REGISTRO})`;
         
         // Determinar badge de tipo
         let badgeTipo = 'badge-secondary';
@@ -240,8 +207,10 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
         let claseFinalizad = '';
         switch(solicitud.ESTADO) {
             case 'Pendiente': badgeEstado = 'badge-warning'; break;
+            case 'Devuelta': badgeEstado = 'badge-danger'; break;
             case 'En Análisis': badgeEstado = 'badge-info'; break;
             case 'Administrador Gestionando': badgeEstado = 'badge-warning text-dark'; break;
+            case 'Despachador Gestionando': badgeEstado = 'badge-warning text-dark'; break;
             case 'Programada': badgeEstado = 'badge-success'; break;
             case 'Vigente': badgeEstado = 'badge-primary'; break;
             case 'Extendida': badgeEstado = 'badge-secondary'; break;
@@ -263,11 +232,38 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
                 break;
         }
         
-        // Acciones del despachador (solo ver y bitácora)
+        // Acciones del despachador
+        let accionEditar = '';
+        let accionGestionar = '';
+        
+        // Botón Editar: SOLO para "Despachador Gestionando"
+        if (solicitud.ESTADO === 'Despachador Gestionando') {
+            accionEditar = `
+                <a href="javascript:;" onclick="editarSolicitudDesp(${solicitud.ID_REGISTRO})" class="text-warning" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </a>
+            `;
+        }
+        
+        // Mostrar botón "Gestionar" solo para estados que el despachador puede gestionar
+        const estadosGestionables = ['Despachador Gestionando', 'Programada', 'Vigente', 'Extendida'];
+        if (estadosGestionables.includes(solicitud.ESTADO)) {
+            accionGestionar = `
+                <a href="javascript:;" onclick="gestionarSolicitudDesp(${solicitud.ID_REGISTRO})" class="text-danger ml-2" title="Gestionar">
+                    <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            `;
+        }
+        
         const acciones = `
-            <a href="javascript:;" onclick="${funcionVer}" class="text-primary" title="Ver">
+            ${accionEditar}
+            <a href="javascript:;" onclick="${funcionVer}" class="text-primary ml-2" title="Ver">
                 <i class="fas fa-eye"></i>
             </a>
+            <a href="javascript:;" onclick="clonarSolicitudDesp(${solicitud.ID_REGISTRO})" class="text-info ml-2" title="Clonar">
+                <i class="fas fa-copy"></i>
+            </a>
+            ${accionGestionar}
             <a href="javascript:;" onclick="abrirBitacora(${solicitud.ID_REGISTRO})" class="text-success ml-2" title="Bitácora">
                 <i class="fas fa-clipboard-list"></i>
             </a>
@@ -331,8 +327,8 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
     // Remover el display:none inline de las filas finalizadas para que DataTables las pueda procesar
     $('.solicitud-finalizada').removeAttr('style');
     
-    // Estados que se consideran "En Proceso" para Despachador (solo Programada, Vigente, Extendida)
-    const estadosEnProceso = ['Programada', 'Vigente', 'Extendida'];
+    // Estados que se consideran "En Proceso" para Despachador
+    const estadosEnProceso = ['Despachador Gestionando', 'Programada', 'Vigente', 'Extendida'];
     
     // Estados que se consideran "Finalizadas"
     const estadosFinalizadas = ['Finalizada', 'No Solicitada', 'Rechazada', 'Suspendida'];
@@ -384,3 +380,6 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
     });
 })();
 </script>
+
+<!-- Cargar modales del despachador -->
+<script src="modals/despachador/modals-loader.js?v=2" defer></script>

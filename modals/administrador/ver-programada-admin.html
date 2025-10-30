@@ -11,124 +11,209 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Estado -->
+                <!-- Estado y Observaciones -->
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <div class="alert alert-success d-flex align-items-center" role="alert">
                             <i class="fas fa-calendar-check mr-2"></i>
                             <div>
-                                <strong>Estado:</strong> <span class="badge badge-success ml-2">Programada</span>
-                                <small class="d-block mt-1">Esta solicitud ha sido programada</small>
+                                <strong>Estado:</strong> <span class="badge badge-success ml-2" id="verProgramadaEstado">-</span>
+                                <small class="d-block mt-1">Observación: <span id="verProgramadaObservaciones">-</span></small>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Fecha/hora programada inicio</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verProgramadaFechaInicio" readonly>
-                        </div>
+                <!-- Sección: Identificación -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-id-card mr-2"></i>Identificación</h6>
                     </div>
-                    
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Fecha/hora programada fin</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verProgramadaFechaFin" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Instalación GM</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verProgramadaInstalacionGM" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Instalaciones/equipos a intervenir</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verProgramadaEquiposIntervenir" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Tipo de intervención</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verProgramadaTipoIntervencion" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Descripción del riesgo</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verProgramadaRiesgo" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Potencia (MW)</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verProgramadaPotencia" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label><strong>Descripción del trabajo</strong></label>
-                            <textarea class="form-control-plaintext" id="verProgramadaDescripcionTrabajo" rows="3" readonly></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label><strong>Condiciones requeridas</strong></label>
-                            <textarea class="form-control-plaintext" id="verProgramadaCondicionesRequeridas" rows="3" readonly></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>Afectaciones</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verProgramadaAfectaciones" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label><strong>SODI</strong></label>
-                            <input type="text" class="form-control-plaintext" id="verProgramadaSODI" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label><strong>Comentarios</strong></label>
-                            <textarea class="form-control-plaintext" id="verProgramadaComentarios" rows="2" readonly></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label><strong>Archivos adjuntos</strong></label>
-                            <div id="verProgramadaArchivos" class="border rounded p-2 bg-light">
-                                <small class="text-muted">No hay archivos adjuntos</small>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">ID Solicitud</label>
+                                    <input type="text" class="form-control" id="verProgramadaIDSolicitud" readonly>
+                                </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Tipo</label>
+                                    <input type="text" class="form-control" id="verProgramadaTipo" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Relación SODI-CEN</label>
+                                    <input type="text" class="form-control" id="verProgramadaRelacionSODICEN" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Fechas Programadas -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="far fa-calendar-alt mr-2"></i>Fechas Programadas</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Inicio Programado</label>
+                                    <input type="text" class="form-control" id="verProgramadaInicioProgramado" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Fin Programado</label>
+                                    <input type="text" class="form-control" id="verProgramadaFinProgramado" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Fechas Efectivas de Ejecución -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-clock mr-2"></i>Fechas Efectivas de Ejecución</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Inicio Efectivo</label>
+                                    <input type="text" class="form-control" id="verProgramadaInicioEfectivo" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Fin Efectivo</label>
+                                    <input type="text" class="form-control" id="verProgramadaFinEfectivo" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Empresas Involucradas -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-industry mr-2"></i>Empresas Involucradas</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Empresa Solicitante</label>
+                                    <input type="text" class="form-control" id="verProgramadaEmpresaSolicitante" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Empresa Receptora</label>
+                                    <input type="text" class="form-control" id="verProgramadaEmpresaReceptora" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Instalación y Equipos -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-building mr-2"></i>Instalación y Equipos</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Instalación GM</label>
+                                    <input type="text" class="form-control" id="verProgramadaInstalacionGM" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Equipos a intervenir</label>
+                                    <input type="text" class="form-control" id="verProgramadaEquiposIntervenir" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Características de la Intervención -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-cogs mr-2"></i>Características de la Intervención</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Tipo de intervención</label>
+                                    <input type="text" class="form-control" id="verProgramadaTipoIntervencion" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Descripción del riesgo</label>
+                                    <input type="text" class="form-control" id="verProgramadaRiesgo" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Potencia (MW)</label>
+                                    <input type="text" class="form-control" id="verProgramadaPotencia" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Descripción y Condiciones -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-file-alt mr-2"></i>Descripción y Condiciones</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="text-muted small mb-1">Descripción del trabajo</label>
+                            <textarea class="form-control" id="verProgramadaDescripcion" rows="3" readonly></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-muted small mb-1">Condiciones requeridas</label>
+                            <textarea class="form-control" id="verProgramadaCondiciones" rows="3" readonly></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Afectaciones</label>
+                                    <input type="text" class="form-control" id="verProgramadaAfectaciones" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Comentarios</label>
+                                    <input type="text" class="form-control" id="verProgramadaComentarios" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Archivos Adjuntos -->
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-paperclip mr-2"></i>Archivos Adjuntos</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group mb-0">
+                            <label class="text-muted small mb-1">Adjunto</label>
+                            <input type="text" class="form-control" id="verProgramadaAdjunto" readonly>
                         </div>
                     </div>
                 </div>
