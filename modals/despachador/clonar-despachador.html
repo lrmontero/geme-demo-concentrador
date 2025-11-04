@@ -75,8 +75,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Relación SODI-CEN <span class="badge badge-success">COPIADO</span></label>
-                                    <input type="text" class="form-control" id="clonarDespRelacionSODICEN" name="relacionSODICEN" placeholder="Ej: CEN-2025-001, SODI-123">
+                                    <label class="text-muted small mb-1">Relación SODI/CEN <span class="badge badge-success">COPIADO</span></label>
+                                    <textarea class="form-control" id="clonarDespRelacionSODICEN" name="relacionSODICEN" rows="1" placeholder="Ej: CEN-2025-001, SODI-123"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -169,9 +169,66 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Potencia (KwH)</label>
-                                    <input type="number" class="form-control" id="clonarDespPotencia" name="potencia" placeholder="Ej: 1500" step="0.01" min="0">
-                                    <small class="form-text text-muted">Opcional</small>
+                                    <label class="text-muted small mb-1">Instalaciones/Equipos a intervenir <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="clonarDespEquipos" name="equipos" required placeholder="Ej: Paño 1, Transformador T1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección: Características de la Intervención (SE COPIA VALOR) -->
+                <div class="card mb-3">
+                    <div class="card-header bg-success text-white py-2">
+                        <h6 class="mb-0"><i class="fas fa-wrench mr-2"></i>Características de la Intervención <span class="badge badge-light ml-2">EDITABLE</span></h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Tipo de Intervención <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="clonarDespTipoIntervencion" name="tipoIntervencion" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Intervención">Intervención</option>
+                                        <option value="Desconexión">Desconexión</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Potencia (MWH) <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="clonarDespPotencia" name="potencia" step="0.01" min="0" required placeholder="Ej: 150.50">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Aplica SODI <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="clonarDespAplicaSODI" name="aplicaSODI" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Sí">Sí</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Clasificación del Riesgo <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="clonarDespRiesgo" name="riesgo" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Bajo">Bajo</option>
+                                        <option value="Medio">Medio</option>
+                                        <option value="Alto">Alto</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Campo condicional: Descripción del Riesgo -->
+                        <div class="row" id="clonarDespDescripcionRiesgoContainer" style="display: none;">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Descripción del Riesgo <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="clonarDespDescripcionRiesgo" name="descripcionRiesgo" rows="2" placeholder="Describa el riesgo identificado..."></textarea>
+                                    <small class="form-text text-muted">Obligatorio cuando el riesgo es Medio o Alto</small>
                                 </div>
                             </div>
                         </div>
@@ -203,9 +260,37 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group mb-0">
+                                <div class="form-group">
                                     <label class="text-muted small mb-1">Comentarios</label>
                                     <textarea class="form-control" id="clonarDespComentarios" name="comentarios" rows="2" placeholder="Comentarios adicionales (opcional)..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Afectaciones</label>
+                                    <select class="form-control" id="clonarDespAfectaciones" name="afectaciones">
+                                        <option value="">Seleccione...</option>
+                                        <option value="SSCC">SSCC</option>
+                                        <option value="Protecciones">Protecciones</option>
+                                        <option value="Medidores">Medidores</option>
+                                        <option value="SSCC, Protecciones">SSCC, Protecciones</option>
+                                        <option value="SSCC, Medidores">SSCC, Medidores</option>
+                                        <option value="Protecciones, Medidores">Protecciones, Medidores</option>
+                                        <option value="SSCC, Protecciones, Medidores">SSCC, Protecciones, Medidores</option>
+                                    </select>
+                                    <small class="form-text text-muted">Opcional</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Campo condicional: Descripción de la Afectación -->
+                        <div class="row" id="clonarDespDescripcionAfectacionContainer" style="display: none;">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Descripción de la Afectación <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="clonarDespDescripcionAfectacion" name="descripcionAfectacion" rows="2" placeholder="Describa la afectación..."></textarea>
+                                    <small class="form-text text-muted">Obligatorio cuando se selecciona alguna afectación</small>
                                 </div>
                             </div>
                         </div>
@@ -219,14 +304,25 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group mb-0">
+                            <div class="col-md-8">
+                                <div class="form-group">
                                     <label class="text-muted small mb-1">Carga de archivo</label>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="clonarDespAdjunto" name="adjunto" accept=".pdf,.doc,.docx,.xls,.xlsx">
                                         <label class="custom-file-label" for="clonarDespAdjunto">Seleccionar archivo...</label>
                                     </div>
                                     <small class="form-text text-muted">Formatos permitidos: PDF, Word, Excel (Opcional)</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">SODI Adjunta</label>
+                                    <select class="form-control" id="clonarDespSODIAdjunto" name="sodiAdjunto">
+                                        <option value="">Seleccione...</option>
+                                        <option value="Sí">Sí</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    <small class="form-text text-muted">Opcional</small>
                                 </div>
                             </div>
                         </div>
@@ -245,3 +341,44 @@
         </div>
     </div>
 </div>
+
+<!-- Script para lógica condicional del modal clonar despachador -->
+<script>
+$(document).ready(function() {
+    // Lógica condicional para DESCRIPCION_RIESGO
+    $('#clonarDespRiesgo').on('change', function() {
+        const riesgo = $(this).val();
+        const container = $('#clonarDespDescripcionRiesgoContainer');
+        const textarea = $('#clonarDespDescripcionRiesgo');
+        
+        if (riesgo === 'Medio' || riesgo === 'Alto') {
+            container.slideDown();
+            textarea.attr('required', 'required');
+        } else {
+            container.slideUp();
+            textarea.removeAttr('required').val('');
+        }
+    });
+    
+    // Lógica condicional para DESCRIPCION_AFECTACION
+    $('#clonarDespAfectaciones').on('change', function() {
+        const afectaciones = $(this).val();
+        const container = $('#clonarDespDescripcionAfectacionContainer');
+        const textarea = $('#clonarDespDescripcionAfectacion');
+        
+        if (afectaciones && afectaciones !== '') {
+            container.slideDown();
+            textarea.attr('required', 'required');
+        } else {
+            container.slideUp();
+            textarea.removeAttr('required').val('');
+        }
+    });
+    
+    // Mostrar nombre de archivo seleccionado
+    $('#clonarDespAdjunto').on('change', function() {
+        const fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').html(fileName || 'Seleccionar archivo...');
+    });
+});
+</script>

@@ -24,6 +24,14 @@
                             <strong class="text-warning">Amarillo:</strong> Valores por definir (debe completarlos)
                         </div>
                     </div>
+                    <hr class="my-2">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        <div>
+                            <strong>Leyenda:</strong>
+                            <span class="ml-3"><span class="text-danger">*</span> Campos obligatorios</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Header: Estado -->
@@ -120,7 +128,29 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">Descripción del riesgo <span class="text-danger">*</span></label>
+                                    <label class="text-muted small mb-1">Potencia (MWH)</label>
+                                    <input type="number" class="form-control" id="clonarSolicPotencia" name="potencia" step="0.01" min="0" placeholder="Ej: 150.5">
+                                    <small class="form-text text-muted">Opcional</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Aplica SODI <span class="text-danger">*</span></label>
+                                    <div class="mt-2">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="clonarSolicAplicaSODI" id="clonarSolicAplicaSODISi" value="Sí" required>
+                                            <label class="form-check-label" for="clonarSolicAplicaSODISi">Sí</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="clonarSolicAplicaSODI" id="clonarSolicAplicaSODINo" value="No">
+                                            <label class="form-check-label" for="clonarSolicAplicaSODINo">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Clasificación del Riesgo <span class="text-danger">*</span></label>
                                     <select class="form-control" id="clonarSolicRiesgo" name="riesgo" required>
                                         <option value="">Seleccione...</option>
                                         <option value="Bajo">Bajo</option>
@@ -129,26 +159,14 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="text-muted small mb-1">SODI <span class="text-danger">*</span></label>
-                                    <div class="mt-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="clonarSolicSODI" id="clonarSolicSODISi" value="Sí" required>
-                                            <label class="form-check-label" for="clonarSolicSODISi">Sí</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="clonarSolicSODI" id="clonarSolicSODINo" value="No">
-                                            <label class="form-check-label" for="clonarSolicSODINo">No</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
+                        </div>
+                        <!-- Campo condicional: Descripción del Riesgo -->
+                        <div class="row" id="clonarSolicDescripcionRiesgoContainer" style="display: none;">
+                            <div class="col-md-12">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Potencia (KwH)</label>
-                                    <input type="number" class="form-control" id="clonarSolicPotencia" name="potencia" step="0.01" min="0" placeholder="Ej: 150.5">
-                                    <small class="form-text text-muted">Opcional</small>
+                                    <label class="text-muted small mb-1">Descripción del Riesgo <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="clonarSolicDescripcionRiesgo" name="descripcionRiesgo" rows="2" placeholder="Describa el riesgo identificado..."></textarea>
+                                    <small class="form-text text-muted">Obligatorio si el riesgo es Medio o Alto</small>
                                 </div>
                             </div>
                         </div>
@@ -181,21 +199,36 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">Afectaciones <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="clonarSolicAfectaciones" name="afectaciones" multiple required size="3">
-                                        <option value="SSCC">SSCC</option>
-                                        <option value="Protecciones">Protecciones</option>
-                                        <option value="Medidores">Medidores</option>
-                                    </select>
-                                    <small class="form-text text-muted">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
+                                    <label class="text-muted small mb-1">Comentarios</label>
+                                    <textarea class="form-control" id="clonarSolicComentarios" name="comentarios" rows="2" placeholder="Comentarios adicionales (opcional)..."></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Afectaciones</label>
+                                    <select class="form-control" id="clonarSolicAfectaciones" name="afectaciones">
+                                        <option value="">Seleccione...</option>
+                                        <option value="SSCC">SSCC</option>
+                                        <option value="Protecciones">Protecciones</option>
+                                        <option value="Medidores">Medidores</option>
+                                        <option value="SSCC, Protecciones">SSCC, Protecciones</option>
+                                        <option value="SSCC, Medidores">SSCC, Medidores</option>
+                                        <option value="Protecciones, Medidores">Protecciones, Medidores</option>
+                                        <option value="SSCC, Protecciones, Medidores">SSCC, Protecciones, Medidores</option>
+                                    </select>
+                                    <small class="form-text text-muted">Opcional</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Campo condicional: Descripción de la Afectación -->
+                        <div class="row" id="clonarSolicDescripcionAfectacionContainer" style="display: none;">
+                            <div class="col-md-12">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Comentarios</label>
-                                    <textarea class="form-control" id="clonarSolicComentarios" name="comentarios" rows="2" placeholder="Comentarios adicionales (opcional)..."></textarea>
+                                    <label class="text-muted small mb-1">Descripción de la afectación <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="clonarSolicDescripcionAfectacion" name="descripcionAfectacion" rows="2" placeholder="Describa la afectación..."></textarea>
+                                    <small class="form-text text-muted">Obligatorio si se selecciona alguna afectación</small>
                                 </div>
                             </div>
                         </div>
@@ -235,3 +268,40 @@
         </div>
     </div>
 </div>
+
+<!-- Script para lógica condicional -->
+<script>
+$(document).ready(function() {
+    // Lógica condicional para DESCRIPCION_RIESGO
+    $('#clonarSolicRiesgo').on('change', function() {
+        const riesgo = $(this).val();
+        const container = $('#clonarSolicDescripcionRiesgoContainer');
+        const textarea = $('#clonarSolicDescripcionRiesgo');
+        
+        if (riesgo === 'Medio' || riesgo === 'Alto') {
+            container.show();
+            textarea.prop('required', true);
+        } else {
+            container.hide();
+            textarea.prop('required', false);
+            textarea.val('');
+        }
+    });
+    
+    // Lógica condicional para DESCRIPCION_AFECTACION
+    $('#clonarSolicAfectaciones').on('change', function() {
+        const afectaciones = $(this).val();
+        const container = $('#clonarSolicDescripcionAfectacionContainer');
+        const textarea = $('#clonarSolicDescripcionAfectacion');
+        
+        if (afectaciones && afectaciones !== '') {
+            container.show();
+            textarea.prop('required', true);
+        } else {
+            container.hide();
+            textarea.prop('required', false);
+            textarea.val('');
+        }
+    });
+});
+</script>

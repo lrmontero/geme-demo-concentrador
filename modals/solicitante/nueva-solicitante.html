@@ -12,6 +12,17 @@
             </div>
             <div class="modal-body">
                 <form id="formNuevaSolicitud">
+                    <!-- Leyenda de campos obligatorios -->
+                    <div class="alert alert-info mb-3" role="alert">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <div>
+                                <strong>Leyenda:</strong>
+                                <span class="ml-3"><span class="text-danger">*</span> Campos obligatorios</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Header: Estado -->
                     <div class="card mb-3">
                         <div class="card-header bg-light py-2">
@@ -78,9 +89,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group mb-0">
                                         <label class="text-muted small mb-1">Instalaciones/equipos a intervenir <span class="text-danger">*</span></label>
-                                        <select class="form-control" id="nuevaSolicEquipos" name="equipos" required disabled>
+                                        <select class="form-control" id="nuevaSolicEquipos" name="equipos" multiple required disabled style="height: 120px;">
                                             <option value="">Primero seleccione Instalación GM</option>
                                         </select>
+                                        <small class="form-text text-muted">Mantenga Ctrl (Cmd en Mac) para seleccionar múltiples equipos</small>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +118,29 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="text-muted small mb-1">Descripción del riesgo <span class="text-danger">*</span></label>
+                                        <label class="text-muted small mb-1">Potencia (MWH) <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" id="nuevaSolicPotencia" name="potencia" step="0.01" min="0" placeholder="Ej: 150.50" required>
+                                        <small class="form-text text-muted">Dos decimales</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Aplica SODI <span class="text-danger">*</span></label>
+                                        <div class="mt-2">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="nuevaSolicAplicaSODI" id="nuevaSolicAplicaSODISi" value="Sí" required>
+                                                <label class="form-check-label" for="nuevaSolicAplicaSODISi">Sí</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="nuevaSolicAplicaSODI" id="nuevaSolicAplicaSODINo" value="No">
+                                                <label class="form-check-label" for="nuevaSolicAplicaSODINo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Clasificación del Riesgo <span class="text-danger">*</span></label>
                                         <select class="form-control" id="nuevaSolicRiesgo" name="riesgo" required>
                                             <option value="">Seleccione...</option>
                                             <option value="Bajo">Bajo</option>
@@ -115,26 +149,14 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="text-muted small mb-1">SODI <span class="text-danger">*</span></label>
-                                        <div class="mt-2">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="nuevaSolicSODI" id="nuevaSolicSODISi" value="Sí" required>
-                                                <label class="form-check-label" for="nuevaSolicSODISi">Sí</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="nuevaSolicSODI" id="nuevaSolicSODINo" value="No">
-                                                <label class="form-check-label" for="nuevaSolicSODINo">No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
+                            </div>
+                            <!-- Campo condicional: Descripción del Riesgo -->
+                            <div class="row" id="nuevaSolicDescripcionRiesgoContainer" style="display: none;">
+                                <div class="col-md-12">
                                     <div class="form-group mb-0">
-                                        <label class="text-muted small mb-1">Potencia (KwH)</label>
-                                        <input type="number" class="form-control" id="nuevaSolicPotencia" name="potencia" step="0.01" min="0" placeholder="Ej: 150.5">
-                                        <small class="form-text text-muted">Opcional</small>
+                                        <label class="text-muted small mb-1">Descripción del Riesgo <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="nuevaSolicDescripcionRiesgo" name="descripcionRiesgo" rows="2" placeholder="Describa el riesgo identificado..."></textarea>
+                                        <small class="form-text text-muted">Obligatorio cuando el riesgo es Medio o Alto</small>
                                     </div>
                                 </div>
                             </div>
@@ -166,22 +188,37 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="text-muted small mb-1">Afectaciones <span class="text-danger">*</span></label>
-                                        <select class="form-control" id="nuevaSolicAfectaciones" name="afectaciones" multiple required size="3">
-                                            <option value="SSCC">SSCC</option>
-                                            <option value="Protecciones">Protecciones</option>
-                                            <option value="Medidores">Medidores</option>
-                                        </select>
-                                        <small class="form-text text-muted">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Comentarios</label>
+                                        <textarea class="form-control" id="nuevaSolicComentarios" name="comentarios" rows="2" placeholder="Comentarios adicionales (opcional)..."></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Afectaciones</label>
+                                        <select class="form-control" id="nuevaSolicAfectaciones" name="afectaciones">
+                                            <option value="">Seleccione...</option>
+                                            <option value="SSCC">SSCC</option>
+                                            <option value="Protecciones">Protecciones</option>
+                                            <option value="Medidores">Medidores</option>
+                                            <option value="SSCC, Protecciones">SSCC, Protecciones</option>
+                                            <option value="SSCC, Medidores">SSCC, Medidores</option>
+                                            <option value="Protecciones, Medidores">Protecciones, Medidores</option>
+                                            <option value="SSCC, Protecciones, Medidores">SSCC, Protecciones, Medidores</option>
+                                        </select>
+                                        <small class="form-text text-muted">Opcional</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Campo condicional: Descripción de la Afectación -->
+                            <div class="row" id="nuevaSolicDescripcionAfectacionContainer" style="display: none;">
+                                <div class="col-md-12">
                                     <div class="form-group mb-0">
-                                        <label class="text-muted small mb-1">Comentarios</label>
-                                        <textarea class="form-control" id="nuevaSolicComentarios" name="comentarios" rows="2" placeholder="Comentarios adicionales (opcional)..."></textarea>
+                                        <label class="text-muted small mb-1">Descripción de la afectación <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="nuevaSolicDescripcionAfectacion" name="descripcionAfectacion" rows="2" placeholder="Describa la afectación identificada..."></textarea>
+                                        <small class="form-text text-muted">Obligatorio cuando se selecciona alguna afectación</small>
                                     </div>
                                 </div>
                             </div>
@@ -221,3 +258,48 @@
         </div>
     </div>
 </div>
+
+<!-- Script para lógica condicional del formulario -->
+<script>
+$(document).ready(function() {
+    // Lógica condicional para DESCRIPCION_RIESGO
+    $('#nuevaSolicRiesgo').on('change', function() {
+        const riesgo = $(this).val();
+        const container = $('#nuevaSolicDescripcionRiesgoContainer');
+        const textarea = $('#nuevaSolicDescripcionRiesgo');
+        
+        if (riesgo === 'Medio' || riesgo === 'Alto') {
+            container.slideDown(300);
+            textarea.prop('required', true);
+        } else {
+            container.slideUp(300);
+            textarea.prop('required', false);
+            textarea.val(''); // Limpiar el campo
+        }
+    });
+    
+    // Lógica condicional para DESCRIPCION_AFECTACION
+    $('#nuevaSolicAfectaciones').on('change', function() {
+        const afectacion = $(this).val();
+        const container = $('#nuevaSolicDescripcionAfectacionContainer');
+        const textarea = $('#nuevaSolicDescripcionAfectacion');
+        
+        if (afectacion && afectacion !== '') {
+            container.slideDown(300);
+            textarea.prop('required', true);
+        } else {
+            container.slideUp(300);
+            textarea.prop('required', false);
+            textarea.val(''); // Limpiar el campo
+        }
+    });
+    
+    // Limpiar campos condicionales al cerrar el modal
+    $('#modalNuevaSolicitudSolic').on('hidden.bs.modal', function() {
+        $('#nuevaSolicDescripcionRiesgoContainer').hide();
+        $('#nuevaSolicDescripcionRiesgo').prop('required', false).val('');
+        $('#nuevaSolicDescripcionAfectacionContainer').hide();
+        $('#nuevaSolicDescripcionAfectacion').prop('required', false).val('');
+    });
+});
+</script>

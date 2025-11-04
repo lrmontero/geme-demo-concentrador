@@ -15,33 +15,36 @@ editar -> 13 - Nombre campo: EQUIPOS - label: Instalaciones/equipos a intervenir
 
 Características de la Intervención
 editar -> 14 - Nombre campo: TIPO_INTERVENCION - label: Tipo de intervención - Descripción: En esté modulo se deberá si la aplica a una intervención o desconexión.
-editar -> 15 - Nombre campo: RIESGOS - label: Descripción del Riesgo del Trabajo - Descripción: En esté modulo se deberá identificar el tipo de riesgo. (riesgo bajo, medio alto).
-editar -> 16 - Nombre campo: SODI - label: SODI - Descripción: Aplica o no aplica.
-editar -> 17 - Nombre campo: POTENCIA - label: Potencia KwH - Descripción: campo numerico
+editar -> 15 - Nombre campo: POTENCIA - label: Potencia MWH - Descripción: campo numerico dos decimales
+editar -> 16 - Nombre campo: APLICA_SODI - label: SODI - Descripción: Aplica o no aplica.
+editar -> 17 - Nombre campo: RIESGO - label: Clasificación del Riesgo - Descripción: En este campo se deberá identificar el tipo de riesgo. (riesgo bajo, medio alto).
+editar -> 18 - Nombre campo: DESCRIPCION_RIESGO - label: Descripción del Riesgo - Descripción: En este campo se debera describir el riesgo de forma obligatoria en el caso que el riesgo se haya clasificado como medio o alto.
 
 Descripción y Condiciones
-editar -> 18 - Nombre campo: DESCRIPCION - label: Descripción del trabajo a realizar - Descripción: En esté modulo se deberá dejar la descripción del trabajo a realizar (libre para escribir).
-editar -> 19 - Nombre campo: CONDICIONES - label: Condiciones requeridas - Descripción: Se especificarán las condiciones necesarias para llevar a cabo los trabajos solicitados.
-editar -> 20 - Nombre campo: AFECTACIONES - label: Afectaciones - Descripción: En esté modulo se deberá dejar indicado si afectar o no a lo siguiente: (SSCC, Protecciones, Medidores)
-editar -> 21 - Nombre campo: COMENTARIOS - label: Comentarios - Descripción: En esté modulo se podrá dejar comentarios adicionales.
+editar -> 19 - Nombre campo: DESCRIPCION - label: Descripción del trabajo a realizar - Descripción: En esté modulo se deberá dejar la descripción del trabajo a realizar (libre para escribir).
+editar -> 20 - Nombre campo: CONDICIONES - label: Condiciones requeridas - Descripción: Se especificarán las condiciones necesarias para llevar a cabo los trabajos solicitados.
+editar -> 21 - Nombre campo: COMENTARIOS - label: Comentarios - Descripción: En este modulo se podrá dejar comentarios adicionales.
+editar -> 22 - Nombre campo: AFECTACIONES - label: Afectaciones - Descripción: En este modulo se deberá dejar indicado si afectar o no a lo siguiente: (SSCC, Protecciones, Medidores)
+editar -> 23 - Nombre campo: DESCRIPCION_AFECTACION - label: Descripción de la afectación - Descripción: En este campo se deberá describir de forma obligatoria la afectación, en el caso que se haya seleccionado alguna de las opciones de la lista.
 
 Archivos Adjuntos
-editar -> 22 - Nombre campo: ADJUNTO - label: Carga de archivo - Descripción: Se permitirá cargar o borrar archivos útiles para los trabajos, en formatos PDF, Excel, Word, etc.
+editar -> 24 - Nombre campo: ADJUNTO - label: Carga de archivo - Descripción: Se permitirá cargar o borrar archivos útiles para los trabajos, en formatos PDF, Excel, Word, etc.
 
 Footer->
 Información del Sistema
-ver -> 23 - Nombre campo: ID_REGISTRO - label: ID - Descripción: Id del registro de lista
-ver -> 24 - Nombre campo: CREADO - label: Creado - Descripción: Fecha de creación del registro
-ver -> 25 - Nombre campo: ACTUALIZADO - label: Actualizado - Descripción: Fecha de actualización del registro
-ver -> 26 - Nombre campo: ADMINISTRADOR - label: Administrador - Descripción: Administrador que creó el registro
-ver -> 27 - Nombre campo: SOLICITANTE - label: Solicitante - Descripción: Solicitante que creó el registro
-ver -> 28 - Nombre campo: CREADO_POR - label: Creado por - Descripción: Creado por quién el registro
+ver -> 25 - Nombre campo: ID_REGISTRO - label: ID - Descripción: Id del registro de lista
+ver -> 26 - Nombre campo: CREADO - label: Creado - Descripción: Fecha de creación del registro
+ver -> 27 - Nombre campo: ACTUALIZADO - label: Actualizado - Descripción: Fecha de actualización del registro
+ver -> 28 - Nombre campo: ADMINISTRADOR - label: Administrador - Descripción: Administrador que creó el registro
+ver -> 29 - Nombre campo: SOLICITANTE - label: Solicitante - Descripción: Solicitante que creó el registro
+ver -> 30 - Nombre campo: CREADO_POR - label: Creado por - Descripción: Creado por quién el registro
 
 
 Se debe agregar una seccion para avanzar al siguiente estado
 
-Opciones para avanzar:
-1. Despachador Devuelta
-    Si la solicitud es Devuelta, se puede avanzar a "Pendiente"
+Opciones para avanzar (radio buton):
+1. Estado Devuelta
+    Si la solicitud es Devuelta, el solicitante puede enviar a Pendiente, el nombre de la transición es: "Enviar a Pendiente"
+    Si la solicitud es Devuelta, el solicitante puede enviar a Anular, el nombre de la transición es: "Anular solicitud"
 
 Campo de OBSERVACIONES obligatorio

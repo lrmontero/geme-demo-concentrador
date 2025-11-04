@@ -1,9 +1,9 @@
 <!-- MODAL NUEVA SOLICITUD ADMINISTRADOR -->
-<div class="modal fade" id="modalNuevaSolicitudAdmin" tabindex="-1" role="dialog" aria-labelledby="modalNuevaSolicitudAdminLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+<div class="modal fade" id="modalNuevaAdmin" tabindex="-1" role="dialog" aria-labelledby="modalNuevaAdminLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="modalNuevaSolicitudAdminLabel">
+                <h5 class="modal-title" id="modalNuevaAdminLabel">
                     <i class="fas fa-plus-circle mr-2"></i>Nueva Solicitud - Administrador
                 </h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
@@ -11,6 +11,13 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Leyenda de campos obligatorios -->
+                <div class="alert alert-info mb-3" role="alert">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    <strong>Leyenda:</strong>
+                    <span class="ml-3"><span class="text-danger">*</span> Campos obligatorios</span>
+                </div>
+                
                 <form id="formNuevaSolicitud">
                     <!-- Header: Estado -->
                     <div class="card mb-3">
@@ -39,9 +46,9 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="text-muted small mb-1">ID Solicitud <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="nuevaIDSolicitud" name="idSolicitud" required placeholder="Ej: CEN-2025-001">
-                                        <small class="form-text text-muted">ID de la solicitud CEN o SODI</small>
+                                        <label class="text-muted small mb-1">ID Solicitud</label>
+                                        <input type="text" class="form-control" id="nuevaIDSolicitud" name="idSolicitud" placeholder="Ej: CEN-2025-001">
+                                        <small class="form-text text-muted">ID de la solicitud CEN o SODI (Opcional)</small>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -61,8 +68,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group mb-0">
-                                        <label class="text-muted small mb-1">Relación SODI-CEN</label>
-                                        <input type="text" class="form-control" id="nuevaRelacionSODICEN" name="relacionSODICEN" placeholder="Ej: CEN-2025-001, SODI-123">
+                                        <label class="text-muted small mb-1">Relación SODI/CEN</label>
+                                        <textarea class="form-control" id="nuevaRelacionSODICEN" name="relacionSODICEN" rows="2" placeholder="Ej: CEN-2025-001, SODI-123"></textarea>
                                         <small class="form-text text-muted">Opcional</small>
                                     </div>
                                 </div>
@@ -134,17 +141,17 @@
                         </div>
                     </div>
 
-                    <!-- Sección: Instalación y Características -->
+                    <!-- Sección: Instalación y Equipos -->
                     <div class="card mb-3">
                         <div class="card-header bg-light py-2">
-                            <h6 class="mb-0 text-primary"><i class="fas fa-cogs mr-2"></i>Instalación y Características</h6>
+                            <h6 class="mb-0 text-primary"><i class="fas fa-cogs mr-2"></i>Instalación y Equipos</h6>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="text-muted small mb-1">Instalación GM <span class="text-danger">*</span></label>
-                                        <select class="form-control" id="nuevaInstalacionGM" name="instalacionGM" required>
+                                        <select class="form-control" id="nuevaInstalacionGM" name="instalacionGM" required onchange="cargarEquiposPorInstalacion(this.value, 'nuevaEquipos')">
                                             <option value="">Seleccione...</option>
                                             <option value="Santiago Solar">Santiago Solar</option>
                                             <option value="Nueva Renca">Nueva Renca</option>
@@ -154,11 +161,71 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Instalaciones/Equipos a intervenir <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaEquipos" name="equipos" required disabled>
+                                            <option value="">Primero seleccione Instalación GM</option>
+                                        </select>
+                                        <small class="form-text text-muted">Seleccione primero la instalación</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección: Características de la Intervención -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-tools mr-2"></i>Características de la Intervención</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Tipo de Intervención <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaTipoIntervencion" name="tipoIntervencion" required>
+                                            <option value="">Seleccione...</option>
+                                            <option value="Intervención">Intervención</option>
+                                            <option value="Desconexión">Desconexión</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="text-muted small mb-1">Potencia (MWH) <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" id="nuevaPotencia" name="potencia" step="0.01" min="0" required placeholder="Ej: 150.50">
+                                        <small class="form-text text-muted">Potencia involucrada en MWH</small>
+                                    </div>
+                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group mb-0">
-                                        <label class="text-muted small mb-1">Potencia (KwH)</label>
-                                        <input type="number" class="form-control" id="nuevaPotencia" name="potencia" step="0.01" min="0" placeholder="Ej: 150.5">
-                                        <small class="form-text text-muted">Opcional</small>
+                                        <label class="text-muted small mb-1">Aplica SODI <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaAplicaSODI" name="aplicaSODI" required onchange="toggleSODIAdjunto()">
+                                            <option value="">Seleccione...</option>
+                                            <option value="Sí">Sí</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Clasificación del Riesgo <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nuevaRiesgo" name="riesgo" required onchange="toggleDescripcionRiesgo()">
+                                            <option value="">Seleccione...</option>
+                                            <option value="Bajo">Bajo</option>
+                                            <option value="Medio">Medio</option>
+                                            <option value="Alto">Alto</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="nuevaDescripcionRiesgoContainer" style="display: none;">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Descripción del Riesgo <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="nuevaDescripcionRiesgo" name="descripcionRiesgo" rows="2" placeholder="Describa el riesgo identificado..."></textarea>
+                                        <small class="form-text text-muted">Obligatorio para riesgo Medio o Alto</small>
                                     </div>
                                 </div>
                             </div>
@@ -190,9 +257,31 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group mb-0">
+                                    <div class="form-group">
                                         <label class="text-muted small mb-1">Comentarios</label>
                                         <textarea class="form-control" id="nuevaComentarios" name="comentarios" rows="2" placeholder="Comentarios adicionales (opcional)..."></textarea>
+                                        <small class="form-text text-muted">Opcional</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Afectaciones</label>
+                                        <select class="form-control" id="nuevaAfectaciones" name="afectaciones" onchange="toggleDescripcionAfectacion()">
+                                            <option value="">Seleccione...</option>
+                                            <option value="SSCC">SSCC</option>
+                                            <option value="Protecciones">Protecciones</option>
+                                            <option value="Medidores">Medidores</option>
+                                        </select>
+                                        <small class="form-text text-muted">Opcional</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="nuevaDescripcionAfectacionContainer" style="display: none;">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">Descripción de la Afectación <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="nuevaDescripcionAfectacion" name="descripcionAfectacion" rows="3" placeholder="Describa la afectación..."></textarea>
+                                        <small class="form-text text-muted">Obligatorio si selecciona afectaciones</small>
                                     </div>
                                 </div>
                             </div>
@@ -206,14 +295,25 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group mb-0">
+                                <div class="col-md-8">
+                                    <div class="form-group">
                                         <label class="text-muted small mb-1">Carga de archivo</label>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="nuevaAdjunto" name="adjunto" accept=".pdf,.doc,.docx,.xls,.xlsx">
                                             <label class="custom-file-label" for="nuevaAdjunto">Seleccionar archivo...</label>
                                         </div>
-                                        <small class="form-text text-muted">Formatos permitidos: PDF, Word, Excel</small>
+                                        <small class="form-text text-muted">Formatos permitidos: PDF, Word, Excel (Opcional)</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" id="nuevaSODIAdjuntoContainer" style="display: none;">
+                                    <div class="form-group mb-0">
+                                        <label class="text-muted small mb-1">SODI Adjunta</label>
+                                        <select class="form-control" id="nuevaSODIAdjunto" name="sodiAdjunto">
+                                            <option value="">Seleccione...</option>
+                                            <option value="Sí">Sí</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                        <small class="form-text text-muted">¿El archivo es una SODI?</small>
                                     </div>
                                 </div>
                             </div>
@@ -232,3 +332,50 @@
         </div>
     </div>
 </div>
+
+<script>
+// Función para mostrar/ocultar descripción del riesgo según clasificación
+function toggleDescripcionRiesgo() {
+    const riesgo = document.getElementById('nuevaRiesgo').value;
+    const container = document.getElementById('nuevaDescripcionRiesgoContainer');
+    const textarea = document.getElementById('nuevaDescripcionRiesgo');
+    
+    if (riesgo === 'Medio' || riesgo === 'Alto') {
+        container.style.display = 'block';
+        textarea.setAttribute('required', 'required');
+    } else {
+        container.style.display = 'none';
+        textarea.removeAttribute('required');
+        textarea.value = '';
+    }
+}
+
+// Función para mostrar/ocultar descripción de afectación
+function toggleDescripcionAfectacion() {
+    const afectacion = document.getElementById('nuevaAfectaciones').value;
+    const container = document.getElementById('nuevaDescripcionAfectacionContainer');
+    const textarea = document.getElementById('nuevaDescripcionAfectacion');
+    
+    if (afectacion && afectacion !== '') {
+        container.style.display = 'block';
+        textarea.setAttribute('required', 'required');
+    } else {
+        container.style.display = 'none';
+        textarea.removeAttribute('required');
+        textarea.value = '';
+    }
+}
+
+// Función para mostrar/ocultar campo SODI Adjunta
+function toggleSODIAdjunto() {
+    const aplicaSODI = document.getElementById('nuevaAplicaSODI').value;
+    const container = document.getElementById('nuevaSODIAdjuntoContainer');
+    
+    if (aplicaSODI === 'Sí') {
+        container.style.display = 'block';
+    } else {
+        container.style.display = 'none';
+        document.getElementById('nuevaSODIAdjunto').value = '';
+    }
+}
+</script>

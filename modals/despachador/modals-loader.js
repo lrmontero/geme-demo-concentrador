@@ -5,12 +5,12 @@
 (function() {
     // Lista de modales a cargar
     const modalsToLoadDesp = [
-        'modals/despachador/nueva-solicitud-desp.html',
-        'modals/despachador/editar-solicitud-despachador.html',  // Modal de edición
+        'modals/despachador/nueva-despachador.html',
+        'modals/despachador/editar-despachador.html',  // Modal de edición
         'modals/despachador/ver-despachador.html',  // Modal unificado para todos los estados
-        'modals/despachador/gestionar-solicitud-despachador.html',  // Modal de gestión unificado
+        'modals/despachador/gestionar-despachador.html',  // Modal de gestión unificado
         'modals/despachador/gestionar-solicitud-programada-desp.html',
-        'modals/despachador/clonar-solicitud-despachador.html',  // Modal de clonación
+        'modals/despachador/clonar-despachador.html',  // Modal de clonación
         'modals/bitacora.html'
     ];
 

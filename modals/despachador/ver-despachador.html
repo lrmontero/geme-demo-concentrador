@@ -60,7 +60,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Relación SODI-CEN</label>
+                                    <label class="text-muted small mb-1">Relación SODI/CEN</label>
                                     <input type="text" class="form-control" id="verDespRelacionSODICEN" readonly>
                                 </div>
                             </div>
@@ -91,8 +91,8 @@
                     </div>
                 </div>
 
-                <!-- Sección: Fechas Efectivas de Ejecución -->
-                <div class="card mb-3">
+                <!-- Sección: Fechas Efectivas de Ejecución (Solo en ciertos estados) -->
+                <div class="card mb-3" id="verDespFechasEfectivasCard">
                     <div class="card-header bg-light py-2">
                         <h6 class="mb-0 text-primary"><i class="fas fa-clock mr-2"></i>Fechas Efectivas de Ejecución</h6>
                     </div>
@@ -169,26 +169,35 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">Tipo de intervención</label>
+                                    <label class="text-muted small mb-1">Tipo de Intervención</label>
                                     <input type="text" class="form-control" id="verDespTipoIntervencion" readonly>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">Riesgo</label>
-                                    <input type="text" class="form-control" id="verDespRiesgo" readonly>
+                                    <label class="text-muted small mb-1">Potencia (MWH)</label>
+                                    <input type="text" class="form-control" id="verDespPotencia" readonly>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">SODI</label>
-                                    <input type="text" class="form-control" id="verDespSODI" readonly>
+                                    <label class="text-muted small mb-1">Aplica SODI</label>
+                                    <input type="text" class="form-control" id="verDespAplicaSODI" readonly>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Potencia (KwH)</label>
-                                    <input type="text" class="form-control" id="verDespPotencia" readonly>
+                                    <label class="text-muted small mb-1">Clasificación del Riesgo</label>
+                                    <input type="text" class="form-control" id="verDespRiesgo" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Campo condicional: Descripción del Riesgo -->
+                        <div class="row" id="verDespDescripcionRiesgoContainer" style="display: none;">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Descripción del Riesgo</label>
+                                    <textarea class="form-control" id="verDespDescripcionRiesgo" rows="2" readonly></textarea>
                                 </div>
                             </div>
                         </div>
@@ -220,16 +229,25 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">Afectaciones</label>
-                                    <input type="text" class="form-control" id="verDespAfectaciones" readonly>
+                                    <label class="text-muted small mb-1">Comentarios</label>
+                                    <textarea class="form-control" id="verDespComentarios" rows="2" readonly></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-muted small mb-1">Afectaciones</label>
+                                    <input type="text" class="form-control" id="verDespAfectaciones" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Campo condicional: Descripción de la Afectación -->
+                        <div class="row" id="verDespDescripcionAfectacionContainer" style="display: none;">
+                            <div class="col-md-12">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Comentarios</label>
-                                    <textarea class="form-control" id="verDespComentarios" rows="2" readonly></textarea>
+                                    <label class="text-muted small mb-1">Descripción de la Afectación</label>
+                                    <textarea class="form-control" id="verDespDescripcionAfectacion" rows="2" readonly></textarea>
                                 </div>
                             </div>
                         </div>
@@ -243,12 +261,21 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group mb-0">
-                                    <span id="verDespAdjunto" class="text-muted">-</span>
-                                    <button type="button" class="btn btn-sm btn-primary ml-2" id="verDespDescargarAdjunto" style="display:none;">
-                                        <i class="fas fa-download mr-1"></i>Descargar
-                                    </button>
+                                    <label class="text-muted small mb-1">Archivo adjunto</label>
+                                    <div>
+                                        <span id="verDespAdjunto" class="text-muted">-</span>
+                                        <button type="button" class="btn btn-sm btn-primary ml-2" id="verDespDescargarAdjunto" style="display:none;">
+                                            <i class="fas fa-download mr-1"></i>Descargar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">SODI Adjunta</label>
+                                    <input type="text" class="form-control" id="verDespSODIAdjunto" readonly>
                                 </div>
                             </div>
                         </div>
@@ -310,3 +337,36 @@
         </div>
     </div>
 </div>
+
+<!-- Script para lógica condicional del modal de visualización -->
+<script>
+// Función para configurar la visibilidad de secciones según el estado
+function configurarVisibilidadVerDespachador(estado) {
+    // Mostrar Fechas Efectivas solo en estados: Vigente, Extendida, Finalizada, Rechazada, Suspendida
+    const estadosConFechasEfectivas = ['Vigente', 'Extendida', 'Finalizada', 'Rechazada', 'Suspendida'];
+    if (estadosConFechasEfectivas.includes(estado)) {
+        $('#verDespFechasEfectivasCard').show();
+    } else {
+        $('#verDespFechasEfectivasCard').hide();
+    }
+}
+
+// Función para mostrar/ocultar campos condicionales según los datos
+function configurarCamposCondicionalesVerDesp(solicitud) {
+    // Mostrar DESCRIPCION_RIESGO si existe y el riesgo es Medio o Alto
+    if (solicitud.DESCRIPCION_RIESGO && (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto')) {
+        $('#verDespDescripcionRiesgo').val(solicitud.DESCRIPCION_RIESGO);
+        $('#verDespDescripcionRiesgoContainer').show();
+    } else {
+        $('#verDespDescripcionRiesgoContainer').hide();
+    }
+    
+    // Mostrar DESCRIPCION_AFECTACION si existe y hay afectaciones
+    if (solicitud.DESCRIPCION_AFECTACION && solicitud.AFECTACIONES) {
+        $('#verDespDescripcionAfectacion').val(solicitud.DESCRIPCION_AFECTACION);
+        $('#verDespDescripcionAfectacionContainer').show();
+    } else {
+        $('#verDespDescripcionAfectacionContainer').hide();
+    }
+}
+</script>

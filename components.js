@@ -514,9 +514,9 @@ function abrirNuevaSolicitud() {
 
 // Función para abrir modal de nueva solicitud - ADMINISTRADOR
 function abrirNuevaSolicitudAdmin() {
-    $('#modalNuevaSolicitudAdmin').modal('show');
-    $('#modalNuevaSolicitudAdmin #formNuevaSolicitud')[0].reset();
-    $('#modalNuevaSolicitudAdmin #equiposIntervenir').prop('disabled', true).html('<option value="">Primero seleccione Instalación GM</option>');
+    $('#modalNuevaAdmin').modal('show');
+    $('#modalNuevaAdmin #formNuevaSolicitud')[0].reset();
+    $('#modalNuevaAdmin #equiposIntervenir').prop('disabled', true).html('<option value="">Primero seleccione Instalación GM</option>');
 }
 
 // Función para abrir modal de nueva solicitud - DESPACHADOR
@@ -626,101 +626,14 @@ function guardarSolicitud() {
 }
 
 // ============================================
-// FUNCIONES PARA MODAL EDITAR SOLICITUD
+// EVENT LISTENERS PARA MODAL NUEVA SOLICITUD - SOLICITANTE
 // ============================================
 
-// Función para abrir modal de edición
-function abrirModalEditar(solicitudId) {
-    // Aquí cargarías los datos de la solicitud desde el servidor
-    // Por ahora usamos datos de ejemplo
-    const solicitudEjemplo = {
-        id: solicitudId,
-        INICIO_PROGRAMADO: '2025-01-28T10:00',
-        FIN_PROGRAMADO: '2025-01-28T18:00',
-        INSTALACION_GM: 'Santa Lidia',
-        EQUIPOS: 'Paño SL1',
-        TIPO_INTERVENCION: 'Intervención',
-        RIESGOS: 'Medio',
-        DESCRIPCION: 'Mantenimiento preventivo del equipo',
-        CONDICIONES: 'Desenergización completa',
-        AFECTACIONES: ['SSCC', 'Protecciones'],
-        SODI: 'Si',
-        OBSERVACIONES: 'Coordinar con operador',
-        ADJUNTO: ''
-    };
-    
-    // Llenar el formulario
-    $('#editSolicitudId').val(solicitudEjemplo.id);
-    $('#editFechaInicio').val(solicitudEjemplo.INICIO_PROGRAMADO);
-    $('#editFechaFin').val(solicitudEjemplo.FIN_PROGRAMADO);
-    $('#editInstalacionGM').val(solicitudEjemplo.INSTALACION_GM).trigger('change');
-    
-    // Esperar a que se carguen los equipos
-    setTimeout(() => {
-        $('#editEquiposIntervenir').val(solicitudEjemplo.EQUIPOS);
-    }, 100);
-    
-    $('#editTipoIntervencion').val(solicitudEjemplo.TIPO_INTERVENCION);
-    $('#editRiesgo').val(solicitudEjemplo.RIESGOS);
-    $('#editDescripcionTrabajo').val(solicitudEjemplo.DESCRIPCION);
-    $('#editCondicionesRequeridas').val(solicitudEjemplo.CONDICIONES);
-    $('#editAfectaciones').val(solicitudEjemplo.AFECTACIONES);
-    $(`input[name="editSodi"][value="${solicitudEjemplo.SODI}"]`).prop('checked', true);
-    $('#editComentarios').val(solicitudEjemplo.OBSERVACIONES);
-    
-    $('#modalEditarSolicitud').modal('show');
-}
-
-// Cambiar equipos según instalación seleccionada (para edición)
-$(document).on('change', '#editInstalacionGM', function() {
+// Cambiar equipos según instalación seleccionada (Nueva Solicitud - Solicitante)
+$(document).on('change', '#nuevaSolicInstalacionGM', function() {
     const instalacion = $(this).val();
-    const $equipos = $('#editEquiposIntervenir');
-    
-    if (instalacion && equiposPorInstalacion[instalacion]) {
-        $equipos.prop('disabled', false).html('<option value="">Seleccione equipo...</option>');
-        equiposPorInstalacion[instalacion].forEach(equipo => {
-            $equipos.append(`<option value="${equipo}">${equipo}</option>`);
-        });
-    } else {
-        $equipos.prop('disabled', true).html('<option value="">Primero seleccione Instalación GM</option>');
-    }
+    cargarEquiposPorInstalacion(instalacion, 'nuevaSolicEquipos');
 });
-
-// Mostrar nombre de archivo seleccionado (para edición)
-$(document).on('change', '#editArchivoAdjunto', function() {
-    const fileName = $(this).val().split('\\').pop();
-    $(this).next('.custom-file-label').html(fileName || 'Seleccionar archivo...');
-});
-
-// Función para actualizar solicitud
-function actualizarSolicitud() {
-    const form = $('#formEditarSolicitud')[0];
-    
-    if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-    }
-    
-    const formData = {
-        id: $('#editSolicitudId').val(),
-        INICIO_PROGRAMADO: $('#editFechaInicio').val(),
-        FIN_PROGRAMADO: $('#editFechaFin').val(),
-        INSTALACION_GM: $('#editInstalacionGM').val(),
-        EQUIPOS: $('#editEquiposIntervenir').val(),
-        TIPO_INTERVENCION: $('#editTipoIntervencion').val(),
-        RIESGOS: $('#editRiesgo').val(),
-        DESCRIPCION: $('#editDescripcionTrabajo').val(),
-        CONDICIONES: $('#editCondicionesRequeridas').val(),
-        AFECTACIONES: $('#editAfectaciones').val(),
-        SODI: $('input[name="editSodi"]:checked').val(),
-        OBSERVACIONES: $('#editComentarios').val(),
-        archivo: $('#editArchivoAdjunto')[0].files[0]
-    };
-    
-    console.log('Actualizando solicitud:', formData);
-    alert('Solicitud actualizada exitosamente');
-    $('#modalEditarSolicitud').modal('hide');
-}
 
 // ============================================
 // FUNCIÓN AUXILIAR PARA OBTENER SOLICITUDES
@@ -749,228 +662,18 @@ function obtenerSolicitud(solicitudId) {
 }
 
 // ============================================
-// FUNCIONES PARA MODALES DE VISUALIZACIÓN
+// FUNCIONES OBSOLETAS ELIMINADAS
 // ============================================
-
-// Función para ver solicitud en análisis
-function verSolicitudEnAnalisis(solicitudId) {
-    console.log('Abriendo modal ver en análisis para solicitud:', solicitudId);
-    
-    // Cargar datos de ejemplo
-    const solicitud = {
-        id: 'SOL-' + String(solicitudId).padStart(3, '0'),
-        usuarioCreador: 'María González',
-        fechaCreacion: '22/01/2025 09:30',
-        fechaActualizacion: '26/01/2025 14:20',
-        ADMINISTRADOR: 'Carlos Ramírez',
-        INICIO_PROGRAMADO: '28/01/2025 10:00',
-        FIN_PROGRAMADO: '28/01/2025 18:00',
-        INSTALACION_GM: 'Santa Lidia',
-        EQUIPOS: 'Paño SL1, Paño SL2',
-        TIPO_INTERVENCION: 'Intervención',
-        RIESGOS: 'Medio',
-        POTENCIA: '200.0',
-        DESCRIPCION: 'Mantenimiento preventivo del equipo',
-        CONDICIONES: 'Desenergización completa',
-        AFECTACIONES: 'SSCC, Protecciones',
-        SODI: 'Sí',
-        OBSERVACIONES: 'Coordinar con operador'
-    };
-    
-    // Metadata del sistema
-    $('#verAnalisisID').text(solicitud.id);
-    $('#verAnalisisUsuarioCreador').text(solicitud.usuarioCreador);
-    $('#verAnalisisFechaCreacion').text(solicitud.fechaCreacion);
-    $('#verAnalisisFechaActualizacion').text(solicitud.fechaActualizacion);
-    $('#verAnalisisAdministrador').text(solicitud.ADMINISTRADOR);
-    
-    // Campos de solicitud
-    $('#verAnalisisFechaInicio').val(solicitud.fechaInicio);
-    $('#verAnalisisFechaFin').val(solicitud.fechaFin);
-    $('#verAnalisisInstalacionGM').val(solicitud.instalacionGM);
-    $('#verAnalisisEquiposIntervenir').val(solicitud.equiposIntervenir);
-    $('#verAnalisisTipoIntervencion').val(solicitud.tipoIntervencion);
-    $('#verAnalisisRiesgo').val(solicitud.riesgo);
-    $('#verAnalisisPotencia').val(solicitud.potencia);
-    $('#verAnalisisDescripcionTrabajo').val(solicitud.descripcionTrabajo);
-    $('#verAnalisisCondicionesRequeridas').val(solicitud.condicionesRequeridas);
-    $('#verAnalisisAfectaciones').val(solicitud.afectaciones);
-    $('#verAnalisisSODI').val(solicitud.sodi);
-    $('#verAnalisisComentarios').val(solicitud.comentarios);
-    
-    $('#modalVerEnAnalisis').modal('show');
-}
-
-// Función para ver solicitud administrador gestionando - ADMINISTRADOR
-function verSolicitudAdminGestionandoAdmin(solicitudId) {
-    console.log('Abriendo modal ver admin gestionando (Administrador) para solicitud:', solicitudId);
-    
-    const solicitud = {
-        id: 'SOL-' + String(solicitudId).padStart(3, '0'),
-        usuarioCreador: 'Pedro Sánchez',
-        fechaCreacion: '21/01/2025 11:15',
-        fechaActualizacion: '27/01/2025 16:45',
-        ADMINISTRADOR: 'Ana Torres',
-        INICIO_PROGRAMADO: '28/01/2025 10:00',
-        FIN_PROGRAMADO: '28/01/2025 18:00',
-        INSTALACION_GM: 'Nueva Renca',
-        EQUIPOS: 'Transformador TNR1',
-        TIPO_INTERVENCION: 'Desconexión',
-        RIESGOS: 'Alto',
-        POTENCIA: '300.0',
-        DESCRIPCION: 'Reemplazo de transformador',
-        CONDICIONES: 'Desenergización y aislamiento',
-        AFECTACIONES: 'SSCC, Protecciones, Medidores',
-        SODI: 'Sí',
-        OBSERVACIONES: 'Requiere supervisión continua'
-    };
-    
-    // Metadata del sistema
-    $('#verAdminID').text(solicitud.id);
-    $('#verAdminUsuarioCreador').text(solicitud.usuarioCreador);
-    $('#verAdminFechaCreacion').text(solicitud.fechaCreacion);
-    $('#verAdminFechaActualizacion').text(solicitud.fechaActualizacion);
-    $('#verAdminAdministrador').text(solicitud.ADMINISTRADOR);
-    
-    // Campos de solicitud
-    $('#verAdminFechaInicio').val(solicitud.fechaInicio);
-    $('#verAdminFechaFin').val(solicitud.fechaFin);
-    $('#verAdminInstalacionGM').val(solicitud.instalacionGM);
-    $('#verAdminEquiposIntervenir').val(solicitud.equiposIntervenir);
-    $('#verAdminTipoIntervencion').val(solicitud.tipoIntervencion);
-    $('#verAdminRiesgo').val(solicitud.riesgo);
-    $('#verAdminPotencia').val(solicitud.potencia);
-    $('#verAdminDescripcionTrabajo').val(solicitud.descripcionTrabajo);
-    $('#verAdminCondicionesRequeridas').val(solicitud.condicionesRequeridas);
-    $('#verAdminAfectaciones').val(solicitud.afectaciones);
-    $('#verAdminSODI').val(solicitud.sodi);
-    $('#verAdminComentarios').val(solicitud.comentarios);
-    
-    $('#modalVerAdminGestionandoAdmin').modal('show');
-}
-
-// NOTA: Función eliminada - ahora se usa verSolicitudDesp() unificada
-// verSolicitudAdminGestionandoDesp() ya no es necesaria
-
-// NOTA: Función antigua eliminada - ahora se usa verSolicitudSolic() unificada
-// Esta función con datos hardcodeados ya no es necesaria
-
-// Función para ver solicitud programada
-function verSolicitudProgramada(solicitudId) {
-    console.log('Abriendo modal ver programada para solicitud:', solicitudId);
-    
-    const solicitud = {
-        id: 'SOL-' + String(solicitudId).padStart(3, '0'),
-        usuarioCreador: 'Juan Pérez',
-        fechaCreacion: '20/01/2025 10:00',
-        fechaActualizacion: '24/01/2025 15:30',
-        ADMINISTRADOR: 'Luis Fernández',
-        INICIO_PROGRAMADO: '25/01/2025 09:00',
-        FIN_PROGRAMADO: '25/01/2025 17:00',
-        INSTALACION_GM: 'CEME1',
-        EQUIPOS: 'Paño 1, Paño 2',
-        TIPO_INTERVENCION: 'Intervención',
-        RIESGOS: 'Bajo',
-        POTENCIA: '150.5',
-        DESCRIPCION: 'Inspección rutinaria programada',
-        CONDICIONES: 'Acceso controlado',
-        AFECTACIONES: 'SSCC',
-        SODI: 'No',
-        OBSERVACIONES: 'Trabajo programado y aprobado'
-    };
-    
-    // Verificar si el modal existe
-    if ($('#modalVerProgramada').length === 0) {
-        console.error('Modal #modalVerProgramada no encontrado en el DOM');
-        alert('Error: Modal no cargado. Por favor recarga la página.');
-        return;
-    }
-    
-    console.log('Modal encontrado, llenando campos...');
-    
-    // Metadata del sistema
-    $('#verProgramadaID').text(solicitud.id);
-    $('#verProgramadaUsuarioCreador').text(solicitud.usuarioCreador);
-    $('#verProgramadaFechaCreacion').text(solicitud.fechaCreacion);
-    $('#verProgramadaFechaActualizacion').text(solicitud.fechaActualizacion);
-    $('#verProgramadaAdministrador').text(solicitud.administrador);
-    $('#verProgramadaFechaInicio').val(solicitud.fechaInicio);
-    $('#verProgramadaFechaFin').val(solicitud.fechaFin);
-    $('#verProgramadaInstalacionGM').val(solicitud.instalacionGM);
-    $('#verProgramadaEquiposIntervenir').val(solicitud.equiposIntervenir);
-    $('#verProgramadaTipoIntervencion').val(solicitud.tipoIntervencion);
-    $('#verProgramadaRiesgo').val(solicitud.riesgo);
-    $('#verProgramadaPotencia').val(solicitud.potencia);
-    $('#verProgramadaDescripcionTrabajo').val(solicitud.descripcionTrabajo);
-    $('#verProgramadaCondicionesRequeridas').val(solicitud.condicionesRequeridas);
-    $('#verProgramadaAfectaciones').val(solicitud.afectaciones);
-    $('#verProgramadaSODI').val(solicitud.sodi);
-    $('#verProgramadaComentarios').val(solicitud.comentarios);
-    
-    console.log('Mostrando modal...');
-    $('#modalVerProgramada').modal('show');
-}
+// Las siguientes funciones con datos hardcodeados fueron eliminadas:
+// - verSolicitudEnAnalisis() -> Usar verSolicitudEnAnalisisAdmin() (línea ~1119)
+// - verSolicitudProgramada() -> Usar verSolicitudProgramadaAdmin() (línea ~1635)
+// - verSolicitudPendiente() -> Usar verSolicitudPendienteAdmin() (línea ~1103)
+// - verSolicitudAdminGestionandoAdmin() -> Versión correcta en línea ~1651
 
 // Función para descargar reporte
 function descargarReporte() {
     console.log('Descargando reporte PDF...');
     alert('Funcionalidad de descarga de reporte en desarrollo');
-}
-
-// Función para ver solicitud pendiente
-function verSolicitudPendiente(solicitudId) {
-    console.log('Abriendo modal ver pendiente para solicitud:', solicitudId);
-    
-    const solicitud = {
-        id: 'SOL-' + String(solicitudId).padStart(3, '0'),
-        usuarioCreador: 'Roberto Díaz',
-        fechaCreacion: '19/01/2025 08:45',
-        fechaActualizacion: '25/01/2025 11:20',
-        INICIO_PROGRAMADO: '28/01/2025 09:00',
-        FIN_PROGRAMADO: '28/01/2025 17:00',
-        INSTALACION_GM: 'Santa Lidia',
-        EQUIPOS: 'Paño SL1',
-        TIPO_INTERVENCION: 'Intervención',
-        RIESGOS: 'Bajo',
-        POTENCIA: '100.0',
-        DESCRIPCION: 'Mantenimiento preventivo anual',
-        CONDICIONES: 'Desenergización parcial',
-        AFECTACIONES: 'SSCC',
-        SODI: 'Sí',
-        OBSERVACIONES: 'Solicitud pendiente de aprobación'
-    };
-    
-    // Verificar si el modal existe
-    if ($('#modalVerPendiente').length === 0) {
-        console.error('Modal #modalVerPendiente no encontrado en el DOM');
-        alert('Error: Modal no cargado. Por favor recarga la página.');
-        return;
-    }
-    
-    console.log('Modal encontrado, llenando campos...');
-    
-    // Metadata del sistema
-    $('#verPendienteID').text(solicitud.id);
-    $('#verPendienteUsuarioCreador').text(solicitud.usuarioCreador);
-    $('#verPendienteFechaCreacion').text(solicitud.fechaCreacion);
-    $('#verPendienteFechaActualizacion').text(solicitud.fechaActualizacion);
-    
-    // Campos de solicitud
-    $('#verPendienteFechaInicio').val(solicitud.fechaInicio);
-    $('#verPendienteFechaFin').val(solicitud.fechaFin);
-    $('#verPendienteInstalacionGM').val(solicitud.instalacionGM);
-    $('#verPendienteEquiposIntervenir').val(solicitud.equiposIntervenir);
-    $('#verPendienteTipoIntervencion').val(solicitud.tipoIntervencion);
-    $('#verPendienteRiesgo').val(solicitud.riesgo);
-    $('#verPendientePotencia').val(solicitud.potencia);
-    $('#verPendienteDescripcionTrabajo').val(solicitud.descripcionTrabajo);
-    $('#verPendienteCondicionesRequeridas').val(solicitud.condicionesRequeridas);
-    $('#verPendienteAfectaciones').val(solicitud.afectaciones);
-    $('#verPendienteSODI').val(solicitud.sodi);
-    $('#verPendienteComentarios').val(solicitud.comentarios);
-    
-    console.log('Mostrando modal...');
-    $('#modalVerPendiente').modal('show');
 }
 
 // Función para abrir bitácora
@@ -1033,61 +736,11 @@ function confirmarClonarSolicitud() {
     // En el futuro: abrirNuevaSolicitudConDatos(solicitudId);
 }
 
-// Función para gestionar solicitud
-function gestionarSolicitud(solicitudId) {
-    console.log('Abriendo modal gestionar solicitud:', solicitudId);
-    
-    // Datos de ejemplo de la solicitud
-    const solicitud = {
-        id: 'SOL-' + String(solicitudId).padStart(3, '0'),
-        usuarioCreador: 'Roberto Díaz',
-        fechaCreacion: '19/01/2025 08:45',
-        fechaActualizacion: '25/01/2025 11:20',
-        INICIO_PROGRAMADO: '28/01/2025 09:00',
-        FIN_PROGRAMADO: '28/01/2025 17:00',
-        INSTALACION_GM: 'Santa Lidia',
-        EQUIPOS: 'Paño SL1',
-        TIPO_INTERVENCION: 'Intervención',
-        RIESGOS: 'Bajo',
-        POTENCIA: '100.0',
-        DESCRIPCION: 'Mantenimiento preventivo anual'
-    };
-    
-    // Verificar si el modal existe
-    if ($('#modalGestionarSolicitud').length === 0) {
-        console.error('Modal #modalGestionarSolicitud no encontrado en el DOM');
-        alert('Error: Modal no cargado. Por favor recarga la página.');
-        return;
-    }
-    
-    console.log('Modal encontrado, llenando campos...');
-    
-    // Metadata del sistema
-    $('#gestionarID').text(solicitud.id);
-    $('#gestionarUsuarioCreador').text(solicitud.usuarioCreador);
-    $('#gestionarFechaCreacion').text(solicitud.fechaCreacion);
-    $('#gestionarFechaActualizacion').text(solicitud.fechaActualizacion);
-    
-    // Campos de solicitud
-    $('#gestionarFechaInicio').val(solicitud.fechaInicio);
-    $('#gestionarFechaFin').val(solicitud.fechaFin);
-    $('#gestionarInstalacionGM').val(solicitud.instalacionGM);
-    $('#gestionarEquiposIntervenir').val(solicitud.equiposIntervenir);
-    $('#gestionarTipoIntervencion').val(solicitud.tipoIntervencion);
-    $('#gestionarRiesgo').val(solicitud.riesgo);
-    $('#gestionarPotencia').val(solicitud.potencia);
-    $('#gestionarDescripcionTrabajo').val(solicitud.descripcionTrabajo);
-    
-    // Limpiar comentarios y resetear radio button
-    $('#gestionarComentarios').val('');
-    $('#accionEnviarAnalisis').prop('checked', true);
-    
-    // Guardar el ID de la solicitud para usar en la confirmación
-    $('#modalGestionarSolicitud').data('solicitudId', solicitudId);
-    
-    console.log('Mostrando modal...');
-    $('#modalGestionarSolicitud').modal('show');
-}
+// NOTA: Función obsoleta eliminada - gestionarSolicitud()
+// Usar las funciones específicas por rol:
+// - gestionarSolicitudDevuelta() para Administrador (línea ~1289)
+// - gestionarSolicitudDesp() para Despachador (línea ~1736)
+// - gestionarSolicitudSolicitante() para Solicitante (línea ~2356)
 
 // Función para confirmar gestión de solicitud
 function confirmarGestionSolicitud() {
@@ -1123,7 +776,7 @@ function confirmarGestionSolicitud() {
 // Función para abrir modal de nueva solicitud - Administrador
 function abrirModalNuevaSolicitudAdmin() {
     console.log('Abriendo modal nueva solicitud (Administrador)');
-    $('#modalNuevaSolicitudAdmin').modal('show');
+    $('#modalNuevaAdmin').modal('show');
 }
 
 // Función para abrir modal de editar solicitud - Administrador
@@ -1133,67 +786,36 @@ function abrirModalEditarAdmin(solicitudId) {
     if (solicitud) {
         poblarModalEditar(solicitud, 'Admin');
     }
-    $('#modalEditarSolicitudAdmin').modal('show');
+    $('#modalEditarAdmin').modal('show');
 }
 
 // Función para ver solicitud pendiente - Administrador
+// ============================================
+// FUNCIONES DE COMPATIBILIDAD - Redirigen a la función unificada
+// ============================================
+
 function verSolicitudPendienteAdmin(solicitudId) {
-    console.log('Ver solicitud Pendiente (Administrador):', solicitudId);
-    const solicitud = obtenerSolicitud(solicitudId);
-    if (solicitud) {
-        poblarModalVerPendiente(solicitud, 'Admin');
-    }
-    $('#modalVerPendienteAdmin').modal('show');
+    verSolicitudAdmin(solicitudId);
 }
 
-// Función para ver solicitud devuelta - Administrador
 function verSolicitudDevueltaAdmin(solicitudId) {
-    console.log('Ver solicitud Devuelta (Administrador):', solicitudId);
-    const solicitud = obtenerSolicitud(solicitudId);
-    if (solicitud) {
-        poblarModalVerDevuelta(solicitud, 'Admin');
-    }
-    $('#modalVerDevueltaAdmin').modal('show');
+    verSolicitudAdmin(solicitudId);
 }
 
-// Función para ver solicitud en análisis - Administrador
 function verSolicitudEnAnalisisAdmin(solicitudId) {
-    console.log('Ver solicitud En Análisis (Administrador):', solicitudId);
-    const solicitud = obtenerSolicitud(solicitudId);
-    if (solicitud) {
-        poblarModalVerEnAnalisis(solicitud, 'Admin');
-    }
-    $('#modalVerEnAnalisisAdmin').modal('show');
+    verSolicitudAdmin(solicitudId);
 }
 
-// Función para ver solicitud programada - Administrador
 function verSolicitudProgramadaAdmin(solicitudId) {
-    console.log('Ver solicitud Programada (Administrador):', solicitudId);
-    const solicitud = obtenerSolicitud(solicitudId);
-    if (solicitud) {
-        poblarModalVerProgramada(solicitud, 'Admin');
-    }
-    $('#modalVerProgramadaAdmin').modal('show');
+    verSolicitudAdmin(solicitudId);
 }
 
-// Función para ver solicitud vigente - Administrador
 function verSolicitudVigenteAdmin(solicitudId) {
-    console.log('Ver solicitud Vigente (Administrador):', solicitudId);
-    const solicitud = obtenerSolicitud(solicitudId);
-    if (solicitud) {
-        poblarModalVerVigente(solicitud, 'Admin');
-    }
-    $('#modalVerVigenteAdmin').modal('show');
+    verSolicitudAdmin(solicitudId);
 }
 
-// Función para ver solicitud extendida - Administrador
 function verSolicitudExtendidaAdmin(solicitudId) {
-    console.log('Ver solicitud Extendida (Administrador):', solicitudId);
-    const solicitud = obtenerSolicitud(solicitudId);
-    if (solicitud) {
-        poblarModalVerExtendida(solicitud, 'Admin');
-    }
-    $('#modalVerExtendidaAdmin').modal('show');
+    verSolicitudAdmin(solicitudId);
 }
 
 // Función para clonar solicitud - Administrador
@@ -1206,7 +828,7 @@ function clonarSolicitudAdmin(solicitudId) {
         return;
     }
     
-    const modal = $('#modalClonarSolicitudAdmin');
+    const modal = $('#modalClonarAdmin');
     
     // Limpiar eventos previos y agregar nuevo listener
     modal.off('shown.bs.modal').on('shown.bs.modal', function() {
@@ -1218,7 +840,7 @@ function clonarSolicitudAdmin(solicitudId) {
 
 // Función para poblar el modal de clonación del administrador
 function poblarModalClonarAdmin(solicitud) {
-    const modalContext = '#modalClonarSolicitudAdmin';
+    const modalContext = '#modalClonarAdmin';
     
     console.log('Poblando modal clonar administrador:', solicitud);
     
@@ -1237,12 +859,46 @@ function poblarModalClonarAdmin(solicitud) {
     
     // Instalación y Equipos - se copian
     $(`${modalContext} #clonarAdminInstalacionGM`).val(solicitud.INSTALACION_GM || '');
+    $(`${modalContext} #clonarAdminEquipos`).val(solicitud.EQUIPOS || '');
+    
+    // Características de la Intervención - se copian
+    $(`${modalContext} #clonarAdminTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
     $(`${modalContext} #clonarAdminPotencia`).val(solicitud.POTENCIA || '');
+    $(`${modalContext} #clonarAdminAplicaSODI`).val(solicitud.APLICA_SODI || '');
+    $(`${modalContext} #clonarAdminRiesgo`).val(solicitud.RIESGO || '');
+    
+    // Descripción del Riesgo (condicional) - se copia
+    if (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto') {
+        $(`${modalContext} #clonarAdminDescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO || '');
+        $(`${modalContext} #clonarAdminDescripcionRiesgoContainer`).show();
+        $(`${modalContext} #clonarAdminDescripcionRiesgo`).attr('required', 'required');
+    } else {
+        $(`${modalContext} #clonarAdminDescripcionRiesgoContainer`).hide();
+        $(`${modalContext} #clonarAdminDescripcionRiesgo`).val('').removeAttr('required');
+    }
     
     // Descripción y Condiciones - se copian
     $(`${modalContext} #clonarAdminDescripcion`).val(solicitud.DESCRIPCION || '');
     $(`${modalContext} #clonarAdminCondiciones`).val(solicitud.CONDICIONES || '');
     $(`${modalContext} #clonarAdminComentarios`).val(solicitud.COMENTARIOS || '');
+    
+    // Afectaciones - se copian
+    $(`${modalContext} #clonarAdminAfectaciones`).val(solicitud.AFECTACIONES || '');
+    
+    // Descripción de Afectación (condicional) - se copia
+    if (solicitud.AFECTACIONES && solicitud.AFECTACIONES !== '') {
+        $(`${modalContext} #clonarAdminDescripcionAfectacion`).val(solicitud.DESCRIPCION_AFECTACION || '');
+        $(`${modalContext} #clonarAdminDescripcionAfectacionContainer`).show();
+        $(`${modalContext} #clonarAdminDescripcionAfectacion`).attr('required', 'required');
+    } else {
+        $(`${modalContext} #clonarAdminDescripcionAfectacionContainer`).hide();
+        $(`${modalContext} #clonarAdminDescripcionAfectacion`).val('').removeAttr('required');
+    }
+    
+    // Archivos Adjuntos - quedan vacíos
+    $(`${modalContext} #clonarAdminAdjunto`).val('');
+    $(`${modalContext} #clonarAdminSODIAdjunto`).val('');
+    $(`${modalContext} .custom-file-label`).text('Seleccionar archivo...');
     
     console.log('Modal clonar administrador poblado correctamente');
 }
@@ -1261,7 +917,7 @@ function gestionarSolicitudAdmin(solicitudId) {
         return;
     }
     
-    const modal = $('#modalGestionarSolicitudAdmin');
+    const modal = $('#modalGestionarAdmin');
     
     // Limpiar eventos previos y agregar nuevo listener
     modal.off('shown.bs.modal').on('shown.bs.modal', function() {
@@ -1273,7 +929,7 @@ function gestionarSolicitudAdmin(solicitudId) {
 
 // Función para poblar el modal de gestión
 function poblarModalGestionar(solicitud) {
-    const modalContext = '#modalGestionarSolicitudAdmin';
+    const modalContext = '#modalGestionarAdmin';
     
     // Configurar estado actual
     configurarEstadoGestion(solicitud.ESTADO);
@@ -1300,15 +956,31 @@ function poblarModalGestionar(solicitud) {
     
     // Características de la Intervención (SOLO LECTURA)
     $(`${modalContext} #gestionarTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
-    $(`${modalContext} #gestionarRiesgo`).val(solicitud.RIESGOS || '');
-    $(`${modalContext} #gestionarSODI`).val(solicitud.SODI || '');
     $(`${modalContext} #gestionarPotencia`).val(solicitud.POTENCIA || '');
+    $(`${modalContext} #gestionarAplicaSODI`).val(solicitud.APLICA_SODI || '');
+    $(`${modalContext} #gestionarRiesgo`).val(solicitud.RIESGO || '');
+    
+    // Descripción del Riesgo (condicional - solo si es Medio o Alto)
+    if (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto') {
+        $(`${modalContext} #gestionarDescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO || '');
+        $(`${modalContext} #gestionarDescripcionRiesgoContainer`).show();
+    } else {
+        $(`${modalContext} #gestionarDescripcionRiesgoContainer`).hide();
+    }
     
     // Descripción y Condiciones (SOLO LECTURA)
     $(`${modalContext} #gestionarDescripcion`).val(solicitud.DESCRIPCION || '');
     $(`${modalContext} #gestionarCondiciones`).val(solicitud.CONDICIONES || '');
-    $(`${modalContext} #gestionarAfectaciones`).val(solicitud.AFECTACIONES || '');
     $(`${modalContext} #gestionarComentariosActuales`).val(solicitud.COMENTARIOS || '');
+    $(`${modalContext} #gestionarAfectaciones`).val(solicitud.AFECTACIONES || '');
+    
+    // Descripción de Afectación (condicional - solo si hay afectaciones)
+    if (solicitud.AFECTACIONES && solicitud.AFECTACIONES !== '' && solicitud.AFECTACIONES !== '-') {
+        $(`${modalContext} #gestionarDescripcionAfectacion`).val(solicitud.DESCRIPCION_AFECTACION || '');
+        $(`${modalContext} #gestionarDescripcionAfectacionContainer`).show();
+    } else {
+        $(`${modalContext} #gestionarDescripcionAfectacionContainer`).hide();
+    }
     
     // Observaciones actuales (mostrar en alert)
     $(`${modalContext} #gestionarObservacionesActuales`).text(solicitud.OBSERVACIONES || 'Sin observaciones');
@@ -1335,11 +1007,139 @@ function poblarModalGestionar(solicitud) {
     
     // Guardar ID de solicitud para usar en la confirmación
     $(`${modalContext}`).data('solicitudId', solicitud.ID_REGISTRO);
+    
+    // Aplicar reglas de editabilidad según estado
+    aplicarReglasEditabilidadGestion(solicitud.ESTADO);
+}
+
+// Función para aplicar reglas de editabilidad según el estado
+function aplicarReglasEditabilidadGestion(estado) {
+    const modalContext = '#modalGestionarAdmin';
+    
+    // PASO 1: Resetear todos los campos a readonly y remover asteriscos
+    $(`${modalContext} #gestionarIDSolicitud`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarTipo`).prop('disabled', true).removeAttr('required');
+    $(`${modalContext} #gestionarRelacionSODICEN`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarInicioProgramado`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarFinProgramado`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarEmpresaSolicitante`).prop('disabled', true).removeAttr('required');
+    $(`${modalContext} #gestionarEmpresaReceptora`).prop('disabled', true).removeAttr('required');
+    $(`${modalContext} #gestionarInstalacionGM`).prop('disabled', true).removeAttr('required');
+    $(`${modalContext} #gestionarEquipos`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarTipoIntervencion`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarPotencia`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarAplicaSODI`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarRiesgo`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDescripcionRiesgo`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDescripcion`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarCondiciones`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarComentariosActuales`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarAfectaciones`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDescripcionAfectacion`).prop('readonly', true).removeAttr('required');
+    
+    // Remover todos los asteriscos de obligatoriedad
+    $(`${modalContext} label .text-danger`).remove();
+    
+    // Remover clases de editable
+    $(`${modalContext} .border-warning`).removeClass('border-warning');
+    $(`${modalContext} .bg-warning`).removeClass('bg-warning text-dark').addClass('bg-light');
+    $(`${modalContext} .badge-light`).remove();
+    
+    // PASO 2: Aplicar reglas según el estado
+    if (estado === 'Pendiente' || estado === 'En Análisis') {
+        // Identificación: Opcional (editable) - SIN asterisco
+        $(`${modalContext} #gestionarIDSolicitud`).prop('readonly', false);
+        $(`${modalContext} #gestionarTipo`).prop('disabled', false);
+        $(`${modalContext} #gestionarRelacionSODICEN`).prop('readonly', false);
+        
+        // Empresas: OPCIONAL (editable) - SIN asterisco (CORREGIDO según doc)
+        $(`${modalContext} #gestionarEmpresaSolicitante`).prop('disabled', false);
+        $(`${modalContext} #gestionarEmpresaReceptora`).prop('disabled', false);
+        
+        // NO agregar asteriscos porque son opcionales
+        
+        // Marcar secciones editables visualmente
+        $(`${modalContext} .card:has(#gestionarIDSolicitud)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarIDSolicitud) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarEmpresaSolicitante)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarEmpresaSolicitante) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        
+    } else if (estado === 'Administrador Gestionando') {
+        // Identificación: ID_SOLICITUD y TIPO son OBLIGATORIOS, RELACION_SODI_CEN es opcional
+        $(`${modalContext} #gestionarIDSolicitud`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarTipo`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarRelacionSODICEN`).prop('readonly', false);
+        
+        // Empresas: Obligatorio (editable)
+        $(`${modalContext} #gestionarEmpresaSolicitante`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarEmpresaReceptora`).prop('disabled', false).attr('required', 'required');
+        
+        // Agregar asteriscos a campos obligatorios
+        $(`${modalContext} label:contains("ID Solicitud")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Tipo")`).first().append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Empresa Solicitante")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Empresa Receptora")`).append(' <span class="text-danger">*</span>');
+        
+        // Marcar secciones editables visualmente
+        $(`${modalContext} .card:has(#gestionarIDSolicitud)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarIDSolicitud) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarEmpresaSolicitante)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarEmpresaSolicitante) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        
+    } else if (estado === 'Devuelta') {
+        // En estado Devuelta, el administrador puede editar MUCHOS campos
+        // Identificación: Solo lectura (ya está readonly)
+        // Empresas: Solo lectura (ya está readonly)
+        
+        // Fechas Programadas: OBLIGATORIO (editable)
+        $(`${modalContext} #gestionarInicioProgramado`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarFinProgramado`).prop('readonly', false).attr('required', 'required');
+        
+        // Instalación y Equipos: OBLIGATORIO (editable)
+        $(`${modalContext} #gestionarInstalacionGM`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarEquipos`).prop('readonly', false).attr('required', 'required');
+        
+        // Características: OBLIGATORIO (editable)
+        $(`${modalContext} #gestionarTipoIntervencion`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarPotencia`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarAplicaSODI`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarRiesgo`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDescripcionRiesgo`).prop('readonly', false); // Condicional
+        
+        // Descripción y Condiciones: OBLIGATORIO (editable)
+        $(`${modalContext} #gestionarDescripcion`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarCondiciones`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarComentariosActuales`).prop('readonly', false); // Opcional
+        $(`${modalContext} #gestionarAfectaciones`).prop('readonly', false); // Opcional
+        $(`${modalContext} #gestionarDescripcionAfectacion`).prop('readonly', false); // Condicional
+        
+        // Agregar asteriscos a campos obligatorios
+        $(`${modalContext} label:contains("Fecha prog. Inicio")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Fecha prog. fin")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Instalación GM")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Instalaciones/Equipos")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Tipo de Intervención")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Potencia")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Aplica SODI")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Clasificación del Riesgo")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Descripción del trabajo")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Condiciones requeridas")`).append(' <span class="text-danger">*</span>');
+        
+        // Marcar secciones editables visualmente
+        $(`${modalContext} .card:has(#gestionarInicioProgramado)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarInicioProgramado) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarInstalacionGM)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarInstalacionGM) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarTipoIntervencion)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarTipoIntervencion) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarDescripcion)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDescripcion) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+    }
 }
 
 // Función para configurar el estado y las acciones disponibles
 function configurarEstadoGestion(estado) {
-    const modalContext = '#modalGestionarSolicitudAdmin';
+    const modalContext = '#modalGestionarAdmin';
     const alertElement = $(`${modalContext} #gestionarEstadoAlert`);
     const badgeElement = $(`${modalContext} #gestionarEstadoBadge`);
     const descripcionElement = $(`${modalContext} #gestionarEstadoDescripcion`);
@@ -1361,23 +1161,30 @@ function configurarEstadoGestion(estado) {
                 <div class="custom-control custom-radio">
                     <input type="radio" id="accionEnviarAnalisis" name="accionGestion" class="custom-control-input" value="En Análisis" checked>
                     <label class="custom-control-label" for="accionEnviarAnalisis">
-                        <i class="fas fa-arrow-right mr-1"></i>Avanzar a "En Análisis"
+                        <i class="fas fa-search mr-1"></i>Analizar Solicitud
                     </label>
-                    <small class="form-text text-muted ml-4">La solicitud será enviada para análisis detallado</small>
+                    <small class="form-text text-muted ml-4">Enviar a "En Análisis"</small>
                 </div>
                 <div class="custom-control custom-radio mt-2">
                     <input type="radio" id="accionDevolver" name="accionGestion" class="custom-control-input" value="Devuelta">
                     <label class="custom-control-label" for="accionDevolver">
-                        <i class="fas fa-arrow-right mr-1"></i>Avanzar a "Devuelta"
+                        <i class="fas fa-undo mr-1"></i>Devolver Solicitud
                     </label>
-                    <small class="form-text text-muted ml-4">Devolver la solicitud al solicitante para correcciones</small>
+                    <small class="form-text text-muted ml-4">Enviar a "Devuelta"</small>
                 </div>
                 <div class="custom-control custom-radio mt-2">
                     <input type="radio" id="accionAdminGestionando" name="accionGestion" class="custom-control-input" value="Administrador Gestionando">
                     <label class="custom-control-label" for="accionAdminGestionando">
-                        <i class="fas fa-arrow-right mr-1"></i>Avanzar a "Administrador Gestionando"
+                        <i class="fas fa-user-cog mr-1"></i>Gestionar Solicitud
                     </label>
-                    <small class="form-text text-muted ml-4">El administrador tomará el control de la gestión</small>
+                    <small class="form-text text-muted ml-4">Enviar a "Administrador Gestionando"</small>
+                </div>
+                <div class="custom-control custom-radio mt-2">
+                    <input type="radio" id="accionAnular" name="accionGestion" class="custom-control-input" value="Anulada">
+                    <label class="custom-control-label text-danger" for="accionAnular">
+                        <i class="fas fa-ban mr-1"></i>Anular solicitud
+                    </label>
+                    <small class="form-text text-muted ml-4">Enviar a "Anulada"</small>
                 </div>
             `;
             break;
@@ -1390,16 +1197,23 @@ function configurarEstadoGestion(estado) {
                 <div class="custom-control custom-radio">
                     <input type="radio" id="accionDevolver" name="accionGestion" class="custom-control-input" value="Devuelta" checked>
                     <label class="custom-control-label" for="accionDevolver">
-                        <i class="fas fa-arrow-right mr-1"></i>Avanzar a "Devuelta"
+                        <i class="fas fa-undo mr-1"></i>Devolver Solicitud
                     </label>
-                    <small class="form-text text-muted ml-4">Devolver la solicitud al solicitante para correcciones</small>
+                    <small class="form-text text-muted ml-4">Enviar a "Devuelta"</small>
                 </div>
                 <div class="custom-control custom-radio mt-2">
                     <input type="radio" id="accionAdminGestionando" name="accionGestion" class="custom-control-input" value="Administrador Gestionando">
                     <label class="custom-control-label" for="accionAdminGestionando">
-                        <i class="fas fa-arrow-right mr-1"></i>Avanzar a "Administrador Gestionando"
+                        <i class="fas fa-user-cog mr-1"></i>Gestionar Solicitud
                     </label>
-                    <small class="form-text text-muted ml-4">El administrador tomará el control de la gestión</small>
+                    <small class="form-text text-muted ml-4">Enviar a "Administrador Gestionando"</small>
+                </div>
+                <div class="custom-control custom-radio mt-2">
+                    <input type="radio" id="accionAnular" name="accionGestion" class="custom-control-input" value="Anulada">
+                    <label class="custom-control-label text-danger" for="accionAnular">
+                        <i class="fas fa-ban mr-1"></i>Anular solicitud
+                    </label>
+                    <small class="form-text text-muted ml-4">Enviar a "Anulada"</small>
                 </div>
             `;
             break;
@@ -1410,11 +1224,18 @@ function configurarEstadoGestion(estado) {
             descripcionElement.text('Esta solicitud fue devuelta al solicitante para correcciones');
             acciones = `
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="accionEnviarAnalisis" name="accionGestion" class="custom-control-input" value="En Análisis" checked>
-                    <label class="custom-control-label" for="accionEnviarAnalisis">
-                        <i class="fas fa-arrow-right mr-1"></i>Avanzar a "En Análisis"
+                    <input type="radio" id="accionEnviarPendiente" name="accionGestion" class="custom-control-input" value="Pendiente" checked>
+                    <label class="custom-control-label" for="accionEnviarPendiente">
+                        <i class="fas fa-arrow-right mr-1"></i>Enviar a Pendiente
                     </label>
-                    <small class="form-text text-muted ml-4">Enviar nuevamente la solicitud a análisis</small>
+                    <small class="form-text text-muted ml-4">Enviar a "Pendiente"</small>
+                </div>
+                <div class="custom-control custom-radio mt-2">
+                    <input type="radio" id="accionAnular" name="accionGestion" class="custom-control-input" value="Anulada">
+                    <label class="custom-control-label text-danger" for="accionAnular">
+                        <i class="fas fa-ban mr-1"></i>Anular solicitud
+                    </label>
+                    <small class="form-text text-muted ml-4">Enviar a "Anulada"</small>
                 </div>
             `;
             break;
@@ -1427,9 +1248,16 @@ function configurarEstadoGestion(estado) {
                 <div class="custom-control custom-radio">
                     <input type="radio" id="accionProgramar" name="accionGestion" class="custom-control-input" value="Programada" checked>
                     <label class="custom-control-label" for="accionProgramar">
-                        <i class="fas fa-arrow-right mr-1"></i>Avanzar a "Programada"
+                        <i class="fas fa-calendar-check mr-1"></i>Programar Solicitud
                     </label>
-                    <small class="form-text text-muted ml-4">Aprobar y programar la solicitud para ejecución</small>
+                    <small class="form-text text-muted ml-4">Enviar a "Programada"</small>
+                </div>
+                <div class="custom-control custom-radio mt-2">
+                    <input type="radio" id="accionAnular" name="accionGestion" class="custom-control-input" value="Anulada">
+                    <label class="custom-control-label text-danger" for="accionAnular">
+                        <i class="fas fa-ban mr-1"></i>Anular solicitud
+                    </label>
+                    <small class="form-text text-muted ml-4">Enviar a "Anulada"</small>
                 </div>
             `;
             break;
@@ -1446,7 +1274,7 @@ function configurarEstadoGestion(estado) {
 
 // Función para confirmar la gestión de la solicitud
 function confirmarGestionSolicitudAdmin() {
-    const modalContext = '#modalGestionarSolicitudAdmin';
+    const modalContext = '#modalGestionarAdmin';
     const solicitudId = $(`${modalContext}`).data('solicitudId');
     const comentarios = $(`${modalContext} #gestionarComentarios`).val().trim();
     const accionSeleccionada = $(`${modalContext} input[name="accionGestion"]:checked`).val();
@@ -1501,7 +1329,7 @@ function editarSolicitudAdmin(solicitudId) {
         return;
     }
     
-    const modal = $('#modalEditarSolicitudAdmin');
+    const modal = $('#modalEditarAdmin');
     
     // Limpiar eventos previos y agregar nuevo listener
     modal.off('shown.bs.modal').on('shown.bs.modal', function() {
@@ -1513,7 +1341,7 @@ function editarSolicitudAdmin(solicitudId) {
 
 // Función para poblar el modal de edición
 function poblarModalEditar(solicitud) {
-    const modalContext = '#modalEditarSolicitudAdmin';
+    const modalContext = '#modalEditarAdmin';
     
     // Header: Estado
     $(`${modalContext} #editarEstadoBadge`).text(solicitud.ESTADO);
@@ -1552,27 +1380,37 @@ function poblarModalEditar(solicitud) {
     
     // Características de la Intervención (SIEMPRE SOLO LECTURA)
     $(`${modalContext} #editarTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '').prop('disabled', true);
-    $(`${modalContext} #editarRiesgo`).val(solicitud.RIESGOS || '').prop('disabled', true);
-    $(`${modalContext} #editarSODI`).val(solicitud.SODI || '').prop('disabled', true);
+    $(`${modalContext} #editarPotencia`).val(solicitud.POTENCIA || '').prop('readonly', true);
+    $(`${modalContext} #editarAplicaSODI`).val(solicitud.APLICA_SODI || '').prop('disabled', true);
+    $(`${modalContext} #editarRiesgo`).val(solicitud.RIESGO || '').prop('disabled', true);
     
-    // Potencia
-    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
-    // Si CREADO_POR = "Administrador" -> EDITABLE
-    $(`${modalContext} #editarPotencia`).val(solicitud.POTENCIA || '').prop('readonly', creadoPorSolicitante);
+    // Descripción del Riesgo (condicional - SIEMPRE SOLO LECTURA)
+    if (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto') {
+        $(`${modalContext} #editarDescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO || '');
+        $(`${modalContext} #editarDescripcionRiesgoContainer`).show();
+    } else {
+        $(`${modalContext} #editarDescripcionRiesgoContainer`).hide();
+        $(`${modalContext} #editarDescripcionRiesgo`).val('');
+    }
     
     // Descripción y Condiciones
     // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
     // Si CREADO_POR = "Administrador" -> EDITABLE
     $(`${modalContext} #editarDescripcion`).val(solicitud.DESCRIPCION || '').prop('readonly', creadoPorSolicitante);
     $(`${modalContext} #editarCondiciones`).val(solicitud.CONDICIONES || '').prop('readonly', creadoPorSolicitante);
+    $(`${modalContext} #editarComentarios`).val(solicitud.COMENTARIOS || '').prop('readonly', creadoPorSolicitante);
     
     // Afectaciones (SIEMPRE SOLO LECTURA)
-    $(`${modalContext} #editarAfectaciones`).val(solicitud.AFECTACIONES || '').prop('readonly', true);
+    $(`${modalContext} #editarAfectaciones`).val(solicitud.AFECTACIONES || '').prop('disabled', true);
     
-    // Comentarios
-    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
-    // Si CREADO_POR = "Administrador" -> EDITABLE
-    $(`${modalContext} #editarComentarios`).val(solicitud.COMENTARIOS || '').prop('readonly', creadoPorSolicitante);
+    // Descripción de Afectación (condicional - SIEMPRE SOLO LECTURA)
+    if (solicitud.AFECTACIONES && solicitud.AFECTACIONES !== '') {
+        $(`${modalContext} #editarDescripcionAfectacion`).val(solicitud.DESCRIPCION_AFECTACION || '');
+        $(`${modalContext} #editarDescripcionAfectacionContainer`).show();
+    } else {
+        $(`${modalContext} #editarDescripcionAfectacionContainer`).hide();
+        $(`${modalContext} #editarDescripcionAfectacion`).val('');
+    }
     
     // Archivo Adjunto (SIEMPRE EDITABLE - se maneja en el HTML)
     if (solicitud.ADJUNTO && solicitud.ADJUNTO !== '-') {
@@ -1582,6 +1420,9 @@ function poblarModalEditar(solicitud) {
         $(`${modalContext} #editarAdjuntoActual`).text('Sin archivo adjunto');
         $(`${modalContext} #editarDescargarAdjunto`).hide();
     }
+    
+    // SODI Adjunto (SIEMPRE EDITABLE)
+    $(`${modalContext} #editarSODIAdjunto`).val(solicitud.SODI_ADJUNTO || '')
     
     // Guardar ID de solicitud y CREADO_POR para usar en la actualización
     $(`${modalContext} #editSolicitudId`).val(solicitud.ID_REGISTRO);
@@ -1609,7 +1450,7 @@ function convertirFechaParaInput(fechaStr) {
 
 // Función para actualizar la solicitud
 function actualizarSolicitud() {
-    const modalContext = '#modalEditarSolicitudAdmin';
+    const modalContext = '#modalEditarAdmin';
     const solicitudId = $(`${modalContext} #editSolicitudId`).val();
     
     // Recopilar datos del formulario
@@ -1637,14 +1478,230 @@ function actualizarSolicitud() {
     $(`${modalContext}`).modal('hide');
 }
 
-// Función para ver solicitud administrador gestionando - Administrador
 function verSolicitudAdminGestionandoAdmin(solicitudId) {
-    console.log('Ver solicitud Administrador Gestionando (Administrador):', solicitudId);
+    verSolicitudAdmin(solicitudId);
+}
+
+// ============================================
+// FUNCIÓN UNIFICADA PARA VER SOLICITUDES - ADMINISTRADOR
+// ============================================
+
+// Función unificada para ver solicitud - Administrador (cualquier estado)
+function verSolicitudAdmin(solicitudId) {
+    console.log('Ver solicitud (Administrador - Unificado):', solicitudId);
     const solicitud = obtenerSolicitud(solicitudId);
-    if (solicitud) {
-        poblarModalVerAdminGestionando(solicitud, 'Admin');
+    
+    if (!solicitud) {
+        console.error('Solicitud no encontrada:', solicitudId);
+        return;
     }
-    $('#modalVerAdminGestionandoAdmin').modal('show');
+    
+    const modal = $('#modalVerAdmin');
+    
+    // Limpiar eventos previos y agregar nuevo listener
+    modal.off('shown.bs.modal').on('shown.bs.modal', function() {
+        poblarModalVerAdmin(solicitud);
+    });
+    
+    modal.modal('show');
+}
+
+// Función para poblar el modal unificado de ver solicitud - Administrador
+function poblarModalVerAdmin(solicitud) {
+    console.log('Poblando modal ver administrador (unificado):', solicitud);
+    
+    // Configuración de estilos por estado
+    const estadoConfig = {
+        'Pendiente': { 
+            badge: 'badge-warning', 
+            alert: 'alert-warning', 
+            header: 'bg-warning text-dark',
+            icon: 'fa-clock',
+            descripcion: 'La solicitud está pendiente de revisión por el administrador'
+        },
+        'En Análisis': { 
+            badge: 'badge-info', 
+            alert: 'alert-info', 
+            header: 'bg-info text-white',
+            icon: 'fa-search',
+            descripcion: 'La solicitud está siendo analizada por el administrador'
+        },
+        'Devuelta': { 
+            badge: 'badge-danger', 
+            alert: 'alert-danger', 
+            header: 'bg-danger text-white',
+            icon: 'fa-undo',
+            descripcion: 'La solicitud fue devuelta al solicitante para correcciones'
+        },
+        'Administrador Gestionando': { 
+            badge: 'badge-primary', 
+            alert: 'alert-primary', 
+            header: 'bg-primary text-white',
+            icon: 'fa-user-cog',
+            descripcion: 'La solicitud está siendo gestionada por el administrador'
+        },
+        'Programada': { 
+            badge: 'badge-success', 
+            alert: 'alert-success', 
+            header: 'bg-success text-white',
+            icon: 'fa-calendar-check',
+            descripcion: 'La solicitud ha sido programada y aprobada'
+        },
+        'Vigente': { 
+            badge: 'badge-success', 
+            alert: 'alert-success', 
+            header: 'bg-success text-white',
+            icon: 'fa-check-circle',
+            descripcion: 'La solicitud está vigente y en ejecución'
+        },
+        'Extendida': { 
+            badge: 'badge-info', 
+            alert: 'alert-info', 
+            header: 'bg-info text-white',
+            icon: 'fa-clock',
+            descripcion: 'La solicitud ha sido extendida'
+        },
+        'Finalizada': { 
+            badge: 'badge-secondary', 
+            alert: 'alert-secondary', 
+            header: 'bg-secondary text-white',
+            icon: 'fa-check',
+            descripcion: 'La solicitud ha sido finalizada'
+        },
+        'Rechazada': { 
+            badge: 'badge-danger', 
+            alert: 'alert-danger', 
+            header: 'bg-danger text-white',
+            icon: 'fa-times-circle',
+            descripcion: 'La solicitud ha sido rechazada'
+        },
+        'Suspendida': { 
+            badge: 'badge-warning', 
+            alert: 'alert-warning', 
+            header: 'bg-warning text-dark',
+            icon: 'fa-pause-circle',
+            descripcion: 'La solicitud ha sido suspendida'
+        },
+        'Anulada': { 
+            badge: 'badge-dark', 
+            alert: 'alert-dark', 
+            header: 'bg-dark text-white',
+            icon: 'fa-ban',
+            descripcion: 'La solicitud ha sido anulada'
+        }
+    };
+    
+    const config = estadoConfig[solicitud.ESTADO] || { 
+        badge: 'badge-secondary', 
+        alert: 'alert-secondary', 
+        header: 'bg-secondary text-white',
+        icon: 'fa-circle',
+        descripcion: ''
+    };
+    
+    // Actualizar header del modal
+    $('#verAdminModalHeader').removeClass().addClass('modal-header text-white ' + config.header);
+    
+    // Header: Estado y Observaciones
+    $('#verAdminEstadoAlert').removeClass().addClass('alert mb-0 d-flex align-items-center ' + config.alert);
+    $('#verAdminEstadoIcon').removeClass().addClass('fas mr-2 ' + config.icon);
+    $('#verAdminEstadoBadge').removeClass().addClass('badge ml-2 ' + config.badge).text(solicitud.ESTADO);
+    $('#verAdminEstadoDescripcion').text(config.descripcion);
+    
+    // Observaciones (mostrar solo si existen)
+    if (solicitud.OBSERVACIONES && solicitud.OBSERVACIONES !== '-') {
+        $('#verAdminObservaciones').text(solicitud.OBSERVACIONES);
+        $('#verAdminObservacionesContainer').show();
+    } else {
+        $('#verAdminObservacionesContainer').hide();
+    }
+    
+    // Identificación
+    $('#verAdminIDSolicitud').val(solicitud.ID_SOLICITUD || '');
+    $('#verAdminTipo').val(solicitud.TIPO || '');
+    $('#verAdminRelacionSODICEN').val(solicitud.RELACION_SODI_CEN || '');
+    
+    // Fechas Programadas
+    $('#verAdminInicioProgramado').val(solicitud.INICIO_PROGRAMADO || '');
+    $('#verAdminFinProgramado').val(solicitud.FIN_PROGRAMADO || '');
+    
+    // Fechas Efectivas (mostrar solo en estados Vigente, Extendida, Finalizada)
+    const estadosConFechasEfectivas = ['Vigente', 'Extendida', 'Finalizada'];
+    if (estadosConFechasEfectivas.includes(solicitud.ESTADO)) {
+        $('#verAdminInicioEfectivo').val(solicitud.INICIO_EFECTIVO || '-');
+        $('#verAdminFinEfectivo').val(solicitud.FIN_EFECTIVO || '-');
+        $('#verAdminFechasEfectivasCard').show();
+    } else {
+        $('#verAdminFechasEfectivasCard').hide();
+    }
+    
+    // Empresas Involucradas
+    $('#verAdminEmpresaSolicitante').val(solicitud.EMPRESA_SOLICITANTE || '');
+    $('#verAdminEmpresaReceptora').val(solicitud.EMPRESA_RECEPTORA || '');
+    
+    // Instalación y Equipos
+    $('#verAdminInstalacionGM').val(solicitud.INSTALACION_GM || '');
+    $('#verAdminEquipos').val(solicitud.EQUIPOS || '');
+    
+    // Características de la Intervención
+    $('#verAdminTipoIntervencion').val(solicitud.TIPO_INTERVENCION || '');
+    $('#verAdminPotencia').val(solicitud.POTENCIA || '');
+    $('#verAdminAplicaSODI').val(solicitud.APLICA_SODI || '');
+    $('#verAdminRiesgo').val(solicitud.RIESGO || '');
+    
+    // Campo condicional - DESCRIPCION_RIESGO
+    if (solicitud.DESCRIPCION_RIESGO && (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto')) {
+        $('#verAdminDescripcionRiesgo').val(solicitud.DESCRIPCION_RIESGO);
+        $('#verAdminDescripcionRiesgoContainer').show();
+    } else {
+        $('#verAdminDescripcionRiesgoContainer').hide();
+    }
+    
+    // SODI Adjunto (mostrar solo si aplica SODI)
+    if (solicitud.APLICA_SODI === 'Sí') {
+        $('#verAdminSODIAdjunto').val(solicitud.APLICA_SODI_ADJUNTO ? 'Sí' : 'No');
+        if (solicitud.SODI_ADJUNTO && solicitud.SODI_ADJUNTO !== '-') {
+            $('#verAdminArchivoSODI').val(solicitud.SODI_ADJUNTO);
+            $('#verAdminDescargarSODI').show();
+        } else {
+            $('#verAdminArchivoSODI').val('Sin archivo');
+            $('#verAdminDescargarSODI').hide();
+        }
+        $('#verAdminSODIAdjuntoCard').show();
+    } else {
+        $('#verAdminSODIAdjuntoCard').hide();
+    }
+    
+    // Descripción y Condiciones
+    $('#verAdminDescripcion').val(solicitud.DESCRIPCION || '');
+    $('#verAdminCondiciones').val(solicitud.CONDICIONES || '');
+    $('#verAdminComentarios').val(solicitud.COMENTARIOS || '');
+    $('#verAdminAfectaciones').val(solicitud.AFECTACIONES || '');
+    
+    // Campo condicional - DESCRIPCION_AFECTACION
+    if (solicitud.DESCRIPCION_AFECTACION && solicitud.AFECTACIONES) {
+        $('#verAdminDescripcionAfectacion').val(solicitud.DESCRIPCION_AFECTACION);
+        $('#verAdminDescripcionAfectacionContainer').show();
+    } else {
+        $('#verAdminDescripcionAfectacionContainer').hide();
+    }
+    
+    // Archivos Adjuntos
+    if (solicitud.ADJUNTO && solicitud.ADJUNTO !== '-') {
+        $('#verAdminAdjunto').val(solicitud.ADJUNTO);
+        $('#verAdminDescargarAdjunto').show();
+    } else {
+        $('#verAdminAdjunto').val('Sin archivo adjunto');
+        $('#verAdminDescargarAdjunto').hide();
+    }
+    
+    // Metadata del Sistema
+    $('#verAdminIDRegistro').text(solicitud.ID_REGISTRO || '-');
+    $('#verAdminCreado').text(solicitud.CREADO || '-');
+    $('#verAdminActualizado').text(solicitud.ACTUALIZADO || '-');
+    $('#verAdminAdministrador').text(solicitud.ADMINISTRADOR || '-');
+    $('#verAdminSolicitante').text(solicitud.SOLICITANTE || '-');
+    $('#verAdminCreadoPor').text(solicitud.CREADO_POR || '-');
 }
 
 // ============================================
@@ -1888,15 +1945,31 @@ function poblarModalGestionarDespachador(solicitud) {
     
     // Características de la Intervención (SOLO LECTURA)
     $('#gestionarDespTipoIntervencion').val(solicitud.TIPO_INTERVENCION || '');
-    $('#gestionarDespRiesgo').val(solicitud.RIESGOS || '');
-    $('#gestionarDespSODI').val(solicitud.SODI || '');
     $('#gestionarDespPotencia').val(solicitud.POTENCIA || '');
+    $('#gestionarDespAplicaSODI').val(solicitud.APLICA_SODI || '');
+    $('#gestionarDespRiesgo').val(solicitud.RIESGO || '');
+    
+    // Descripción del Riesgo (condicional - solo si es Medio o Alto)
+    if (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto') {
+        $('#gestionarDespDescripcionRiesgo').val(solicitud.DESCRIPCION_RIESGO || '');
+        $('#gestionarDespDescripcionRiesgoContainer').show();
+    } else {
+        $('#gestionarDespDescripcionRiesgoContainer').hide();
+    }
     
     // Descripción y Condiciones (SOLO LECTURA)
     $('#gestionarDespDescripcion').val(solicitud.DESCRIPCION || '');
     $('#gestionarDespCondiciones').val(solicitud.CONDICIONES || '');
-    $('#gestionarDespAfectaciones').val(solicitud.AFECTACIONES || '');
     $('#gestionarDespComentariosActuales').val(solicitud.COMENTARIOS || '');
+    $('#gestionarDespAfectaciones').val(solicitud.AFECTACIONES || '');
+    
+    // Descripción de Afectación (condicional - solo si hay afectaciones)
+    if (solicitud.AFECTACIONES && solicitud.AFECTACIONES !== '' && solicitud.AFECTACIONES !== '-') {
+        $('#gestionarDespDescripcionAfectacion').val(solicitud.DESCRIPCION_AFECTACION || '');
+        $('#gestionarDespDescripcionAfectacionContainer').show();
+    } else {
+        $('#gestionarDespDescripcionAfectacionContainer').hide();
+    }
     
     // Archivo Adjunto (SOLO DESCARGA)
     if (solicitud.ADJUNTO && solicitud.ADJUNTO !== '-') {
@@ -1918,10 +1991,187 @@ function poblarModalGestionarDespachador(solicitud) {
     // Limpiar campo de observaciones
     $('#gestionarDespObservaciones').val('');
     
+    // Aplicar reglas de editabilidad según estado
+    aplicarReglasEditabilidadDespachador(solicitud.ESTADO);
+    
     // Configurar transiciones de estado según el estado actual
     configurarTransicionesEstadoDesp(solicitud.ESTADO);
     
     console.log('Modal gestionar despachador poblado correctamente');
+}
+
+// Función para aplicar reglas de editabilidad según el estado del despachador
+function aplicarReglasEditabilidadDespachador(estado) {
+    const modalContext = '#modalGestionarSolicitudDesp';
+    
+    // PASO 1: Resetear todos los campos a readonly/disabled y remover asteriscos
+    $(`${modalContext} #gestionarDespIDSolicitud`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespTipo`).prop('disabled', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespRelacionSODICEN`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespInicioProgramado`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespFinProgramado`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespInicioEfectivo`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespFinEfectivo`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespEmpresaSolicitante`).prop('disabled', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespEmpresaReceptora`).prop('disabled', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespInstalacionGM`).prop('disabled', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespEquipos`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespTipoIntervencion`).prop('disabled', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespPotencia`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespAplicaSODI`).prop('disabled', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespRiesgo`).prop('disabled', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespDescripcionRiesgo`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespDescripcion`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespCondiciones`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespComentariosActuales`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespAfectaciones`).prop('disabled', true).removeAttr('required');
+    $(`${modalContext} #gestionarDespDescripcionAfectacion`).prop('readonly', true).removeAttr('required');
+    
+    // Remover todos los asteriscos de obligatoriedad
+    $(`${modalContext} label .text-danger`).remove();
+    
+    // Remover clases de editable
+    $(`${modalContext} .border-warning`).removeClass('border-warning');
+    $(`${modalContext} .bg-warning`).removeClass('bg-warning text-dark').addClass('bg-light');
+    $(`${modalContext} .badge-light`).remove();
+    
+    // PASO 2: Aplicar reglas según el estado
+    if (estado === 'Despachador Gestionando') {
+        // Identificación: Obligatorio (ID y TIPO), Opcional (RELACION)
+        $(`${modalContext} #gestionarDespIDSolicitud`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespTipo`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespRelacionSODICEN`).prop('readonly', false);
+        
+        // Fechas Programadas: Obligatorio
+        $(`${modalContext} #gestionarDespInicioProgramado`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespFinProgramado`).prop('readonly', false).attr('required', 'required');
+        
+        // Empresas: Obligatorio
+        $(`${modalContext} #gestionarDespEmpresaSolicitante`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespEmpresaReceptora`).prop('disabled', false).attr('required', 'required');
+        
+        // Instalación y Equipos: Obligatorio
+        $(`${modalContext} #gestionarDespInstalacionGM`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespEquipos`).prop('readonly', false).attr('required', 'required');
+        
+        // Características: Obligatorio
+        $(`${modalContext} #gestionarDespTipoIntervencion`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespPotencia`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespAplicaSODI`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespRiesgo`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespDescripcionRiesgo`).prop('readonly', false); // Condicional
+        
+        // Descripción: Obligatorio (DESCRIPCION, CONDICIONES), Opcional (COMENTARIOS, AFECTACIONES)
+        $(`${modalContext} #gestionarDespDescripcion`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespCondiciones`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespComentariosActuales`).prop('readonly', false);
+        $(`${modalContext} #gestionarDespAfectaciones`).prop('disabled', false);
+        $(`${modalContext} #gestionarDespDescripcionAfectacion`).prop('readonly', false); // Condicional
+        
+        // Agregar asteriscos a campos obligatorios
+        $(`${modalContext} label:contains("ID Solicitud")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Tipo")`).first().append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Inicio Programado")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Fin Programado")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Empresa Solicitante")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Empresa Receptora")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Instalación GM")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Instalaciones/equipos")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Tipo de Intervención")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Potencia")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Aplica SODI")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Clasificación del Riesgo")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Descripción del trabajo")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Condiciones requeridas")`).append(' <span class="text-danger">*</span>');
+        
+        // Marcar secciones editables
+        $(`${modalContext} .card:has(#gestionarDespIDSolicitud)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespIDSolicitud) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarDespInicioProgramado)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespInicioProgramado) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarDespEmpresaSolicitante)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespEmpresaSolicitante) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarDespInstalacionGM)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespInstalacionGM) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarDespTipoIntervencion)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespTipoIntervencion) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarDespDescripcion)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespDescripcion) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        
+    } else if (estado === 'Programada') {
+        // Similar a Despachador Gestionando, pero con INICIO_EFECTIVO condicional
+        // Identificación: Obligatorio
+        $(`${modalContext} #gestionarDespIDSolicitud`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespTipo`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespRelacionSODICEN`).prop('readonly', false);
+        
+        // Fechas Programadas: Obligatorio
+        $(`${modalContext} #gestionarDespInicioProgramado`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespFinProgramado`).prop('readonly', false).attr('required', 'required');
+        
+        // Fechas Efectivas: INICIO_EFECTIVO obligatorio para avanzar a Vigente
+        $(`${modalContext} #gestionarDespInicioEfectivo`).prop('readonly', false);
+        
+        // Empresas: Obligatorio
+        $(`${modalContext} #gestionarDespEmpresaSolicitante`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespEmpresaReceptora`).prop('disabled', false).attr('required', 'required');
+        
+        // Instalación y Equipos: Obligatorio
+        $(`${modalContext} #gestionarDespInstalacionGM`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespEquipos`).prop('readonly', false).attr('required', 'required');
+        
+        // Características: Obligatorio
+        $(`${modalContext} #gestionarDespTipoIntervencion`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespPotencia`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespAplicaSODI`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespRiesgo`).prop('disabled', false).attr('required', 'required');
+        
+        // Descripción: Obligatorio
+        $(`${modalContext} #gestionarDespDescripcion`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespCondiciones`).prop('readonly', false).attr('required', 'required');
+        $(`${modalContext} #gestionarDespComentariosActuales`).prop('readonly', false);
+        $(`${modalContext} #gestionarDespAfectaciones`).prop('disabled', false);
+        
+        // Agregar asteriscos (similar a Despachador Gestionando)
+        $(`${modalContext} label:contains("ID Solicitud")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Tipo")`).first().append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Inicio Programado")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Fin Programado")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Empresa Solicitante")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Empresa Receptora")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Instalación GM")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Instalaciones/equipos")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Tipo de Intervención")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Potencia")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Aplica SODI")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Clasificación del Riesgo")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Descripción del trabajo")`).append(' <span class="text-danger">*</span>');
+        $(`${modalContext} label:contains("Condiciones requeridas")`).append(' <span class="text-danger">*</span>');
+        
+        // Marcar secciones editables
+        $(`${modalContext} .card:has(#gestionarDespIDSolicitud)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespIDSolicitud) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarDespInicioProgramado)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespInicioProgramado) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarDespInicioEfectivo)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespInicioEfectivo) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarDespEmpresaSolicitante)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespEmpresaSolicitante) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarDespInstalacionGM)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespInstalacionGM) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarDespTipoIntervencion)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespTipoIntervencion) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarDespDescripcion)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespDescripcion) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        
+    } else if (estado === 'Vigente' || estado === 'Extendida') {
+        // Todo en solo lectura, excepto FIN_EFECTIVO que es obligatorio para finalizar
+        $(`${modalContext} #gestionarDespFinEfectivo`).prop('readonly', false);
+        
+        // Marcar sección de Fechas Efectivas como editable
+        $(`${modalContext} .card:has(#gestionarDespInicioEfectivo)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarDespInicioEfectivo) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+    }
 }
 
 // Función para configurar las transiciones de estado disponibles
@@ -2107,7 +2357,7 @@ function poblarModalVerDespachador(solicitud) {
     // Características de la Intervención
     $(`${modalContext} #verDespTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '-');
     $(`${modalContext} #verDespRiesgo`).val(solicitud.RIESGOS || '-');
-    $(`${modalContext} #verDespSODI`).val(solicitud.SODI || '-');
+    $(`${modalContext} #verDespSODI`).val(solicitud.APLICA_SODI || '-');
     $(`${modalContext} #verDespPotencia`).val(solicitud.POTENCIA || '-');
     
     // Descripción y Condiciones
@@ -2148,7 +2398,53 @@ function poblarModalVerDespachador(solicitud) {
 // Función para abrir modal de nueva solicitud - Solicitante
 function abrirModalNuevaSolicitudSolic() {
     console.log('Abriendo modal nueva solicitud (Solicitante)');
+    
+    // Limpiar formulario
+    $('#formNuevaSolicitud')[0].reset();
+    $('#nuevaSolicEquipos').prop('disabled', true).html('<option value="">Primero seleccione Instalación GM</option>');
+    
     $('#modalNuevaSolicitudSolic').modal('show');
+}
+
+// Función para cargar equipos según la instalación seleccionada
+function cargarEquiposPorInstalacion(instalacion, selectId) {
+    const select = $(`#${selectId}`);
+    
+    if (!instalacion) {
+        select.prop('disabled', true).html('<option value="">Primero seleccione Instalación GM</option>');
+        return;
+    }
+    
+    // Obtener equipos de la instalación
+    const equipos = window.equiposPorInstalacion && window.equiposPorInstalacion[instalacion] 
+        ? window.equiposPorInstalacion[instalacion].filter(e => e.estado === 'Activo')
+        : [];
+    
+    // Si no hay equipos configurados, usar valores por defecto basados en los datos existentes
+    const equiposPorDefecto = {
+        'Santiago Solar': ['Panel Solar PS1', 'Panel Solar PS2', 'Panel Solar PS3', 'Inversor I1', 'Inversor I2', 'Inversor I3'],
+        'Nueva Renca': ['Paño NR1', 'Paño NR2', 'Paño NR3', 'Paño NR4', 'Transformador TNR1'],
+        'Los Vientos': ['Paño LV1', 'Paño LV2', 'Transformador TLV1', 'Aerogenerador A1', 'Aerogenerador A2', 'Aerogenerador A3', 'Aerogenerador A4'],
+        'Santa Lidia': ['Paño SL1', 'Paño SL2', 'Paño SL3', 'Transformador TSL1', 'Transformador TSL2'],
+        'CEME1': ['Sistema de Control', 'Sistema SCADA', 'Medidor M1', 'Medidor M2', 'Medidor M3', 'Transformador T1', 'Transformador T2', 'Transformador T3', 'Transformador T4', 'Transformador T5', 'Transformador T6', 'Barra B1', 'Barra B2', 'Barra B3', 'Barra B4', 'Línea L1', 'Línea L2', 'Torre T6']
+    };
+    
+    let opcionesEquipos = equipos.length > 0 
+        ? equipos.map(e => e.nombre)
+        : (equiposPorDefecto[instalacion] || []);
+    
+    if (opcionesEquipos.length === 0) {
+        select.prop('disabled', true).html('<option value="">No hay equipos disponibles para esta instalación</option>');
+        return;
+    }
+    
+    // Poblar select con opciones
+    let html = '<option value="">Seleccione equipo(s)...</option>';
+    opcionesEquipos.forEach(equipo => {
+        html += `<option value="${equipo}">${equipo}</option>`;
+    });
+    
+    select.prop('disabled', false).html(html);
 }
 
 // Función para abrir modal de editar solicitud - Solicitante
@@ -2240,12 +2536,20 @@ function poblarModalEditarSolic(solicitud) {
     
     // Características de la Intervención
     $(`${modalContext} #editarSolicTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
-    $(`${modalContext} #editarSolicRiesgo`).val(solicitud.RIESGOS || '');
+    $(`${modalContext} #editarSolicRiesgo`).val(solicitud.RIESGO || '');
+    
+    // Campo condicional - DESCRIPCION_RIESGO
+    if (solicitud.DESCRIPCION_RIESGO && (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto')) {
+        $(`${modalContext} #editarSolicDescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO);
+        $(`${modalContext} #editarSolicDescripcionRiesgoContainer`).show();
+    } else {
+        $(`${modalContext} #editarSolicDescripcionRiesgoContainer`).hide();
+    }
     
     // SODI - radio buttons
-    if (solicitud.SODI === 'Sí') {
+    if (solicitud.APLICA_SODI === 'Sí') {
         $(`${modalContext} #editarSolicSODISi`).prop('checked', true);
-    } else if (solicitud.SODI === 'No') {
+    } else if (solicitud.APLICA_SODI === 'No') {
         $(`${modalContext} #editarSolicSODINo`).prop('checked', true);
     }
     
@@ -2254,14 +2558,18 @@ function poblarModalEditarSolic(solicitud) {
     // Descripción y Condiciones
     $(`${modalContext} #editarSolicDescripcion`).val(solicitud.DESCRIPCION || '');
     $(`${modalContext} #editarSolicCondiciones`).val(solicitud.CONDICIONES || '');
-    
-    // Afectaciones - select múltiple
-    if (solicitud.AFECTACIONES) {
-        const afectaciones = solicitud.AFECTACIONES.split(',').map(a => a.trim());
-        $(`${modalContext} #editarSolicAfectaciones`).val(afectaciones);
-    }
-    
     $(`${modalContext} #editarSolicComentarios`).val(solicitud.COMENTARIOS || '');
+    
+    // Afectaciones - select simple
+    $(`${modalContext} #editarSolicAfectaciones`).val(solicitud.AFECTACIONES || '');
+    
+    // Campo condicional - DESCRIPCION_AFECTACION
+    if (solicitud.DESCRIPCION_AFECTACION && solicitud.AFECTACIONES) {
+        $(`${modalContext} #editarSolicDescripcionAfectacion`).val(solicitud.DESCRIPCION_AFECTACION);
+        $(`${modalContext} #editarSolicDescripcionAfectacionContainer`).show();
+    } else {
+        $(`${modalContext} #editarSolicDescripcionAfectacionContainer`).hide();
+    }
     
     // ID oculto
     $(`${modalContext} #editarSolicID`).val(solicitud.ID_REGISTRO || '');
@@ -2346,26 +2654,39 @@ function poblarModalClonarSolic(solicitud) {
     
     // Características de la Intervención - se copian los valores
     $(`${modalContext} #clonarSolicTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
-    $(`${modalContext} #clonarSolicRiesgo`).val(solicitud.RIESGOS || '');
+    $(`${modalContext} #clonarSolicPotencia`).val(solicitud.POTENCIA || '');
     
-    // SODI - manejar radio buttons
-    if (solicitud.SODI === 'Sí') {
-        $(`${modalContext} #clonarSolicSODISi`).prop('checked', true);
-    } else if (solicitud.SODI === 'No') {
-        $(`${modalContext} #clonarSolicSODINo`).prop('checked', true);
+    // APLICA_SODI - manejar radio buttons
+    if (solicitud.APLICA_SODI === 'Sí') {
+        $(`${modalContext} #clonarSolicAplicaSODISi`).prop('checked', true);
+    } else if (solicitud.APLICA_SODI === 'No') {
+        $(`${modalContext} #clonarSolicAplicaSODINo`).prop('checked', true);
     }
     
-    $(`${modalContext} #clonarSolicPotencia`).val(solicitud.POTENCIA || '');
+    $(`${modalContext} #clonarSolicRiesgo`).val(solicitud.RIESGO || '');
+    
+    // Campo condicional - DESCRIPCION_RIESGO
+    if (solicitud.DESCRIPCION_RIESGO && (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto')) {
+        $(`${modalContext} #clonarSolicDescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO);
+        $(`${modalContext} #clonarSolicDescripcionRiesgoContainer`).show();
+    } else {
+        $(`${modalContext} #clonarSolicDescripcionRiesgoContainer`).hide();
+    }
     
     // Descripción y Condiciones - se copian los valores
     $(`${modalContext} #clonarSolicDescripcion`).val(solicitud.DESCRIPCION || '');
     $(`${modalContext} #clonarSolicCondiciones`).val(solicitud.CONDICIONES || '');
     $(`${modalContext} #clonarSolicComentarios`).val(solicitud.COMENTARIOS || '');
     
-    // Afectaciones - manejar select múltiple
-    if (solicitud.AFECTACIONES) {
-        const afectaciones = solicitud.AFECTACIONES.split(',').map(a => a.trim());
-        $(`${modalContext} #clonarSolicAfectaciones`).val(afectaciones);
+    // Afectaciones - select simple
+    $(`${modalContext} #clonarSolicAfectaciones`).val(solicitud.AFECTACIONES || '');
+    
+    // Campo condicional - DESCRIPCION_AFECTACION
+    if (solicitud.DESCRIPCION_AFECTACION && solicitud.AFECTACIONES) {
+        $(`${modalContext} #clonarSolicDescripcionAfectacion`).val(solicitud.DESCRIPCION_AFECTACION);
+        $(`${modalContext} #clonarSolicDescripcionAfectacionContainer`).show();
+    } else {
+        $(`${modalContext} #clonarSolicDescripcionAfectacionContainer`).hide();
     }
     
     console.log('Modal clonar solicitante poblado correctamente');
@@ -2436,15 +2757,38 @@ function poblarModalGestionarSolicitante(solicitud) {
     
     // Características de la Intervención (EDITABLE)
     $('#gestionarSolTipoIntervencion').val(solicitud.TIPO_INTERVENCION || '');
-    $('#gestionarSolRiesgo').val(solicitud.RIESGOS || '');
-    $('#gestionarSolSODI').val(solicitud.SODI || '');
     $('#gestionarSolPotencia').val(solicitud.POTENCIA || '');
+    
+    // APLICA_SODI - radio buttons
+    if (solicitud.APLICA_SODI === 'Sí') {
+        $('#gestionarSolAplicaSODISi').prop('checked', true);
+    } else if (solicitud.APLICA_SODI === 'No') {
+        $('#gestionarSolAplicaSODINo').prop('checked', true);
+    }
+    
+    $('#gestionarSolRiesgo').val(solicitud.RIESGO || '');
+    
+    // Campo condicional - DESCRIPCION_RIESGO
+    if (solicitud.DESCRIPCION_RIESGO && (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto')) {
+        $('#gestionarSolDescripcionRiesgo').val(solicitud.DESCRIPCION_RIESGO);
+        $('#gestionarSolDescripcionRiesgoContainer').show();
+    } else {
+        $('#gestionarSolDescripcionRiesgoContainer').hide();
+    }
     
     // Descripción y Condiciones (EDITABLE)
     $('#gestionarSolDescripcion').val(solicitud.DESCRIPCION || '');
     $('#gestionarSolCondiciones').val(solicitud.CONDICIONES || '');
-    $('#gestionarSolAfectaciones').val(solicitud.AFECTACIONES || '');
     $('#gestionarSolComentariosActuales').val(solicitud.COMENTARIOS || '');
+    $('#gestionarSolAfectaciones').val(solicitud.AFECTACIONES || '');
+    
+    // Campo condicional - DESCRIPCION_AFECTACION
+    if (solicitud.DESCRIPCION_AFECTACION && solicitud.AFECTACIONES) {
+        $('#gestionarSolDescripcionAfectacion').val(solicitud.DESCRIPCION_AFECTACION);
+        $('#gestionarSolDescripcionAfectacionContainer').show();
+    } else {
+        $('#gestionarSolDescripcionAfectacionContainer').hide();
+    }
     
     // Archivo Adjunto (EDITABLE)
     if (solicitud.ADJUNTO && solicitud.ADJUNTO !== '-') {
@@ -2458,8 +2802,9 @@ function poblarModalGestionarSolicitante(solicitud) {
     // Limpiar campo de nuevo archivo
     $('#gestionarSolAdjunto').val('');
     
-    // Limpiar observaciones del solicitante
+    // Limpiar observaciones del solicitante y resetear acción a Pendiente
     $('#gestionarSolObservaciones').val('');
+    $('#gestionarSolAccionPendiente').prop('checked', true);
     
     // Metadata del Sistema
     $('#gestionarSolIDRegistro').text(solicitud.ID_REGISTRO || '-');
@@ -2605,15 +2950,31 @@ function poblarModalVerSolicitante(solicitud) {
     
     // Características de la Intervención
     $(`${modalContext} #verSolicTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '-');
-    $(`${modalContext} #verSolicRiesgo`).val(solicitud.RIESGOS || '-');
-    $(`${modalContext} #verSolicSODI`).val(solicitud.SODI || '-');
     $(`${modalContext} #verSolicPotencia`).val(solicitud.POTENCIA || '-');
+    $(`${modalContext} #verSolicAplicaSODI`).val(solicitud.APLICA_SODI || '-');
+    $(`${modalContext} #verSolicRiesgo`).val(solicitud.RIESGO || '-');
+    
+    // Campos condicionales - DESCRIPCION_RIESGO
+    if (solicitud.DESCRIPCION_RIESGO && (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto')) {
+        $(`${modalContext} #verSolicDescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO);
+        $(`${modalContext} #verSolicDescripcionRiesgoContainer`).show();
+    } else {
+        $(`${modalContext} #verSolicDescripcionRiesgoContainer`).hide();
+    }
     
     // Descripción y Condiciones
     $(`${modalContext} #verSolicDescripcion`).val(solicitud.DESCRIPCION || '-');
     $(`${modalContext} #verSolicCondiciones`).val(solicitud.CONDICIONES || '-');
-    $(`${modalContext} #verSolicAfectaciones`).val(solicitud.AFECTACIONES || '-');
     $(`${modalContext} #verSolicComentarios`).val(solicitud.COMENTARIOS || '-');
+    $(`${modalContext} #verSolicAfectaciones`).val(solicitud.AFECTACIONES || '-');
+    
+    // Campos condicionales - DESCRIPCION_AFECTACION
+    if (solicitud.DESCRIPCION_AFECTACION && solicitud.AFECTACIONES) {
+        $(`${modalContext} #verSolicDescripcionAfectacion`).val(solicitud.DESCRIPCION_AFECTACION);
+        $(`${modalContext} #verSolicDescripcionAfectacionContainer`).show();
+    } else {
+        $(`${modalContext} #verSolicDescripcionAfectacionContainer`).hide();
+    }
     
     // Archivos Adjuntos
     if (solicitud.ADJUNTO) {
@@ -2623,6 +2984,7 @@ function poblarModalVerSolicitante(solicitud) {
         $(`${modalContext} #verSolicAdjunto`).text('Sin archivo adjunto');
         $(`${modalContext} #verSolicDescargarAdjunto`).hide();
     }
+    $(`${modalContext} #verSolicSODIAdjunto`).val(solicitud.APLICA_SODI_ADJUNTO ? 'Sí' : 'No');
     
     // Footer: Información del Sistema
     $(`${modalContext} #verSolicIDRegistro`).val(solicitud.ID_REGISTRO || '-');
@@ -2630,377 +2992,9 @@ function poblarModalVerSolicitante(solicitud) {
     $(`${modalContext} #verSolicActualizado`).val(solicitud.ACTUALIZADO || '-');
     $(`${modalContext} #verSolicAdministrador`).val(solicitud.ADMINISTRADOR || '-');
     $(`${modalContext} #verSolicSolicitante`).val(solicitud.SOLICITANTE || '-');
-}
-
-// ============================================
-// FUNCIONES PARA POBLAR MODALES DE VISUALIZACIÓN - ADMINISTRADOR
-// ============================================
-
-function poblarModalVerPendiente(solicitud, tipo) {
-    const prefix = tipo === 'Admin' ? 'verPendiente' : 'verPendiente' + tipo;
     
-    // Estado y Observaciones (Header)
-    $(`#${prefix}Estado`).text(solicitud.ESTADO || '-');
-    $(`#${prefix}Observaciones`).text(solicitud.OBSERVACIONES || 'Sin observaciones');
-    
-    // Identificación
-    $(`#${prefix}IDSolicitud`).val(solicitud.ID_SOLICITUD || '');
-    $(`#${prefix}Tipo`).val(solicitud.TIPO || '');
-    $(`#${prefix}RelacionSODICEN`).val(solicitud.RELACION_SODI_CEN || '');
-    
-    // Fechas Programadas
-    $(`#${prefix}InicioProgramado`).val(solicitud.INICIO_PROGRAMADO || '');
-    $(`#${prefix}FinProgramado`).val(solicitud.FIN_PROGRAMADO || '');
-    
-    // Fechas Efectivas
-    $(`#${prefix}InicioEfectivo`).val(solicitud.INICIO_EFECTIVO || '');
-    $(`#${prefix}FinEfectivo`).val(solicitud.FIN_EFECTIVO || '');
-    
-    // Empresas
-    $(`#${prefix}EmpresaSolicitante`).val(solicitud.EMPRESA_SOLICITANTE || '');
-    $(`#${prefix}EmpresaReceptora`).val(solicitud.EMPRESA_RECEPTORA || '');
-    
-    // Instalación y Equipos
-    $(`#${prefix}InstalacionGM`).val(solicitud.INSTALACION_GM || '');
-    $(`#${prefix}EquiposIntervenir`).val(solicitud.EQUIPOS || '');
-    
-    // Características
-    $(`#${prefix}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
-    $(`#${prefix}Riesgo`).val(solicitud.RIESGOS || '');
-    $(`#${prefix}SODI`).val(solicitud.SODI || '');
-    $(`#${prefix}Potencia`).val(solicitud.POTENCIA || '');
-    
-    // Descripción y Condiciones
-    $(`#${prefix}Descripcion`).val(solicitud.DESCRIPCION || '');
-    $(`#${prefix}Condiciones`).val(solicitud.CONDICIONES || '');
-    $(`#${prefix}Afectaciones`).val(solicitud.AFECTACIONES || '');
-    $(`#${prefix}Comentarios`).val(solicitud.COMENTARIOS || '');
-    
-    // Adjunto
-    $(`#${prefix}Adjunto`).val(solicitud.ADJUNTO || '');
-    
-    // Metadata del sistema
-    $(`#${prefix}ID`).text(solicitud.ID_REGISTRO || '');
-    $(`#${prefix}Creado`).text(solicitud.CREADO || '');
-    $(`#${prefix}Actualizado`).text(solicitud.ACTUALIZADO || '');
-    $(`#${prefix}Administrador`).text(solicitud.ADMINISTRADOR || '');
-    $(`#${prefix}Solicitante`).text(solicitud.SOLICITANTE || '');
-    $(`#${prefix}CreadoPor`).text(solicitud.CREADO_POR || '');
-}
-
-function poblarModalVerDevuelta(solicitud, tipo) {
-    const prefix = tipo === 'Admin' ? 'verDevueltaAdmin' : 'verDevuelta' + tipo;
-    
-    // Estado y Observaciones (Header)
-    $(`#${prefix}Estado`).text(solicitud.ESTADO || '-');
-    $(`#${prefix}Observaciones`).text(solicitud.OBSERVACIONES || 'Sin observaciones');
-    
-    // Identificación
-    $(`#${prefix}IDSolicitud`).val(solicitud.ID_SOLICITUD || '');
-    $(`#${prefix}Tipo`).val(solicitud.TIPO || '');
-    $(`#${prefix}RelacionSODICEN`).val(solicitud.RELACION_SODI_CEN || '');
-    
-    // Fechas Programadas
-    $(`#${prefix}InicioProgramado`).val(solicitud.INICIO_PROGRAMADO || '');
-    $(`#${prefix}FinProgramado`).val(solicitud.FIN_PROGRAMADO || '');
-    
-    // Fechas Efectivas
-    $(`#${prefix}InicioEfectivo`).val(solicitud.INICIO_EFECTIVO || '');
-    $(`#${prefix}FinEfectivo`).val(solicitud.FIN_EFECTIVO || '');
-    
-    // Empresas
-    $(`#${prefix}EmpresaSolicitante`).val(solicitud.EMPRESA_SOLICITANTE || '');
-    $(`#${prefix}EmpresaReceptora`).val(solicitud.EMPRESA_RECEPTORA || '');
-    
-    // Instalación y Equipos
-    $(`#${prefix}InstalacionGM`).val(solicitud.INSTALACION_GM || '');
-    $(`#${prefix}EquiposIntervenir`).val(solicitud.EQUIPOS || '');
-    
-    // Características
-    $(`#${prefix}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
-    $(`#${prefix}Riesgo`).val(solicitud.RIESGOS || '');
-    $(`#${prefix}SODI`).val(solicitud.SODI || '');
-    $(`#${prefix}Potencia`).val(solicitud.POTENCIA || '');
-    
-    // Descripción y Condiciones
-    $(`#${prefix}Descripcion`).val(solicitud.DESCRIPCION || '');
-    $(`#${prefix}Condiciones`).val(solicitud.CONDICIONES || '');
-    $(`#${prefix}Afectaciones`).val(solicitud.AFECTACIONES || '');
-    $(`#${prefix}Comentarios`).val(solicitud.COMENTARIOS || '');
-    
-    // Observaciones de devolución
-    $(`#${prefix}ObservacionesDevolucion`).val(solicitud.OBSERVACIONES || '');
-    
-    // Adjunto
-    $(`#${prefix}Adjunto`).val(solicitud.ADJUNTO || '');
-    
-    // Metadata del sistema
-    $(`#${prefix}ID`).text(solicitud.ID_REGISTRO || '');
-    $(`#${prefix}Creado`).text(solicitud.CREADO || '');
-    $(`#${prefix}Actualizado`).text(solicitud.ACTUALIZADO || '');
-    $(`#${prefix}Administrador`).text(solicitud.ADMINISTRADOR || '');
-    $(`#${prefix}Solicitante`).text(solicitud.SOLICITANTE || '');
-    $(`#${prefix}CreadoPor`).text(solicitud.CREADO_POR || '');
-}
-
-function poblarModalVerEnAnalisis(solicitud, tipo) {
-    const prefix = tipo === 'Admin' ? 'verAnalisis' : 'verAnalisis' + tipo;
-    
-    // Estado y Observaciones (Header)
-    $(`#${prefix}Estado`).text(solicitud.ESTADO || '-');
-    $(`#${prefix}Observaciones`).text(solicitud.OBSERVACIONES || 'Sin observaciones');
-    
-    // Identificación
-    $(`#${prefix}IDSolicitud`).val(solicitud.ID_SOLICITUD || '');
-    $(`#${prefix}Tipo`).val(solicitud.TIPO || '');
-    $(`#${prefix}RelacionSODICEN`).val(solicitud.RELACION_SODI_CEN || '');
-    
-    // Fechas Programadas
-    $(`#${prefix}InicioProgramado`).val(solicitud.INICIO_PROGRAMADO || '');
-    $(`#${prefix}FinProgramado`).val(solicitud.FIN_PROGRAMADO || '');
-    
-    // Fechas Efectivas
-    $(`#${prefix}InicioEfectivo`).val(solicitud.INICIO_EFECTIVO || '');
-    $(`#${prefix}FinEfectivo`).val(solicitud.FIN_EFECTIVO || '');
-    
-    // Empresas
-    $(`#${prefix}EmpresaSolicitante`).val(solicitud.EMPRESA_SOLICITANTE || '');
-    $(`#${prefix}EmpresaReceptora`).val(solicitud.EMPRESA_RECEPTORA || '');
-    
-    // Instalación y Equipos
-    $(`#${prefix}InstalacionGM`).val(solicitud.INSTALACION_GM || '');
-    $(`#${prefix}EquiposIntervenir`).val(solicitud.EQUIPOS || '');
-    
-    // Características
-    $(`#${prefix}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
-    $(`#${prefix}Riesgo`).val(solicitud.RIESGOS || '');
-    $(`#${prefix}SODI`).val(solicitud.SODI || '');
-    $(`#${prefix}Potencia`).val(solicitud.POTENCIA || '');
-    
-    // Descripción y Condiciones
-    $(`#${prefix}Descripcion`).val(solicitud.DESCRIPCION || '');
-    $(`#${prefix}Condiciones`).val(solicitud.CONDICIONES || '');
-    $(`#${prefix}Afectaciones`).val(solicitud.AFECTACIONES || '');
-    $(`#${prefix}Comentarios`).val(solicitud.COMENTARIOS || '');
-    
-    // Adjunto
-    $(`#${prefix}Adjunto`).val(solicitud.ADJUNTO || '');
-    
-    // Metadata del sistema
-    $(`#${prefix}ID`).text(solicitud.ID_REGISTRO || '');
-    $(`#${prefix}Creado`).text(solicitud.CREADO || '');
-    $(`#${prefix}Actualizado`).text(solicitud.ACTUALIZADO || '');
-    $(`#${prefix}Administrador`).text(solicitud.ADMINISTRADOR || '');
-    $(`#${prefix}Solicitante`).text(solicitud.SOLICITANTE || '');
-    $(`#${prefix}CreadoPor`).text(solicitud.CREADO_POR || '');
-}
-
-function poblarModalVerProgramada(solicitud, tipo) {
-    const prefix = tipo === 'Admin' ? 'verProgramada' : 'verProgramada' + tipo;
-    
-    // Estado y Observaciones (Header)
-    $(`#${prefix}Estado`).text(solicitud.ESTADO || '-');
-    $(`#${prefix}Observaciones`).text(solicitud.OBSERVACIONES || 'Sin observaciones');
-    
-    // Identificación
-    $(`#${prefix}IDSolicitud`).val(solicitud.ID_SOLICITUD || '');
-    $(`#${prefix}Tipo`).val(solicitud.TIPO || '');
-    $(`#${prefix}RelacionSODICEN`).val(solicitud.RELACION_SODI_CEN || '');
-    
-    // Fechas Programadas
-    $(`#${prefix}InicioProgramado`).val(solicitud.INICIO_PROGRAMADO || '');
-    $(`#${prefix}FinProgramado`).val(solicitud.FIN_PROGRAMADO || '');
-    
-    // Fechas Efectivas
-    $(`#${prefix}InicioEfectivo`).val(solicitud.INICIO_EFECTIVO || '');
-    $(`#${prefix}FinEfectivo`).val(solicitud.FIN_EFECTIVO || '');
-    
-    // Empresas
-    $(`#${prefix}EmpresaSolicitante`).val(solicitud.EMPRESA_SOLICITANTE || '');
-    $(`#${prefix}EmpresaReceptora`).val(solicitud.EMPRESA_RECEPTORA || '');
-    
-    // Instalación y Equipos
-    $(`#${prefix}InstalacionGM`).val(solicitud.INSTALACION_GM || '');
-    $(`#${prefix}EquiposIntervenir`).val(solicitud.EQUIPOS || '');
-    
-    // Características
-    $(`#${prefix}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
-    $(`#${prefix}Riesgo`).val(solicitud.RIESGOS || '');
-    $(`#${prefix}SODI`).val(solicitud.SODI || '');
-    $(`#${prefix}Potencia`).val(solicitud.POTENCIA || '');
-    
-    // Descripción y Condiciones
-    $(`#${prefix}Descripcion`).val(solicitud.DESCRIPCION || '');
-    $(`#${prefix}Condiciones`).val(solicitud.CONDICIONES || '');
-    $(`#${prefix}Afectaciones`).val(solicitud.AFECTACIONES || '');
-    $(`#${prefix}Comentarios`).val(solicitud.COMENTARIOS || '');
-    
-    // Adjunto
-    $(`#${prefix}Adjunto`).val(solicitud.ADJUNTO || '');
-    
-    // Metadata del sistema
-    $(`#${prefix}ID`).text(solicitud.ID_REGISTRO || '');
-    $(`#${prefix}Creado`).text(solicitud.CREADO || '');
-    $(`#${prefix}Actualizado`).text(solicitud.ACTUALIZADO || '');
-    $(`#${prefix}Administrador`).text(solicitud.ADMINISTRADOR || '');
-    $(`#${prefix}Solicitante`).text(solicitud.SOLICITANTE || '');
-    $(`#${prefix}CreadoPor`).text(solicitud.CREADO_POR || '');
-}
-
-function poblarModalVerVigente(solicitud, tipo) {
-    const prefix = tipo === 'Admin' ? 'verVigente' : 'verVigente' + tipo;
-    
-    // Estado y Observaciones (Header)
-    $(`#${prefix}Estado`).text(solicitud.ESTADO || '-');
-    $(`#${prefix}Observaciones`).text(solicitud.OBSERVACIONES || 'Sin observaciones');
-    
-    // Identificación
-    $(`#${prefix}IDSolicitud`).val(solicitud.ID_SOLICITUD || '');
-    $(`#${prefix}Tipo`).val(solicitud.TIPO || '');
-    $(`#${prefix}RelacionSODICEN`).val(solicitud.RELACION_SODI_CEN || '');
-    
-    // Fechas Programadas
-    $(`#${prefix}InicioProgramado`).val(solicitud.INICIO_PROGRAMADO || '');
-    $(`#${prefix}FinProgramado`).val(solicitud.FIN_PROGRAMADO || '');
-    
-    // Fechas Efectivas
-    $(`#${prefix}InicioEfectivo`).val(solicitud.INICIO_EFECTIVO || '');
-    $(`#${prefix}FinEfectivo`).val(solicitud.FIN_EFECTIVO || '');
-    
-    // Empresas
-    $(`#${prefix}EmpresaSolicitante`).val(solicitud.EMPRESA_SOLICITANTE || '');
-    $(`#${prefix}EmpresaReceptora`).val(solicitud.EMPRESA_RECEPTORA || '');
-    
-    // Instalación y Equipos
-    $(`#${prefix}InstalacionGM`).val(solicitud.INSTALACION_GM || '');
-    $(`#${prefix}EquiposIntervenir`).val(solicitud.EQUIPOS || '');
-    
-    // Características
-    $(`#${prefix}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
-    $(`#${prefix}Riesgo`).val(solicitud.RIESGOS || '');
-    $(`#${prefix}SODI`).val(solicitud.SODI || '');
-    $(`#${prefix}Potencia`).val(solicitud.POTENCIA || '');
-    
-    // Descripción y Condiciones
-    $(`#${prefix}Descripcion`).val(solicitud.DESCRIPCION || '');
-    $(`#${prefix}Condiciones`).val(solicitud.CONDICIONES || '');
-    $(`#${prefix}Afectaciones`).val(solicitud.AFECTACIONES || '');
-    $(`#${prefix}Comentarios`).val(solicitud.COMENTARIOS || '');
-    
-    // Adjunto
-    $(`#${prefix}Adjunto`).val(solicitud.ADJUNTO || '');
-    
-    // Metadata del sistema
-    $(`#${prefix}ID`).text(solicitud.ID_REGISTRO || '');
-    $(`#${prefix}Creado`).text(solicitud.CREADO || '');
-    $(`#${prefix}Actualizado`).text(solicitud.ACTUALIZADO || '');
-    $(`#${prefix}Administrador`).text(solicitud.ADMINISTRADOR || '');
-    $(`#${prefix}Solicitante`).text(solicitud.SOLICITANTE || '');
-    $(`#${prefix}CreadoPor`).text(solicitud.CREADO_POR || '');
-}
-
-function poblarModalVerExtendida(solicitud, tipo) {
-    const prefix = tipo === 'Admin' ? 'verExtendida' : 'verExtendida' + tipo;
-    
-    // Estado y Observaciones (Header)
-    $(`#${prefix}Estado`).text(solicitud.ESTADO || '-');
-    $(`#${prefix}Observaciones`).text(solicitud.OBSERVACIONES || 'Sin observaciones');
-    
-    // Identificación
-    $(`#${prefix}IDSolicitud`).val(solicitud.ID_SOLICITUD || '');
-    $(`#${prefix}Tipo`).val(solicitud.TIPO || '');
-    $(`#${prefix}RelacionSODICEN`).val(solicitud.RELACION_SODI_CEN || '');
-    
-    // Fechas Programadas
-    $(`#${prefix}InicioProgramado`).val(solicitud.INICIO_PROGRAMADO || '');
-    $(`#${prefix}FinProgramado`).val(solicitud.FIN_PROGRAMADO || '');
-    
-    // Fechas Efectivas
-    $(`#${prefix}InicioEfectivo`).val(solicitud.INICIO_EFECTIVO || '');
-    $(`#${prefix}FinEfectivo`).val(solicitud.FIN_EFECTIVO || '');
-    
-    // Empresas
-    $(`#${prefix}EmpresaSolicitante`).val(solicitud.EMPRESA_SOLICITANTE || '');
-    $(`#${prefix}EmpresaReceptora`).val(solicitud.EMPRESA_RECEPTORA || '');
-    
-    // Instalación y Equipos
-    $(`#${prefix}InstalacionGM`).val(solicitud.INSTALACION_GM || '');
-    $(`#${prefix}EquiposIntervenir`).val(solicitud.EQUIPOS || '');
-    
-    // Características
-    $(`#${prefix}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
-    $(`#${prefix}Riesgo`).val(solicitud.RIESGOS || '');
-    $(`#${prefix}SODI`).val(solicitud.SODI || '');
-    $(`#${prefix}Potencia`).val(solicitud.POTENCIA || '');
-    
-    // Descripción y Condiciones
-    $(`#${prefix}Descripcion`).val(solicitud.DESCRIPCION || '');
-    $(`#${prefix}Condiciones`).val(solicitud.CONDICIONES || '');
-    $(`#${prefix}Afectaciones`).val(solicitud.AFECTACIONES || '');
-    $(`#${prefix}Comentarios`).val(solicitud.COMENTARIOS || '');
-    
-    // Adjunto
-    $(`#${prefix}Adjunto`).val(solicitud.ADJUNTO || '');
-    
-    // Metadata del sistema
-    $(`#${prefix}ID`).text(solicitud.ID_REGISTRO || '');
-    $(`#${prefix}Creado`).text(solicitud.CREADO || '');
-    $(`#${prefix}Actualizado`).text(solicitud.ACTUALIZADO || '');
-    $(`#${prefix}Administrador`).text(solicitud.ADMINISTRADOR || '');
-    $(`#${prefix}Solicitante`).text(solicitud.SOLICITANTE || '');
-    $(`#${prefix}CreadoPor`).text(solicitud.CREADO_POR || '');
-}
-
-function poblarModalVerAdminGestionando(solicitud, tipo) {
-    const prefix = tipo === 'Admin' ? 'verAdmin' : 'verAdmin' + tipo;
-    
-    // Estado y Observaciones (Header)
-    $(`#${prefix}Estado`).text(solicitud.ESTADO || '-');
-    $(`#${prefix}Observaciones`).text(solicitud.OBSERVACIONES || 'Sin observaciones');
-    
-    // Identificación
-    $(`#${prefix}IDSolicitud`).val(solicitud.ID_SOLICITUD || '');
-    $(`#${prefix}Tipo`).val(solicitud.TIPO || '');
-    $(`#${prefix}RelacionSODICEN`).val(solicitud.RELACION_SODI_CEN || '');
-    
-    // Fechas Programadas
-    $(`#${prefix}InicioProgramado`).val(solicitud.INICIO_PROGRAMADO || '');
-    $(`#${prefix}FinProgramado`).val(solicitud.FIN_PROGRAMADO || '');
-    
-    // Fechas Efectivas
-    $(`#${prefix}InicioEfectivo`).val(solicitud.INICIO_EFECTIVO || '');
-    $(`#${prefix}FinEfectivo`).val(solicitud.FIN_EFECTIVO || '');
-    
-    // Empresas
-    $(`#${prefix}EmpresaSolicitante`).val(solicitud.EMPRESA_SOLICITANTE || '');
-    $(`#${prefix}EmpresaReceptora`).val(solicitud.EMPRESA_RECEPTORA || '');
-    
-    // Instalación y Equipos
-    $(`#${prefix}InstalacionGM`).val(solicitud.INSTALACION_GM || '');
-    $(`#${prefix}EquiposIntervenir`).val(solicitud.EQUIPOS || '');
-    
-    // Características
-    $(`#${prefix}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
-    $(`#${prefix}Riesgo`).val(solicitud.RIESGOS || '');
-    $(`#${prefix}SODI`).val(solicitud.SODI || '');
-    $(`#${prefix}Potencia`).val(solicitud.POTENCIA || '');
-    
-    // Descripción y Condiciones
-    $(`#${prefix}Descripcion`).val(solicitud.DESCRIPCION || '');
-    $(`#${prefix}Condiciones`).val(solicitud.CONDICIONES || '');
-    $(`#${prefix}Afectaciones`).val(solicitud.AFECTACIONES || '');
-    $(`#${prefix}Comentarios`).val(solicitud.COMENTARIOS || '');
-    
-    // Adjunto
-    $(`#${prefix}Adjunto`).val(solicitud.ADJUNTO || '');
-    
-    // Metadata del sistema
-    $(`#${prefix}ID`).text(solicitud.ID_REGISTRO || '');
-    $(`#${prefix}Creado`).text(solicitud.CREADO || '');
-    $(`#${prefix}Actualizado`).text(solicitud.ACTUALIZADO || '');
-    $(`#${prefix}Administrador`).text(solicitud.ADMINISTRADOR || '');
-    $(`#${prefix}Solicitante`).text(solicitud.SOLICITANTE || '');
-    $(`#${prefix}CreadoPor`).text(solicitud.CREADO_POR || '');
+    // Configurar visibilidad de secciones según el estado
+    configurarVisibilidadVerSolicitud(solicitud.ESTADO);
 }
 
 // ============================================
@@ -3008,28 +3002,68 @@ function poblarModalVerAdminGestionando(solicitud, tipo) {
 // ============================================
 
 function poblarModalClonar(solicitud, tipo) {
-    const prefix = tipo === 'Admin' ? 'clonar' : 'clonar' + tipo;
+    const prefix = 'clonar' + tipo;
     
-    // Usar el contexto del modal para evitar conflictos con otros modales cargados
-    const modalContext = '#modalClonarSolicitudAdmin';
+    // Determinar el contexto del modal según el tipo
+    const modalContext = tipo === 'Desp' ? '#modalClonarSolicitudDesp' : '#modalClonarAdmin';
     
-    // Mostrar ID de solicitud origen
-    $(`${modalContext} #${prefix}IdSolicitudOrigen`).text(solicitud.ID_SOLICITUD || 'Sin ID');
+    console.log('Poblando modal clonar ' + tipo + ':', solicitud);
     
-    // Identificación - campos editables
+    // Identificación - ID Solicitud queda vacío, Tipo y Relación se copian
+    $(`${modalContext} #${prefix}IDSolicitud`).val('');
     $(`${modalContext} #${prefix}Tipo`).val(solicitud.TIPO || '');
     $(`${modalContext} #${prefix}RelacionSODICEN`).val(solicitud.RELACION_SODI_CEN || '');
     
-    // Empresas Involucradas - campos editables
+    // Fechas Programadas - quedan vacías
+    $(`${modalContext} #${prefix}InicioProgramado`).val('');
+    $(`${modalContext} #${prefix}FinProgramado`).val('');
+    
+    // Empresas Involucradas - se copian
     $(`${modalContext} #${prefix}EmpresaSolicitante`).val(solicitud.EMPRESA_SOLICITANTE || '');
     $(`${modalContext} #${prefix}EmpresaReceptora`).val(solicitud.EMPRESA_RECEPTORA || '');
     
-    // Instalación y Equipos - campos editables
+    // Instalación y Equipos - se copian
     $(`${modalContext} #${prefix}InstalacionGM`).val(solicitud.INSTALACION_GM || '');
-    $(`${modalContext} #${prefix}Potencia`).val(solicitud.POTENCIA || '');
+    $(`${modalContext} #${prefix}Equipos`).val(solicitud.EQUIPOS || '');
     
-    // Descripción y Condiciones - campos editables
+    // Características de la Intervención - se copian
+    $(`${modalContext} #${prefix}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
+    $(`${modalContext} #${prefix}Potencia`).val(solicitud.POTENCIA || '');
+    $(`${modalContext} #${prefix}AplicaSODI`).val(solicitud.APLICA_SODI || '');
+    $(`${modalContext} #${prefix}Riesgo`).val(solicitud.RIESGO || '');
+    
+    // Descripción del Riesgo (condicional) - se copia
+    if (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto') {
+        $(`${modalContext} #${prefix}DescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO || '');
+        $(`${modalContext} #${prefix}DescripcionRiesgoContainer`).show();
+        $(`${modalContext} #${prefix}DescripcionRiesgo`).attr('required', 'required');
+    } else {
+        $(`${modalContext} #${prefix}DescripcionRiesgoContainer`).hide();
+        $(`${modalContext} #${prefix}DescripcionRiesgo`).val('').removeAttr('required');
+    }
+    
+    // Descripción y Condiciones - se copian
     $(`${modalContext} #${prefix}Descripcion`).val(solicitud.DESCRIPCION || '');
     $(`${modalContext} #${prefix}Condiciones`).val(solicitud.CONDICIONES || '');
     $(`${modalContext} #${prefix}Comentarios`).val(solicitud.COMENTARIOS || '');
+    
+    // Afectaciones - se copian
+    $(`${modalContext} #${prefix}Afectaciones`).val(solicitud.AFECTACIONES || '');
+    
+    // Descripción de Afectación (condicional) - se copia
+    if (solicitud.AFECTACIONES && solicitud.AFECTACIONES !== '') {
+        $(`${modalContext} #${prefix}DescripcionAfectacion`).val(solicitud.DESCRIPCION_AFECTACION || '');
+        $(`${modalContext} #${prefix}DescripcionAfectacionContainer`).show();
+        $(`${modalContext} #${prefix}DescripcionAfectacion`).attr('required', 'required');
+    } else {
+        $(`${modalContext} #${prefix}DescripcionAfectacionContainer`).hide();
+        $(`${modalContext} #${prefix}DescripcionAfectacion`).val('').removeAttr('required');
+    }
+    
+    // Archivos Adjuntos - quedan vacíos
+    $(`${modalContext} #${prefix}Adjunto`).val('');
+    $(`${modalContext} #${prefix}SODIAdjunto`).val('');
+    $(`${modalContext} .custom-file-label`).text('Seleccionar archivo...');
+    
+    console.log('Modal clonar ' + tipo + ' poblado correctamente');
 }

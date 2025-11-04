@@ -1,22 +1,16 @@
 // ============================================
 // CARGADOR DE MODALES DINÁMICOS - ADMINISTRADOR
-// Versión: 12
+// Versión: 15 - Modal gestionar actualizado con nuevos campos
 // ============================================
 
 (function() {
     // Lista de modales a cargar
     const modalsToLoadAdmin = [
-        'modals/administrador/nueva-solicitud-admin.html',
-        'modals/administrador/editar-solicitud-admin.html',
-        'modals/administrador/ver-pendiente-admin.html',
-        'modals/administrador/ver-devuelta-admin.html',
-        'modals/administrador/ver-en-analisis-admin.html',
-        'modals/administrador/ver-admin-gestionando-admin.html',
-        'modals/administrador/ver-programada-admin.html',
-        'modals/administrador/ver-vigente-admin.html',
-        'modals/administrador/ver-extendida-admin.html',
-        'modals/administrador/gestionar-solicitud-admin.html',
-        'modals/administrador/clonar-solicitud-admin.html',
+        'modals/administrador/nueva-administrador.html',
+        'modals/administrador/editar-administrador.html',
+        'modals/administrador/ver-administrador.html',  // Modal unificado para todos los estados
+        'modals/administrador/gestionar-administrador.html',
+        'modals/administrador/clonar-administrador.html',
         'modals/bitacora.html'
     ];
 

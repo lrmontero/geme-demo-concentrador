@@ -1,7 +1,7 @@
-# Estructura de visualización de modales de visualizacion de solicitante
+# Estructura de visualización de modales de visualizacion de administrador
 
-El solicitante puede ver los siguientes estados, cuando el filtro (radio buton) está "En Proceso" -> "Pendiente", "Devuelta", "En Analisis", "Administrador Gestionando", "Programada", "Vigente", "Extendida"
-El solicitante puede ver los siguientes estados, cuando el filtro (radio buton) está "Finalizadas" -> "Finalizada", "No Solicitada", "Rechazada", "Suspendida"
+El administrador puede ver los siguientes estados, cuando el filtro (radio buton) está "En Proceso" -> "Pendiente", "Devuelta", "En Analisis", "Administrador Gestionando", "Programada", "Vigente", "Extendida"
+El administrador puede ver los siguientes estados, cuando el filtro (radio buton) está "Finalizadas" -> "Finalizada", "No Solicitada", "Rechazada", "Suspendida"
 
 Header
 1. Categoría: Estado - Nombre de Campo: ESTADO - Label: Estado - Tipo de Dato: Línea de Texto - Descripción: En esté modulo se deberá actualizar el estado en que está cada solicitud, estos estados serán los siguientes: (Pendiente, En Análisis, Devuelta, Administrador Gestionando, Programada, Vigente, Extendida, Finalizada, Rechazada, Suspendida, No solicitada)

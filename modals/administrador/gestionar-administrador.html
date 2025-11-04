@@ -1,9 +1,9 @@
 <!-- MODAL GESTIONAR SOLICITUD UNIFICADO -->
-<div class="modal fade" id="modalGestionarSolicitudAdmin" tabindex="-1" role="dialog" aria-labelledby="modalGestionarSolicitudAdminLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+<div class="modal fade" id="modalGestionarAdmin" tabindex="-1" role="dialog" aria-labelledby="modalGestionarAdminLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="modalGestionarSolicitudAdminLabel">
+                <h5 class="modal-title" id="modalGestionarAdminLabel">
                     <i class="fas fa-tasks mr-2"></i>Gestionar Solicitud
                 </h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
@@ -11,6 +11,14 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Leyenda de campos obligatorios -->
+                <div class="alert alert-info mb-3" role="alert">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    <strong>Leyenda:</strong>
+                    <span class="ml-3"><span class="text-danger">*</span> Campos obligatorios</span>
+                    <span class="ml-3"><span class="badge badge-warning">EDITABLE</span> Campos que pueden modificarse</span>
+                </div>
+                
                 <!-- Header: Estado y Observaciones -->
                 <div class="card mb-3">
                     <div class="card-header bg-light py-2">
@@ -48,14 +56,14 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">ID Solicitud <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="gestionarIDSolicitud" required>
+                                    <label class="text-muted small mb-1">ID Solicitud</label>
+                                    <input type="text" class="form-control" id="gestionarIDSolicitud">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">Tipo <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="gestionarTipo" required>
+                                    <label class="text-muted small mb-1">Tipo</label>
+                                    <select class="form-control" id="gestionarTipo">
                                         <option value="">Seleccione...</option>
                                         <option value="SDCN">SDCN - Solicitud de Desconexión Cliente No Facturado</option>
                                         <option value="SDCF">SDCF - Solicitud de Desconexión Cliente Facturado</option>
@@ -69,8 +77,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">Relación SODI-CEN</label>
-                                    <input type="text" class="form-control" id="gestionarRelacionSODICEN" placeholder="Ej: CEN-2025-001, SODI-123">
+                                    <label class="text-muted small mb-1">Relación SODI/CEN</label>
+                                    <textarea class="form-control" id="gestionarRelacionSODICEN" rows="2" placeholder="Ej: CEN-2025-001, SODI-123"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -110,8 +118,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">Empresa Solicitante <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="gestionarEmpresaSolicitante" required>
+                                    <label class="text-muted small mb-1">Empresa Solicitante</label>
+                                    <select class="form-control" id="gestionarEmpresaSolicitante">
                                         <option value="">Seleccione...</option>
                                         <option value="CDC">CDC</option>
                                         <option value="GM">GM</option>
@@ -124,8 +132,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Empresa Receptora <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="gestionarEmpresaReceptora" required>
+                                    <label class="text-muted small mb-1">Empresa Receptora</label>
+                                    <select class="form-control" id="gestionarEmpresaReceptora">
                                         <option value="">Seleccione...</option>
                                         <option value="CDC">CDC</option>
                                         <option value="GM">GM</option>
@@ -150,7 +158,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-muted small mb-1">Instalación GM</label>
-                                    <input type="text" class="form-control" id="gestionarInstalacionGM" readonly>
+                                    <select class="form-control" id="gestionarInstalacionGM" disabled>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Santiago Solar">Santiago Solar</option>
+                                        <option value="Nueva Renca">Nueva Renca</option>
+                                        <option value="Los Vientos">Los Vientos</option>
+                                        <option value="Santa Lidia">Santa Lidia</option>
+                                        <option value="CEME1">CEME1</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -172,26 +187,35 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">Tipo de intervención</label>
+                                    <label class="text-muted small mb-1">Tipo de Intervención</label>
                                     <input type="text" class="form-control" id="gestionarTipoIntervencion" readonly>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">Riesgo</label>
-                                    <input type="text" class="form-control" id="gestionarRiesgo" readonly>
+                                    <label class="text-muted small mb-1">Potencia (MWH)</label>
+                                    <input type="text" class="form-control" id="gestionarPotencia" readonly>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">SODI</label>
-                                    <input type="text" class="form-control" id="gestionarSODI" readonly>
+                                    <label class="text-muted small mb-1">Aplica SODI</label>
+                                    <input type="text" class="form-control" id="gestionarAplicaSODI" readonly>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Potencia (KwH)</label>
-                                    <input type="text" class="form-control" id="gestionarPotencia" readonly>
+                                    <label class="text-muted small mb-1">Clasificación del Riesgo</label>
+                                    <input type="text" class="form-control" id="gestionarRiesgo" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2" id="gestionarDescripcionRiesgoContainer" style="display: none;">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Descripción del Riesgo</label>
+                                    <textarea class="form-control" id="gestionarDescripcionRiesgo" rows="2" readonly></textarea>
+                                    <small class="form-text text-muted">Se muestra solo si el riesgo es Medio o Alto</small>
                                 </div>
                             </div>
                         </div>
@@ -223,16 +247,23 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="text-muted small mb-1">Afectaciones</label>
-                                    <input type="text" class="form-control" id="gestionarAfectaciones" readonly>
+                                    <label class="text-muted small mb-1">Comentarios</label>
+                                    <textarea class="form-control" id="gestionarComentariosActuales" rows="2" readonly></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Comentarios</label>
-                                    <textarea class="form-control" id="gestionarComentariosActuales" rows="2" readonly></textarea>
+                                    <label class="text-muted small mb-1">Afectaciones</label>
+                                    <input type="text" class="form-control" id="gestionarAfectaciones" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="gestionarDescripcionAfectacionContainer" style="display: none;">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1">Descripción de la Afectación</label>
+                                    <textarea class="form-control" id="gestionarDescripcionAfectacion" rows="2" readonly></textarea>
+                                    <small class="form-text text-muted">Se muestra solo si hay afectaciones</small>
                                 </div>
                             </div>
                         </div>

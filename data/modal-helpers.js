@@ -12,7 +12,7 @@ function poblarModalVerPendiente(solicitud, sufijo = '') {
     $(`#verPendiente${sufijo}EquiposIntervenir`).val(solicitud.EQUIPOS);
     $(`#verPendiente${sufijo}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION);
     $(`#verPendiente${sufijo}Riesgo`).val(solicitud.RIESGOS);
-    $(`#verPendiente${sufijo}SODI`).val(solicitud.SODI);
+    $(`#verPendiente${sufijo}SODI`).val(solicitud.APLICA_SODI);
     $(`#verPendiente${sufijo}DescripcionTrabajo`).val(solicitud.DESCRIPCION);
     $(`#verPendiente${sufijo}CondicionesRequeridas`).val(solicitud.CONDICIONES);
     $(`#verPendiente${sufijo}Afectaciones`).val(solicitud.AFECTACIONES);
@@ -31,7 +31,7 @@ function poblarModalVerEnAnalisis(solicitud, sufijo = '') {
     $(`#verEnAnalisis${sufijo}EquiposIntervenir`).val(solicitud.EQUIPOS);
     $(`#verEnAnalisis${sufijo}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION);
     $(`#verEnAnalisis${sufijo}Riesgo`).val(solicitud.RIESGOS);
-    $(`#verEnAnalisis${sufijo}SODI`).val(solicitud.SODI);
+    $(`#verEnAnalisis${sufijo}SODI`).val(solicitud.APLICA_SODI);
     $(`#verEnAnalisis${sufijo}DescripcionTrabajo`).val(solicitud.DESCRIPCION);
     $(`#verEnAnalisis${sufijo}CondicionesRequeridas`).val(solicitud.CONDICIONES);
     $(`#verEnAnalisis${sufijo}Afectaciones`).val(solicitud.AFECTACIONES);
@@ -50,7 +50,7 @@ function poblarModalVerAdminGestionando(solicitud, sufijo = '') {
     $(`#verAdmin${sufijo}EquiposIntervenir`).val(solicitud.EQUIPOS);
     $(`#verAdmin${sufijo}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION);
     $(`#verAdmin${sufijo}Riesgo`).val(solicitud.RIESGOS);
-    $(`#verAdmin${sufijo}SODI`).val(solicitud.SODI);
+    $(`#verAdmin${sufijo}SODI`).val(solicitud.APLICA_SODI);
     $(`#verAdmin${sufijo}DescripcionTrabajo`).val(solicitud.DESCRIPCION);
     $(`#verAdmin${sufijo}CondicionesRequeridas`).val(solicitud.CONDICIONES);
     $(`#verAdmin${sufijo}Afectaciones`).val(solicitud.AFECTACIONES);
@@ -67,7 +67,7 @@ function poblarModalVerProgramada(solicitud, sufijo = '') {
     $('#verProgramadaEquiposIntervenir').val(solicitud.EQUIPOS);
     $('#verProgramadaTipoIntervencion').val(solicitud.TIPO_INTERVENCION);
     $('#verProgramadaRiesgo').val(solicitud.RIESGOS);
-    $('#verProgramadaSODI').val(solicitud.SODI);
+    $('#verProgramadaSODI').val(solicitud.APLICA_SODI);
     $('#verProgramadaDescripcionTrabajo').val(solicitud.DESCRIPCION);
     $('#verProgramadaCondicionesRequeridas').val(solicitud.CONDICIONES);
     $('#verProgramadaAfectaciones').val(solicitud.AFECTACIONES);
@@ -86,7 +86,7 @@ function poblarModalVerVigente(solicitud, sufijo = '') {
     $(`#verVigente${sufijo}EquiposIntervenir`).val(solicitud.EQUIPOS);
     $(`#verVigente${sufijo}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION);
     $(`#verVigente${sufijo}Riesgo`).val(solicitud.RIESGOS);
-    $(`#verVigente${sufijo}SODI`).val(solicitud.SODI);
+    $(`#verVigente${sufijo}SODI`).val(solicitud.APLICA_SODI);
     $(`#verVigente${sufijo}DescripcionTrabajo`).val(solicitud.DESCRIPCION);
     $(`#verVigente${sufijo}CondicionesRequeridas`).val(solicitud.CONDICIONES);
     $(`#verVigente${sufijo}Afectaciones`).val(solicitud.AFECTACIONES);
@@ -105,7 +105,7 @@ function poblarModalVerExtendida(solicitud, sufijo = '') {
     $(`#verExtendida${sufijo}EquiposIntervenir`).val(solicitud.EQUIPOS);
     $(`#verExtendida${sufijo}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION);
     $(`#verExtendida${sufijo}Riesgo`).val(solicitud.RIESGOS);
-    $(`#verExtendida${sufijo}SODI`).val(solicitud.SODI);
+    $(`#verExtendida${sufijo}SODI`).val(solicitud.APLICA_SODI);
     $(`#verExtendida${sufijo}DescripcionTrabajo`).val(solicitud.DESCRIPCION);
     $(`#verExtendida${sufijo}CondicionesRequeridas`).val(solicitud.CONDICIONES);
     $(`#verExtendida${sufijo}Afectaciones`).val(solicitud.AFECTACIONES);
@@ -125,7 +125,7 @@ function poblarModalVerDevuelta(solicitud, sufijo = '') {
     $(`#verDevuelta${sufijo}EquiposIntervenir`).val(solicitud.EQUIPOS);
     $(`#verDevuelta${sufijo}TipoIntervencion`).val(solicitud.TIPO_INTERVENCION);
     $(`#verDevuelta${sufijo}Riesgo`).val(solicitud.RIESGOS);
-    $(`#verDevuelta${sufijo}SODI`).val(solicitud.SODI);
+    $(`#verDevuelta${sufijo}SODI`).val(solicitud.APLICA_SODI);
     $(`#verDevuelta${sufijo}DescripcionTrabajo`).val(solicitud.DESCRIPCION);
     $(`#verDevuelta${sufijo}CondicionesRequeridas`).val(solicitud.CONDICIONES);
     $(`#verDevuelta${sufijo}Afectaciones`).val(solicitud.AFECTACIONES);
@@ -170,7 +170,7 @@ function poblarModalEditar(solicitud, sufijo = '') {
     $(`#${prefix}Potencia`).val(solicitud.POTENCIA);
     
     // SODI es un radio button
-    if (solicitud.SODI === 'Sí' || solicitud.SODI === 'Si') {
+    if (solicitud.APLICA_SODI === 'Sí' || solicitud.APLICA_SODI === 'Si') {
         $(`input[name="${prefix}Sodi"][value="Si"]`).prop('checked', true);
     } else {
         $(`input[name="${prefix}Sodi"][value="No"]`).prop('checked', true);

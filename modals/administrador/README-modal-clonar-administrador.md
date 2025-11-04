@@ -1,9 +1,10 @@
-# El despachador puede clonar cualquier solicitud los campos que se deben clonar son: 
+# El administrador puede clonar cualquier solicitud los campos que se deben clonar son: 
 
-Estado por defecto al clonar una solicitud: "Despachador Gestionando"
+Estado por defecto al clonar una solicitud: "Administrador Gestionando"
+Todos los campos son editables a excepcion del Estado
 
 Header
-1. Categoría: Estado - Nombre de Campo: ESTADO - Label: Estado - Tipo de Dato: Línea de Texto - Descripción: Se clona en estado "Despachador Gestionando" - Obligatoriedad: ✅ Lectura. Por defecto "Despachador Gestionando"
+1. Categoría: Estado - Nombre de Campo: ESTADO - Label: Estado - Tipo de Dato: Línea de Texto - Descripción: Se clona en estado "Administrador Gestionando" - Obligatoriedad: ✅ Lectura. Por defecto "Administrador Gestionando"
 
 Identificación
 3. Categoría: Identificación - Nombre de Campo: ID_SOLICITUD - Label: ID Solicitud - Tipo de Dato: Línea de Texto - Descripción: Id de la solicitud (CEN o SODI), Este será el número asignado por la solicitud del CEN o SODI, sirviendo como identificador del trabajo. - Obligatoriedad: ✅ Opcional. Se vacía el campo.

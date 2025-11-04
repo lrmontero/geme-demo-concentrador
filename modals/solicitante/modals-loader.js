@@ -5,11 +5,11 @@
 (function() {
     // Lista de modales a cargar
     const modalsToLoadSolic = [
-        'modals/solicitante/nueva-solicitud-solic.html',
-        'modals/solicitante/editar-solicitud-solic.html',
+        'modals/solicitante/nueva-solicitante.html',
+        'modals/solicitante/editar-solicitante.html',
         'modals/solicitante/ver-solicitante.html',  // Modal unificado para todos los estados
-        'modals/solicitante/gestionar-solicitud-solicitante.html',  // Modal para gestionar solicitudes devueltas
-        'modals/solicitante/clonar-solicitud-solic.html',
+        'modals/solicitante/gestionar-solicitante.html',  // Modal para gestionar solicitudes devueltas
+        'modals/solicitante/clonar-solicitante.html',
         'modals/bitacora.html'
     ];
 
