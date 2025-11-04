@@ -273,16 +273,29 @@
                 <!-- Sección: Archivo Adjunto (SOLO LECTURA) -->
                 <div class="card mb-3">
                     <div class="card-header bg-light py-2">
-                        <h6 class="mb-0 text-primary"><i class="fas fa-paperclip mr-2"></i>Archivo Adjunto</h6>
+                        <h6 class="mb-0 text-primary"><i class="fas fa-paperclip mr-2"></i>Archivos Adjuntos</h6>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-8">
                                 <div class="form-group mb-0">
-                                    <span id="gestionarAdjunto" class="text-muted">-</span>
-                                    <button type="button" class="btn btn-sm btn-primary ml-2" id="gestionarDescargarAdjunto" style="display:none;">
-                                        <i class="fas fa-download mr-1"></i>Descargar
-                                    </button>
+                                    <label class="text-muted small mb-1"><strong>Archivo Adjunto</strong></label>
+                                    <div>
+                                        <span id="gestionarAdjunto" class="text-muted">-</span>
+                                        <button type="button" class="btn btn-sm btn-primary ml-2" id="gestionarDescargarAdjunto" style="display:none;">
+                                            <i class="fas fa-download mr-1"></i>Descargar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1"><strong>SODI Adjunto</strong> <span class="text-danger" id="gestionarSODIAdjuntoRequired" style="display:none;">*</span></label>
+                                    <select class="form-control" id="gestionarSODIAdjunto" name="sodiAdjunto">
+                                        <option value="">Seleccione...</option>
+                                        <option value="Sí">Sí</option>
+                                        <option value="No">No</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

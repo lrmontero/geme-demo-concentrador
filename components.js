@@ -1002,6 +1002,9 @@ function poblarModalGestionar(solicitud) {
         $(`${modalContext} #gestionarDescargarAdjunto`).hide();
     }
     
+    // SODI Adjunto (campo editable)
+    $(`${modalContext} #gestionarSODIAdjunto`).val(solicitud.SODI_ADJUNTO || '');
+    
     // Limpiar comentarios
     $(`${modalContext} #gestionarComentarios`).val('');
     
@@ -1044,9 +1047,11 @@ function aplicarReglasEditabilidadGestion(estado) {
     $(`${modalContext} #gestionarComentariosActuales`).prop('readonly', true).removeAttr('required');
     $(`${modalContext} #gestionarAfectaciones`).prop('readonly', true).removeAttr('required');
     $(`${modalContext} #gestionarDescripcionAfectacion`).prop('readonly', true).removeAttr('required');
+    $(`${modalContext} #gestionarSODIAdjunto`).prop('disabled', false).removeAttr('required');
     
     // Remover todos los asteriscos de obligatoriedad
     $(`${modalContext} label .text-danger`).remove();
+    $(`${modalContext} #gestionarSODIAdjuntoRequired`).hide();
     
     // Remover clases de editable
     $(`${modalContext} .border-warning`).removeClass('border-warning');
@@ -1082,6 +1087,10 @@ function aplicarReglasEditabilidadGestion(estado) {
         $(`${modalContext} #gestionarEmpresaSolicitante`).prop('disabled', false).attr('required', 'required');
         $(`${modalContext} #gestionarEmpresaReceptora`).prop('disabled', false).attr('required', 'required');
         
+        // SODI Adjunto: OBLIGATORIO en Administrador Gestionando
+        $(`${modalContext} #gestionarSODIAdjunto`).prop('disabled', false).attr('required', 'required');
+        $(`${modalContext} #gestionarSODIAdjuntoRequired`).show();
+        
         // Agregar asteriscos a campos obligatorios
         $(`${modalContext} label:contains("ID Solicitud")`).append(' <span class="text-danger">*</span>');
         $(`${modalContext} label:contains("Tipo")`).first().append(' <span class="text-danger">*</span>');
@@ -1093,6 +1102,8 @@ function aplicarReglasEditabilidadGestion(estado) {
         $(`${modalContext} .card:has(#gestionarIDSolicitud) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
         $(`${modalContext} .card:has(#gestionarEmpresaSolicitante)`).addClass('border-warning');
         $(`${modalContext} .card:has(#gestionarEmpresaSolicitante) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
+        $(`${modalContext} .card:has(#gestionarSODIAdjunto)`).addClass('border-warning');
+        $(`${modalContext} .card:has(#gestionarSODIAdjunto) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
         
     } else if (estado === 'Devuelta') {
         // En estado Devuelta, el administrador puede editar MUCHOS campos
