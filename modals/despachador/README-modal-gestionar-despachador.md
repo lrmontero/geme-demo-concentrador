@@ -173,6 +173,7 @@ Opciones para avanzar:
 
 1. Despachador Gestionando
     Si la solicitud es "Despachador Gestionando", el Despachador puede enviar a "Programada", el nombre de la transición es: "Programar Solicitud"
+    Si la solicitud es "Despachador Gestionando", el Despachador puede enviar a "Anulada", el nombre de la transición es: "Anular Solicitud"
 
 2. En Programada
     Si la solicitud es "Programada", el Despachador puede enviar a "Vigente", el nombre de la transición es: "Iniciar Trabajo" esta opción es seleccionable si se ingresa una Fecha Efectiva de Inicio

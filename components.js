@@ -917,6 +917,14 @@ function gestionarSolicitudAdmin(solicitudId) {
         return;
     }
     
+    // Validar que el estado sea gestionable (sin Devuelta)
+    const estadosGestionables = ['Pendiente', 'En Análisis', 'Administrador Gestionando'];
+    if (!estadosGestionables.includes(solicitud.ESTADO)) {
+        alert('Esta solicitud no puede ser gestionada en su estado actual: ' + solicitud.ESTADO);
+        console.warn('Estado no gestionable:', solicitud.ESTADO);
+        return;
+    }
+    
     const modal = $('#modalGestionarAdmin');
     
     // Limpiar eventos previos y agregar nuevo listener
@@ -1207,28 +1215,6 @@ function configurarEstadoGestion(estado) {
                         <i class="fas fa-user-cog mr-1"></i>Gestionar Solicitud
                     </label>
                     <small class="form-text text-muted ml-4">Enviar a "Administrador Gestionando"</small>
-                </div>
-                <div class="custom-control custom-radio mt-2">
-                    <input type="radio" id="accionAnular" name="accionGestion" class="custom-control-input" value="Anulada">
-                    <label class="custom-control-label text-danger" for="accionAnular">
-                        <i class="fas fa-ban mr-1"></i>Anular solicitud
-                    </label>
-                    <small class="form-text text-muted ml-4">Enviar a "Anulada"</small>
-                </div>
-            `;
-            break;
-            
-        case 'Devuelta':
-            alertElement.addClass('alert-danger');
-            badgeElement.addClass('badge-danger').text('Devuelta');
-            descripcionElement.text('Esta solicitud fue devuelta al solicitante para correcciones');
-            acciones = `
-                <div class="custom-control custom-radio">
-                    <input type="radio" id="accionEnviarPendiente" name="accionGestion" class="custom-control-input" value="Pendiente" checked>
-                    <label class="custom-control-label" for="accionEnviarPendiente">
-                        <i class="fas fa-arrow-right mr-1"></i>Enviar a Pendiente
-                    </label>
-                    <small class="form-text text-muted ml-4">Enviar a "Pendiente"</small>
                 </div>
                 <div class="custom-control custom-radio mt-2">
                     <input type="radio" id="accionAnular" name="accionGestion" class="custom-control-input" value="Anulada">
@@ -2183,12 +2169,18 @@ function configurarTransicionesEstadoDesp(estadoActual) {
     
     switch(estadoActual) {
         case 'Despachador Gestionando':
-            // Puede avanzar a "Programada"
+            // Puede avanzar a "Programada" o "Anulada"
             opcionesHTML = `
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="accionDesp" id="accionProgramada" value="Programada" checked>
                     <label class="form-check-label" for="accionProgramada">
                         <strong>Programar Solicitud</strong> - Cambiar estado a "Programada"
+                    </label>
+                </div>
+                <div class="form-check mt-2">
+                    <input class="form-check-input" type="radio" name="accionDesp" id="accionAnuladaDesp" value="Anulada">
+                    <label class="form-check-label text-danger" for="accionAnuladaDesp">
+                        <strong>Anular Solicitud</strong> - Cambiar estado a "Anulada"
                     </label>
                 </div>
             `;

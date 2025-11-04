@@ -25,60 +25,74 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Tipo</label>
-                            <select class="form-control">
-                                <option>Todos</option>
-                                <option>SUCN</option>
-                                <option>SUCP</option>
-                                <option>SICN</option>
-                                <option>SICP</option>
-                                <option>IL</option>
-                                <option>RM</option>
-                                <option>MANT</option>
+                            <label>Instalación GM</label>
+                            <select class="form-control" id="filtroInstalacionGMSolic">
+                                <option value="">Todas</option>
+                                <option value="Santiago Solar">Santiago Solar</option>
+                                <option value="Nueva Renca">Nueva Renca</option>
+                                <option value="Los Vientos">Los Vientos</option>
+                                <option value="Santa Lidia">Santa Lidia</option>
+                                <option value="CEME1">CEME1</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Estado</label>
-                            <select class="form-control">
-                                <option>Todos</option>
-                                <option>Vigente</option>
-                                <option>Finalizado</option>
-                                <option>Programado</option>
-                                <option>Aprobado</option>
-                                <option>Rechazado</option>
-                                <option>No solicitado</option>
-                                <option>Suspendido</option>
+                            <label>Instalaciones/Equipos a intervenir</label>
+                            <input type="text" class="form-control" id="filtroEquiposSolic" placeholder="Buscar equipos...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Tipo Intervención</label>
+                            <select class="form-control" id="filtroTipoIntervencionSolic">
+                                <option value="">Todos</option>
+                                <option value="Intervención">Intervención</option>
+                                <option value="Desconexión">Desconexión</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Empresa Solicitante</label>
-                            <select class="form-control">
-                                <option>Todas</option>
-                                <option>CDEC</option>
-                                <option>GM</option>
-                                <option>Transelec Norte</option>
-                                <option>Transelec Sur</option>
-                                <option>Chilquinta</option>
-                                <option>Saesa</option>
+                            <label>Riesgo</label>
+                            <select class="form-control" id="filtroRiesgoSolic">
+                                <option value="">Todos</option>
+                                <option value="Bajo">Bajo</option>
+                                <option value="Medio">Medio</option>
+                                <option value="Alto">Alto</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Aplica SODI</label>
+                            <select class="form-control" id="filtroAplicaSODISolic">
+                                <option value="">Todos</option>
+                                <option value="Sí">Sí</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Fecha Desde</label>
-                            <input type="date" class="form-control">
+                            <input type="date" class="form-control" id="filtroFechaDesdeSolic">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Fecha Hasta</label>
+                            <input type="date" class="form-control" id="filtroFechaHastaSolic">
                         </div>
                     </div>
                 </div>
                 <div class="btns-accion-filtro">
-                    <a href="javascript:;" class="btn-filtrar text-decoration-none">
+                    <a href="javascript:;" class="btn-filtrar text-decoration-none" onclick="aplicarFiltrosSolic()">
                         <i class="fas fa-filter"></i> Filtrar
                     </a>
-                    <a href="javascript:;" class="btn-limpiar text-decoration-none">
+                    <a href="javascript:;" class="btn-limpiar text-decoration-none" onclick="limpiarFiltrosSolic()">
                         <i class="fas fa-eraser"></i> Limpiar
                     </a>
                 </div>
@@ -134,10 +148,10 @@
                                 <th>Fecha Prog. Inicio</th>
                                 <th>Fecha Prog. Fin</th>
                                 <th>Instalación GM</th>
-                                <th>Equipos a Intervenir</th>
+                                <th>Instalaciones/Equipos a intervenir</th>
                                 <th>Tipo Intervención</th>
                                 <th>Riesgo</th>
-                                <th>SODI</th>
+                                <th>Aplica SODI</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
@@ -189,7 +203,7 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
         
         // Determinar badge de riesgo
         let badgeRiesgo = 'badge-secondary';
-        switch(solicitud.RIESGOS) {
+        switch(solicitud.RIESGO) {
             case 'Bajo': badgeRiesgo = 'badge-info'; break;
             case 'Medio': badgeRiesgo = 'badge-warning'; break;
             case 'Alto': badgeRiesgo = 'badge-danger'; break;
@@ -256,7 +270,7 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
                 <td>${solicitud.INSTALACION_GM}</td>
                 <td>${solicitud.EQUIPOS}</td>
                 <td>${solicitud.TIPO_INTERVENCION}</td>
-                <td><span class="badge ${badgeRiesgo}">${solicitud.RIESGOS}</span></td>
+                <td><span class="badge ${badgeRiesgo}">${solicitud.RIESGO}</span></td>
                 <td>${solicitud.APLICA_SODI}</td>
                 <td><span class="badge ${badgeEstado}">${solicitud.ESTADO}</span></td>
             </tr>
@@ -273,10 +287,62 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
     // Variable local para el filtro actual
     let filtroActual = 'proceso';
     
-    // Función para limpiar filtros
+    // Función para limpiar filtros (legacy)
     window.limpiarFiltros = function() {
-        $('#zona-filtro select').val('Todos');
+        $('#zona-filtro select').val('');
         $('#zona-filtro input').val('');
+    };
+    
+    // Función para aplicar filtros personalizados
+    window.aplicarFiltrosSolic = function() {
+        const table = $('#tablaSolicitudesSolicitante').DataTable();
+        
+        // Obtener valores de filtros
+        const filtroInstalacion = $('#filtroInstalacionGMSolic').val();
+        const filtroEquipos = $('#filtroEquiposSolic').val().toLowerCase();
+        const filtroTipoInterv = $('#filtroTipoIntervencionSolic').val();
+        const filtroRiesgo = $('#filtroRiesgoSolic').val();
+        const filtroSODI = $('#filtroAplicaSODISolic').val();
+        const filtroFechaDesde = $('#filtroFechaDesdeSolic').val();
+        const filtroFechaHasta = $('#filtroFechaHastaSolic').val();
+        
+        // Aplicar búsqueda por Instalación GM (columna 4)
+        table.column(4).search(filtroInstalacion);
+        
+        // Aplicar búsqueda por Equipos (columna 5)
+        table.column(5).search(filtroEquipos);
+        
+        // Aplicar búsqueda por Tipo Intervención (columna 6)
+        table.column(6).search(filtroTipoInterv);
+        
+        // Aplicar búsqueda por Riesgo (columna 7)
+        table.column(7).search(filtroRiesgo);
+        
+        // Aplicar búsqueda por Aplica SODI (columna 8)
+        table.column(8).search(filtroSODI);
+        
+        // Redibujar tabla
+        table.draw();
+        
+        console.log('Filtros aplicados:', {filtroInstalacion, filtroEquipos, filtroTipoInterv, filtroRiesgo, filtroSODI});
+    };
+    
+    // Función para limpiar filtros personalizados
+    window.limpiarFiltrosSolic = function() {
+        // Limpiar inputs
+        $('#filtroInstalacionGMSolic').val('');
+        $('#filtroEquiposSolic').val('');
+        $('#filtroTipoIntervencionSolic').val('');
+        $('#filtroRiesgoSolic').val('');
+        $('#filtroAplicaSODISolic').val('');
+        $('#filtroFechaDesdeSolic').val('');
+        $('#filtroFechaHastaSolic').val('');
+        
+        // Limpiar búsquedas de DataTable
+        const table = $('#tablaSolicitudesSolicitante').DataTable();
+        table.search('').columns().search('').draw();
+        
+        console.log('Filtros limpiados');
     };
     
     // Función para filtrar por estado

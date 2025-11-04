@@ -25,60 +25,96 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
+                            <label>ID Solicitud</label>
+                            <input type="text" class="form-control" id="filtroIDSolicitudDesp" placeholder="Buscar por ID...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
                             <label>Tipo</label>
-                            <select class="form-control">
-                                <option>Todos</option>
-                                <option>SUCN</option>
-                                <option>SUCP</option>
-                                <option>SICN</option>
-                                <option>SICP</option>
-                                <option>IL</option>
-                                <option>RM</option>
-                                <option>MANT</option>
+                            <select class="form-control" id="filtroTipoDesp">
+                                <option value="">Todos</option>
+                                <option value="SDCN">SDCN</option>
+                                <option value="SDCF">SDCF</option>
+                                <option value="SICN">SICN</option>
+                                <option value="SICF">SICF</option>
+                                <option value="IL">IL</option>
+                                <option value="MM">MM</option>
+                                <option value="SODI">SODI</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Estado</label>
-                            <select class="form-control">
-                                <option>Todos</option>
-                                <option>Vigente</option>
-                                <option>Finalizado</option>
-                                <option>Programado</option>
-                                <option>Aprobado</option>
-                                <option>Rechazado</option>
-                                <option>No solicitado</option>
-                                <option>Suspendido</option>
+                            <label>Instalación GM</label>
+                            <select class="form-control" id="filtroInstalacionGMDesp">
+                                <option value="">Todas</option>
+                                <option value="Santiago Solar">Santiago Solar</option>
+                                <option value="Nueva Renca">Nueva Renca</option>
+                                <option value="Los Vientos">Los Vientos</option>
+                                <option value="Santa Lidia">Santa Lidia</option>
+                                <option value="CEME1">CEME1</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Empresa Solicitante</label>
-                            <select class="form-control">
-                                <option>Todas</option>
-                                <option>CDEC</option>
-                                <option>GM</option>
-                                <option>Transelec Norte</option>
-                                <option>Transelec Sur</option>
-                                <option>Chilquinta</option>
-                                <option>Saesa</option>
+                            <select class="form-control" id="filtroEmpresaSolicitanteDesp">
+                                <option value="">Todas</option>
+                                <option value="CDC">CDC</option>
+                                <option value="GM">GM</option>
+                                <option value="Transelec Norte">Transelec Norte</option>
+                                <option value="Transelec Sur">Transelec Sur</option>
+                                <option value="Chilquinta">Chilquinta</option>
+                                <option value="Saesa">Saesa</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Empresa Receptora</label>
+                            <select class="form-control" id="filtroEmpresaReceptoraDesp">
+                                <option value="">Todas</option>
+                                <option value="CDC">CDC</option>
+                                <option value="GM">GM</option>
+                                <option value="Transelec Norte">Transelec Norte</option>
+                                <option value="Transelec Sur">Transelec Sur</option>
+                                <option value="Chilquinta">Chilquinta</option>
+                                <option value="Saesa">Saesa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Aplica SODI</label>
+                            <select class="form-control" id="filtroAplicaSODIDesp">
+                                <option value="">Todos</option>
+                                <option value="Sí">Sí</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Fecha Desde</label>
-                            <input type="date" class="form-control">
+                            <input type="date" class="form-control" id="filtroFechaDesdeDesp">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Fecha Hasta</label>
+                            <input type="date" class="form-control" id="filtroFechaHastaDesp">
                         </div>
                     </div>
                 </div>
                 <div class="btns-accion-filtro">
-                    <a href="javascript:;" class="btn-filtrar text-decoration-none">
+                    <a href="javascript:;" class="btn-filtrar text-decoration-none" onclick="aplicarFiltrosDesp()">
                         <i class="fas fa-filter"></i> Filtrar
                     </a>
-                    <a href="javascript:;" class="btn-limpiar text-decoration-none">
+                    <a href="javascript:;" class="btn-limpiar text-decoration-none" onclick="limpiarFiltrosDesp()">
                         <i class="fas fa-eraser"></i> Limpiar
                     </a>
                 </div>
@@ -140,7 +176,7 @@
                                 <th>Solicitante</th>
                                 <th>Empresa Solicitante</th>
                                 <th>Empresa Receptora</th>
-                                <th>SODI</th>
+                                <th>Aplica SODI</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
@@ -283,7 +319,7 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
                 <td>${solicitud.SOLICITANTE}</td>
                 <td>${solicitud.EMPRESA_SOLICITANTE}</td>
                 <td>${solicitud.EMPRESA_RECEPTORA}</td>
-                <td>${solicitud.SODI}</td>
+                <td>${solicitud.APLICA_SODI}</td>
                 <td><span class="badge ${badgeEstado}">${solicitud.ESTADO}</span></td>
             </tr>
         `;
@@ -299,10 +335,67 @@ $('#zona-filtro').on('hide.bs.collapse', function () {
     // Variable local para el filtro actual
     let filtroActual = 'proceso';
     
-    // Función para limpiar filtros
+    // Función para limpiar filtros (legacy)
     window.limpiarFiltros = function() {
-        $('#zona-filtro select').val('Todos');
+        $('#zona-filtro select').val('');
         $('#zona-filtro input').val('');
+    };
+    
+    // Función para aplicar filtros personalizados
+    window.aplicarFiltrosDesp = function() {
+        const table = $('#table-solicitudes').DataTable();
+        
+        // Obtener valores de filtros
+        const filtroID = $('#filtroIDSolicitudDesp').val().toLowerCase();
+        const filtroTipo = $('#filtroTipoDesp').val();
+        const filtroInstalacion = $('#filtroInstalacionGMDesp').val();
+        const filtroEmpSol = $('#filtroEmpresaSolicitanteDesp').val();
+        const filtroEmpRec = $('#filtroEmpresaReceptoraDesp').val();
+        const filtroSODI = $('#filtroAplicaSODIDesp').val();
+        const filtroFechaDesde = $('#filtroFechaDesdeDesp').val();
+        const filtroFechaHasta = $('#filtroFechaHastaDesp').val();
+        
+        // Aplicar búsqueda por ID
+        table.column(2).search(filtroID);
+        
+        // Aplicar búsqueda por Tipo
+        table.column(3).search(filtroTipo);
+        
+        // Aplicar búsqueda por Instalación GM
+        table.column(6).search(filtroInstalacion);
+        
+        // Aplicar búsqueda por Empresa Solicitante
+        table.column(9).search(filtroEmpSol);
+        
+        // Aplicar búsqueda por Empresa Receptora
+        table.column(10).search(filtroEmpRec);
+        
+        // Aplicar búsqueda por Aplica SODI
+        table.column(11).search(filtroSODI);
+        
+        // Redibujar tabla
+        table.draw();
+        
+        console.log('Filtros aplicados:', {filtroID, filtroTipo, filtroInstalacion, filtroEmpSol, filtroEmpRec, filtroSODI});
+    };
+    
+    // Función para limpiar filtros personalizados
+    window.limpiarFiltrosDesp = function() {
+        // Limpiar inputs
+        $('#filtroIDSolicitudDesp').val('');
+        $('#filtroTipoDesp').val('');
+        $('#filtroInstalacionGMDesp').val('');
+        $('#filtroEmpresaSolicitanteDesp').val('');
+        $('#filtroEmpresaReceptoraDesp').val('');
+        $('#filtroAplicaSODIDesp').val('');
+        $('#filtroFechaDesdeDesp').val('');
+        $('#filtroFechaHastaDesp').val('');
+        
+        // Limpiar búsquedas de DataTable
+        const table = $('#table-solicitudes').DataTable();
+        table.search('').columns().search('').draw();
+        
+        console.log('Filtros limpiados');
     };
     
     // Función para filtrar por estado
