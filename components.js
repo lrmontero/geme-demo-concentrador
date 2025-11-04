@@ -1334,6 +1334,7 @@ function poblarModalEditar(solicitud) {
     
     // Determinar comportamiento según CREADO_POR
     const creadoPorSolicitante = solicitud.CREADO_POR === 'Solicitante';
+    const creadoPorAdministrador = solicitud.CREADO_POR === 'Administrador';
     
     // Identificación (SIEMPRE EDITABLE)
     $(`${modalContext} #editarIDSolicitud`).val(solicitud.ID_SOLICITUD || '').prop('readonly', false);
@@ -1361,18 +1362,24 @@ function poblarModalEditar(solicitud) {
     // Si CREADO_POR = "Administrador" -> EDITABLE
     $(`${modalContext} #editarInstalacionGM`).val(solicitud.INSTALACION_GM || '').prop('disabled', creadoPorSolicitante);
     
-    // Equipos (SIEMPRE SOLO LECTURA)
-    $(`${modalContext} #editarEquipos`).val(solicitud.EQUIPOS || '').prop('readonly', true);
+    // Equipos
+    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
+    // Si CREADO_POR = "Administrador" -> EDITABLE
+    $(`${modalContext} #editarEquipos`).val(solicitud.EQUIPOS || '').prop('readonly', creadoPorSolicitante);
     
-    // Características de la Intervención (SIEMPRE SOLO LECTURA)
-    $(`${modalContext} #editarTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '').prop('disabled', true);
-    $(`${modalContext} #editarPotencia`).val(solicitud.POTENCIA || '').prop('readonly', true);
-    $(`${modalContext} #editarAplicaSODI`).val(solicitud.APLICA_SODI || '').prop('disabled', true);
-    $(`${modalContext} #editarRiesgo`).val(solicitud.RIESGO || '').prop('disabled', true);
+    // Características de la Intervención
+    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
+    // Si CREADO_POR = "Administrador" -> EDITABLE
+    $(`${modalContext} #editarTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '').prop('disabled', creadoPorSolicitante);
+    $(`${modalContext} #editarPotencia`).val(solicitud.POTENCIA || '').prop('readonly', creadoPorSolicitante);
+    $(`${modalContext} #editarAplicaSODI`).val(solicitud.APLICA_SODI || '').prop('disabled', creadoPorSolicitante);
+    $(`${modalContext} #editarRiesgo`).val(solicitud.RIESGO || '').prop('disabled', creadoPorSolicitante);
     
-    // Descripción del Riesgo (condicional - SIEMPRE SOLO LECTURA)
+    // Descripción del Riesgo (condicional)
+    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
+    // Si CREADO_POR = "Administrador" -> EDITABLE
     if (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto') {
-        $(`${modalContext} #editarDescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO || '');
+        $(`${modalContext} #editarDescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO || '').prop('readonly', creadoPorSolicitante);
         $(`${modalContext} #editarDescripcionRiesgoContainer`).show();
     } else {
         $(`${modalContext} #editarDescripcionRiesgoContainer`).hide();
@@ -1386,12 +1393,16 @@ function poblarModalEditar(solicitud) {
     $(`${modalContext} #editarCondiciones`).val(solicitud.CONDICIONES || '').prop('readonly', creadoPorSolicitante);
     $(`${modalContext} #editarComentarios`).val(solicitud.COMENTARIOS || '').prop('readonly', creadoPorSolicitante);
     
-    // Afectaciones (SIEMPRE SOLO LECTURA)
-    $(`${modalContext} #editarAfectaciones`).val(solicitud.AFECTACIONES || '').prop('disabled', true);
+    // Afectaciones
+    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
+    // Si CREADO_POR = "Administrador" -> EDITABLE
+    $(`${modalContext} #editarAfectaciones`).val(solicitud.AFECTACIONES || '').prop('disabled', creadoPorSolicitante);
     
-    // Descripción de Afectación (condicional - SIEMPRE SOLO LECTURA)
+    // Descripción de Afectación (condicional)
+    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
+    // Si CREADO_POR = "Administrador" -> EDITABLE
     if (solicitud.AFECTACIONES && solicitud.AFECTACIONES !== '') {
-        $(`${modalContext} #editarDescripcionAfectacion`).val(solicitud.DESCRIPCION_AFECTACION || '');
+        $(`${modalContext} #editarDescripcionAfectacion`).val(solicitud.DESCRIPCION_AFECTACION || '').prop('readonly', creadoPorSolicitante);
         $(`${modalContext} #editarDescripcionAfectacionContainer`).show();
     } else {
         $(`${modalContext} #editarDescripcionAfectacionContainer`).hide();
@@ -1414,7 +1425,7 @@ function poblarModalEditar(solicitud) {
     $(`${modalContext} #editSolicitudId`).val(solicitud.ID_REGISTRO);
     $(`${modalContext} #editCreadoPor`).val(solicitud.CREADO_POR);
     
-    console.log('Modal editar poblado. CREADO_POR:', solicitud.CREADO_POR, '| Campos de fechas readonly:', creadoPorSolicitante);
+    console.log('Modal editar poblado. CREADO_POR:', solicitud.CREADO_POR, '| Todos los campos editables:', creadoPorAdministrador);
 }
 
 // Función auxiliar para convertir fecha del formato "DD/MM/YYYY HH:MM" a "YYYY-MM-DDTHH:MM"
