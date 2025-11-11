@@ -151,7 +151,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="text-muted small mb-1">Instalación GM <span class="text-danger">*</span></label>
-                                        <select class="form-control" id="nuevaInstalacionGM" name="instalacionGM" required onchange="cargarEquiposPorInstalacion(this.value, 'nuevaEquipos')">
+                                        <select class="form-control" id="nuevaInstalacionGM" name="instalacionGM" required>
                                             <option value="">Seleccione...</option>
                                             <option value="Santiago Solar">Santiago Solar</option>
                                             <option value="Nueva Renca">Nueva Renca</option>
@@ -164,10 +164,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group mb-0">
                                         <label class="text-muted small mb-1">Instalaciones/Equipos a intervenir <span class="text-danger">*</span></label>
-                                        <select class="form-control" id="nuevaEquipos" name="equipos" required disabled>
+                                        <select class="form-control" id="nuevaEquipos" name="equipos" multiple required disabled size="4">
                                             <option value="">Primero seleccione Instalación GM</option>
                                         </select>
-                                        <small class="form-text text-muted">Seleccione primero la instalación</small>
+                                        <small class="form-text text-muted">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
                                     </div>
                                 </div>
                             </div>
@@ -221,11 +221,11 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6" id="nuevaDescripcionRiesgoContainer" style="display: none;">
+                                <div class="col-md-6" id="nuevaDescripcionRiesgoContainer">
                                     <div class="form-group mb-0">
-                                        <label class="text-muted small mb-1">Descripción del Riesgo <span class="text-danger">*</span></label>
+                                        <label class="text-muted small mb-1">Descripción del Riesgo del Trabajo <span class="text-danger">*</span></label>
                                         <textarea class="form-control" id="nuevaDescripcionRiesgo" name="descripcionRiesgo" rows="2" placeholder="Describa el riesgo identificado..."></textarea>
-                                        <small class="form-text text-muted">Obligatorio para riesgo Medio o Alto</small>
+                                        <small class="form-text text-muted">Describa el riesgo identificado para cualquier nivel de clasificación</small>
                                     </div>
                                 </div>
                             </div>
@@ -334,19 +334,16 @@
 </div>
 
 <script>
-// Función para mostrar/ocultar descripción del riesgo según clasificación
+// Función para manejar la obligatoriedad del campo Descripción del Riesgo del Trabajo
 function toggleDescripcionRiesgo() {
     const riesgo = document.getElementById('nuevaRiesgo').value;
-    const container = document.getElementById('nuevaDescripcionRiesgoContainer');
     const textarea = document.getElementById('nuevaDescripcionRiesgo');
     
-    if (riesgo === 'Medio' || riesgo === 'Alto') {
-        container.style.display = 'block';
-        textarea.setAttribute('required', 'required');
+    // El campo siempre es obligatorio cuando se selecciona un riesgo
+    if (riesgo && riesgo !== '') {
+        textarea.required = true;
     } else {
-        container.style.display = 'none';
-        textarea.removeAttribute('required');
-        textarea.value = '';
+        textarea.required = false;
     }
 }
 

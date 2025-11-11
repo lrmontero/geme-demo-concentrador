@@ -39,8 +39,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="text-muted small mb-1">ID Solicitud <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="editarIDSolicitud" name="idSolicitud" required placeholder="Ej: CEN-2025-001">
+                                        <label class="text-muted small mb-1">ID Solicitud</label>
+                                        <input type="text" class="form-control" id="editarIDSolicitud" name="idSolicitud" placeholder="Ej: CEN-2025-001">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -154,9 +154,11 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group mb-0">
-                                        <label class="text-muted small mb-1">Instalaciones/Equipos a intervenir</label>
-                                        <input type="text" class="form-control" id="editarEquipos" name="equipos" readonly placeholder="Ej: Paño 1, Transformador T1">
-                                        <small class="form-text text-muted">Solo lectura</small>
+                                        <label class="text-muted small mb-1">Instalaciones/Equipos a intervenir <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="editarEquipos" name="equipos" multiple required size="4" disabled>
+                                            <option value="">Primero seleccione Instalación GM</option>
+                                        </select>
+                                        <small class="form-text text-muted">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
                                     </div>
                                 </div>
                             </div>
@@ -172,53 +174,49 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="text-muted small mb-1">Tipo de Intervención</label>
-                                        <select class="form-control" id="editarTipoIntervencion" name="tipoIntervencion" disabled>
+                                        <label class="text-muted small mb-1">Tipo de Intervención <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="editarTipoIntervencion" name="tipoIntervencion" required>
                                             <option value="">Seleccione...</option>
                                             <option value="Intervención">Intervención</option>
                                             <option value="Desconexión">Desconexión</option>
                                         </select>
-                                        <small class="form-text text-muted">Solo lectura</small>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="text-muted small mb-1">Potencia (MWH)</label>
-                                        <input type="number" class="form-control" id="editarPotencia" name="potencia" step="0.01" min="0" readonly placeholder="Ej: 150.50">
-                                        <small class="form-text text-muted">Solo lectura</small>
+                                        <label class="text-muted small mb-1">Potencia (MWH) <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" id="editarPotencia" name="potencia" step="0.01" min="0" required placeholder="Ej: 150.50">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="text-muted small mb-1">Aplica SODI</label>
-                                        <select class="form-control" id="editarAplicaSODI" name="aplicaSODI" disabled>
+                                        <label class="text-muted small mb-1">Aplica SODI <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="editarAplicaSODI" name="aplicaSODI" required>
                                             <option value="">Seleccione...</option>
                                             <option value="Sí">Sí</option>
                                             <option value="No">No</option>
                                         </select>
-                                        <small class="form-text text-muted">Solo lectura</small>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group mb-0">
-                                        <label class="text-muted small mb-1">Clasificación del Riesgo</label>
-                                        <select class="form-control" id="editarRiesgo" name="riesgo" disabled>
+                                        <label class="text-muted small mb-1">Clasificación del Riesgo <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="editarRiesgo" name="riesgo" required>
                                             <option value="">Seleccione...</option>
                                             <option value="Bajo">Bajo</option>
                                             <option value="Medio">Medio</option>
                                             <option value="Alto">Alto</option>
                                         </select>
-                                        <small class="form-text text-muted">Solo lectura</small>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Campo condicional: Descripción del Riesgo -->
-                            <div class="row" id="editarDescripcionRiesgoContainer" style="display: none;">
+                            <!-- Campo condicional: Descripción del Riesgo del Trabajo -->
+                            <div class="row mt-2" id="editarDescripcionRiesgoContainer">
                                 <div class="col-md-12">
                                     <div class="form-group mb-0">
-                                        <label class="text-muted small mb-1">Descripción del Riesgo</label>
-                                        <textarea class="form-control" id="editarDescripcionRiesgo" name="descripcionRiesgo" rows="2" readonly placeholder="Descripción del riesgo..."></textarea>
-                                        <small class="form-text text-muted">Solo lectura - Se muestra cuando el riesgo es Medio o Alto</small>
+                                        <label class="text-muted small mb-1">Descripción del Riesgo del Trabajo <span class="text-danger" id="editarDescripcionRiesgoAsterisco">*</span></label>
+                                        <textarea class="form-control" id="editarDescripcionRiesgo" name="descripcionRiesgo" rows="2" placeholder="Descripción del Riesgo del Trabajo..."></textarea>
+                                        <small class="form-text text-muted">Obligatorio para Riesgo Medio o Alto</small>
                                     </div>
                                 </div>
                             </div>
@@ -260,7 +258,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group mb-0">
                                         <label class="text-muted small mb-1">Afectaciones</label>
-                                        <select class="form-control" id="editarAfectaciones" name="afectaciones" disabled>
+                                        <select class="form-control" id="editarAfectaciones" name="afectaciones">
                                             <option value="">Seleccione...</option>
                                             <option value="SSCC">SSCC</option>
                                             <option value="Protecciones">Protecciones</option>
@@ -270,17 +268,17 @@
                                             <option value="Protecciones, Medidores">Protecciones, Medidores</option>
                                             <option value="SSCC, Protecciones, Medidores">SSCC, Protecciones, Medidores</option>
                                         </select>
-                                        <small class="form-text text-muted">Solo lectura</small>
+                                        <small class="form-text text-muted">Opcional</small>
                                     </div>
                                 </div>
                             </div>
                             <!-- Campo condicional: Descripción de la Afectación -->
-                            <div class="row" id="editarDescripcionAfectacionContainer" style="display: none;">
+                            <div class="row mt-2" id="editarDescripcionAfectacionContainer" style="display: none;">
                                 <div class="col-md-12">
                                     <div class="form-group mb-0">
-                                        <label class="text-muted small mb-1">Descripción de la Afectación</label>
-                                        <textarea class="form-control" id="editarDescripcionAfectacion" name="descripcionAfectacion" rows="2" readonly placeholder="Descripción de la afectación..."></textarea>
-                                        <small class="form-text text-muted">Solo lectura - Se muestra cuando hay afectaciones</small>
+                                        <label class="text-muted small mb-1">Descripción de la Afectación <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="editarDescripcionAfectacion" name="descripcionAfectacion" rows="2" placeholder="Descripción de la afectación..."></textarea>
+                                        <small class="form-text text-muted">Obligatorio si se selecciona una Afectación</small>
                                     </div>
                                 </div>
                             </div>
@@ -353,30 +351,35 @@
 <script>
 $(document).ready(function() {
     // Lógica condicional para DESCRIPCION_RIESGO
-    // Nota: Este campo es readonly, pero la lógica se mantiene por si se carga con datos
+    // Obligatorio solo para Riesgo Medio o Alto
     $('#editarRiesgo').on('change', function() {
         const riesgo = $(this).val();
-        const container = $('#editarDescripcionRiesgoContainer');
+        const descripcionRiesgo = $('#editarDescripcionRiesgo');
+        const asterisco = $('#editarDescripcionRiesgoAsterisco');
         
         if (riesgo === 'Medio' || riesgo === 'Alto') {
-            container.slideDown();
+            descripcionRiesgo.attr('required', 'required');
+            asterisco.show();
         } else {
-            container.slideUp();
-            $('#editarDescripcionRiesgo').val('');
+            descripcionRiesgo.removeAttr('required');
+            asterisco.hide();
         }
     });
     
     // Lógica condicional para DESCRIPCION_AFECTACION
-    // Nota: Este campo es readonly, pero la lógica se mantiene por si se carga con datos
+    // Obligatorio si se selecciona una afectación
     $('#editarAfectaciones').on('change', function() {
         const afectaciones = $(this).val();
         const container = $('#editarDescripcionAfectacionContainer');
+        const descripcionAfectacion = $('#editarDescripcionAfectacion');
         
         if (afectaciones && afectaciones !== '') {
             container.slideDown();
+            descripcionAfectacion.attr('required', 'required');
         } else {
             container.slideUp();
-            $('#editarDescripcionAfectacion').val('');
+            descripcionAfectacion.removeAttr('required');
+            descripcionAfectacion.val('');
         }
     });
     

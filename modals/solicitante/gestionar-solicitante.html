@@ -148,7 +148,10 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Instalaciones/equipos a intervenir <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="gestionarSolEquipos" placeholder="Ej: Paños, Transformador, etc." required>
+                                    <select class="form-control" id="gestionarSolEquipos" name="equipos" multiple required disabled size="4">
+                                        <option value="">Primero seleccione Instalación GM</option>
+                                    </select>
+                                    <small class="form-text text-muted">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
                                 </div>
                             </div>
                         </div>
@@ -206,13 +209,13 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Campo condicional: Descripción del Riesgo -->
-                        <div class="row" id="gestionarSolDescripcionRiesgoContainer" style="display: none;">
+                        <!-- Campo condicional: Descripción del Riesgo del Trabajo -->
+                        <div class="row" id="gestionarSolDescripcionRiesgoContainer">
                             <div class="col-md-12">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Descripción del Riesgo <span class="text-danger">*</span></label>
+                                    <label class="text-muted small mb-1">Descripción del Riesgo del Trabajo <span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="gestionarSolDescripcionRiesgo" rows="2" placeholder="Describa el riesgo identificado..."></textarea>
-                                    <small class="form-text text-muted">Obligatorio si el riesgo es Medio o Alto</small>
+                                    <small class="form-text text-muted">Describa el riesgo identificado para cualquier nivel de clasificación</small>
                                 </div>
                             </div>
                         </div>
@@ -427,19 +430,16 @@
 <!-- Script para lógica condicional -->
 <script>
 $(document).ready(function() {
-    // Lógica condicional para DESCRIPCION_RIESGO
+    // Lógica condicional para DESCRIPCION_RIESGO - Ahora se muestra siempre
     $('#gestionarSolRiesgo').on('change', function() {
         const riesgo = $(this).val();
-        const container = $('#gestionarSolDescripcionRiesgoContainer');
         const textarea = $('#gestionarSolDescripcionRiesgo');
         
-        if (riesgo === 'Medio' || riesgo === 'Alto') {
-            container.show();
+        // El campo siempre es obligatorio cuando se selecciona un riesgo
+        if (riesgo && riesgo !== '') {
             textarea.prop('required', true);
         } else {
-            container.hide();
             textarea.prop('required', false);
-            textarea.val('');
         }
     });
     

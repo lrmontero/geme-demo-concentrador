@@ -150,13 +150,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Campo condicional: Descripción del Riesgo -->
-                            <div class="row" id="nuevaSolicDescripcionRiesgoContainer" style="display: none;">
+                            <!-- Campo condicional: Descripción del Riesgo del Trabajo -->
+                            <div class="row" id="nuevaSolicDescripcionRiesgoContainer">
                                 <div class="col-md-12">
                                     <div class="form-group mb-0">
-                                        <label class="text-muted small mb-1">Descripción del Riesgo <span class="text-danger">*</span></label>
+                                        <label class="text-muted small mb-1">Descripción del Riesgo del Trabajo <span class="text-danger">*</span></label>
                                         <textarea class="form-control" id="nuevaSolicDescripcionRiesgo" name="descripcionRiesgo" rows="2" placeholder="Describa el riesgo identificado..."></textarea>
-                                        <small class="form-text text-muted">Obligatorio cuando el riesgo es Medio o Alto</small>
+                                        <small class="form-text text-muted">Describa el riesgo identificado para cualquier nivel de clasificación</small>
                                     </div>
                                 </div>
                             </div>
@@ -262,19 +262,16 @@
 <!-- Script para lógica condicional del formulario -->
 <script>
 $(document).ready(function() {
-    // Lógica condicional para DESCRIPCION_RIESGO
+    // Lógica condicional para DESCRIPCION_RIESGO - Ahora se muestra siempre
     $('#nuevaSolicRiesgo').on('change', function() {
         const riesgo = $(this).val();
-        const container = $('#nuevaSolicDescripcionRiesgoContainer');
         const textarea = $('#nuevaSolicDescripcionRiesgo');
         
-        if (riesgo === 'Medio' || riesgo === 'Alto') {
-            container.slideDown(300);
+        // El campo siempre es obligatorio cuando se selecciona un riesgo
+        if (riesgo && riesgo !== '') {
             textarea.prop('required', true);
         } else {
-            container.slideUp(300);
             textarea.prop('required', false);
-            textarea.val(''); // Limpiar el campo
         }
     });
     
@@ -296,7 +293,6 @@ $(document).ready(function() {
     
     // Limpiar campos condicionales al cerrar el modal
     $('#modalNuevaSolicitudSolic').on('hidden.bs.modal', function() {
-        $('#nuevaSolicDescripcionRiesgoContainer').hide();
         $('#nuevaSolicDescripcionRiesgo').prop('required', false).val('');
         $('#nuevaSolicDescripcionAfectacionContainer').hide();
         $('#nuevaSolicDescripcionAfectacion').prop('required', false).val('');

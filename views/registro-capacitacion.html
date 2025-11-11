@@ -1,0 +1,1485 @@
+<!-- VISTA: REGISTRO DE CAPACITACIÓN -->
+<div class="tab-pane fade active show" id="registroCapacitacion" role="tabpanel" aria-labelledby="registroCapacitacion-tab">
+    <h3 class="pl-2 pt-2">Registro de Capacitación</h3>
+    <p class="pl-2 pt-2" id="subtitle-capacitacion">Muestra todos los registros de capacitación del personal</p>
+    <div class="line"></div>
+    
+    <!-- Alerta de error -->
+    <div id="alerta-error-capacitacion" class="alert alert-danger d-none" role="alert">
+        <label id="text-error-capacitacion"></label> 
+    </div>
+    
+    <!-- Spinner de carga -->
+    <div class="spinner pt-4 pb-4 d-none" id="spinner_datos_capacitacion">
+        <i class="fa fa-spinner spinning"></i>
+    </div>
+    
+    <div class="container-fluid" id="div_table_capacitacion">
+        <!-- Filtro de Estado de Capacitación -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="row justify-content-start">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 mb-0">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input class="cbxFilter" type="radio" aria-label="" name="flexRadioEstadoCapacitacion" checked="" id="cbxEnProceso" autocomplete="off" onchange="filtrarPorEstadoCapacitacion('proceso')">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" disabled="" aria-label="" value="Capacitación en Proceso" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 mb-0">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input class="cbxFilter" type="radio" aria-label="" name="flexRadioEstadoCapacitacion" id="cbxInformadas" autocomplete="off" onchange="filtrarPorEstadoCapacitacion('informadas')">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" disabled="" aria-label="" value="Capacitación Informada" autocomplete="off">
+                        </div>
+                    </div>              
+                </div>
+            </div>
+        </div>
+        
+        <!-- Zona de filtros -->
+        <div class="row" id="filtro-zona-capacitacion">
+            <div class="col-12"> 
+                <div class="btn-group mt-1" id="zona-botonera-filtro-capacitacion" role="group" aria-label="Botonera">
+                    <button id="showHideFilterCapacitacion" class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#zona-filtro-capacitacion" aria-expanded="false" aria-controls="zona-filtro-capacitacion">
+                        <i class="fa fa-filter mr-2 text-white" aria-hidden="true"></i>
+                        Mostrar filtro
+                    </button>
+                    <button id="clearFilterCapacitacion" class="btn btn-outline-dark" type="button" onclick="limpiarFiltrosCapacitacion()">
+                        <i class="fas fa-broom mr-2" aria-hidden="true"></i><span>Limpiar filtro</span>
+                    </button>
+                </div>
+                
+                <!-- Panel de filtros colapsable -->
+                <div class="collapse mt-3" id="zona-filtro-capacitacion">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">Filtros disponibles</h6>
+                            <div class="container-filtro container-fluid">
+                                <div class="form-row">
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label" for="filtro-nombre">Nombre</label>
+                                        <input type="text" class="form-control" id="filtro-nombre" placeholder="Buscar por nombre">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label" for="filtro-curso">Curso</label>
+                                        <input type="text" class="form-control" id="filtro-curso" placeholder="Buscar por curso">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label" for="filtro-estado-capacitacion">Estado</label>
+                                        <select class="custom-select form-control" id="filtro-estado-capacitacion">
+                                            <option value="">Seleccionar</option>
+                                            <option value="Completado">Completado</option>
+                                            <option value="En Proceso">En Proceso</option>
+                                            <option value="Pendiente">Pendiente</option>
+                                            <option value="Vencido">Vencido</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label" for="filtro-area">Área</label>
+                                        <select class="custom-select form-control" id="filtro-area">
+                                            <option value="">Seleccionar</option>
+                                            <option value="Operaciones">Operaciones</option>
+                                            <option value="Mantenimiento">Mantenimiento</option>
+                                            <option value="Administración">Administración</option>
+                                            <option value="Seguridad">Seguridad</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label" for="filtro-fecha-desde">Fecha Desde</label>
+                                        <input type="date" class="form-control" id="filtro-fecha-desde" autocomplete="off">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label" for="filtro-fecha-hasta">Fecha Hasta</label>
+                                        <input type="date" class="form-control" id="filtro-fecha-hasta" autocomplete="off">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label text-white" for="botones-filter-capacitacion">Botones</label>
+                                        <div class="btn-group col-sm-12" role="group" aria-label="Basic example">
+                                            <button type="button" class="btn btn-success col-sm-12" onclick="filtrarCapacitacion()">
+                                                Filtrar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tabla de datos -->
+        <div id="container-datos-capacitacion" class="row mt-2">
+            <div class="col-12">
+                <div id="table-capacitacion_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="table-capacitacion" class="table table-sm table-hover table-bordered w-100 dataTable no-footer" role="grid">
+                                <thead>
+                                    <tr role="row">
+                                        <th data-priority="1" style="min-width: 3rem;" class="text-center align-middle sorting_asc">Acciones</th>
+                                        <th data-priority="2" class="text-left sorting">Código</th>
+                                        <th class="text-left sorting">Gerencia</th>
+                                        <th class="text-left sorting">Departamento</th>
+                                        <th data-priority="3" class="text-left truncate sorting">Nombre Documento</th>
+                                        <th class="text-left sorting">Tipo Documento</th>
+                                        <th class="text-center sorting">Versión</th>
+                                        <th class="text-left sorting">Estado</th>
+                                        <th class="text-left sorting">Estado Capacitación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Los datos se cargarán dinámicamente aquí -->
+                                    <tr role="row" class="odd">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(1)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="javascript:;" onclick="gestionarCapacitacion(1)" class="text-danger ml-2" title="Gestionar">
+                                                <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">CNR-BMOD-I-3</td>
+                                        <td class="text-left">Gerencia de Originación y Nuevos Negocios</td>
+                                        <td class="text-left">Bussiness Modelling</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Procedimiento de Seguridad en Operaciones Eléctricas" rel="popover" data-placement="bottom">Procedimiento de Seguridad en Operaciones Eléctricas</span></td>
+                                        <td class="text-left">Instrucciones o Instructivos</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-warning">Por Informar</span></td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(2)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="javascript:;" onclick="gestionarCapacitacion(2)" class="text-danger ml-2" title="Gestionar">
+                                                <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">CRE-BMOD-PL-4</td>
+                                        <td class="text-left">Gerencia de Originación y Nuevos Negocios</td>
+                                        <td class="text-left">Bussiness Modelling</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Manual de Mantenimiento Preventivo de Equipos" rel="popover" data-placement="bottom">Manual de Mantenimiento Preventivo de Equipos</span></td>
+                                        <td class="text-left">Política</td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-secondary">Sin Configurar</span></td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(3)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="javascript:;" onclick="gestionarCapacitacion(3)" class="text-danger ml-2" title="Gestionar">
+                                                <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">SLI-COMB-P-5</td>
+                                        <td class="text-left">Gerencia Comercial</td>
+                                        <td class="text-left">Combustible</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Protocolo de Primeros Auxilios" rel="popover" data-placement="bottom">Protocolo de Primeros Auxilios</span></td>
+                                        <td class="text-left">Procedimiento</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-warning">Por Informar</span></td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(4)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="javascript:;" onclick="gestionarCapacitacion(4)" class="text-danger ml-2" title="Gestionar">
+                                                <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GOP-MAN-I-8</td>
+                                        <td class="text-left">Gerencia de Operaciones</td>
+                                        <td class="text-left">Mantenimiento</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Instructivo de Uso de Equipos de Protección Personal" rel="popover" data-placement="bottom">Instructivo de Uso de Equipos de Protección Personal</span></td>
+                                        <td class="text-left">Instrucciones o Instructivos</td>
+                                        <td class="text-center">3</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-secondary">Sin Configurar</span></td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(5)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="javascript:;" onclick="gestionarCapacitacion(5)" class="text-danger ml-2" title="Gestionar">
+                                                <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GFI-ADM-P-12</td>
+                                        <td class="text-left">Gerencia de Finanzas</td>
+                                        <td class="text-left">Administración</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Procedimiento de Control de Gastos y Rendiciones" rel="popover" data-placement="bottom">Procedimiento de Control de Gastos y Rendiciones</span></td>
+                                        <td class="text-left">Procedimiento</td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-warning">Por Informar</span></td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(6)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="javascript:;" onclick="gestionarCapacitacion(6)" class="text-danger ml-2" title="Gestionar">
+                                                <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GOP-SEG-PL-6</td>
+                                        <td class="text-left">Gerencia de Operaciones</td>
+                                        <td class="text-left">Seguridad</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Política de Prevención de Riesgos Laborales" rel="popover" data-placement="bottom">Política de Prevención de Riesgos Laborales</span></td>
+                                        <td class="text-left">Política</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-secondary">Sin Configurar</span></td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(7)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="javascript:;" onclick="gestionarCapacitacion(7)" class="text-danger ml-2" title="Gestionar">
+                                                <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GCO-GCOM-M-9</td>
+                                        <td class="text-left">Gerencia Comercial</td>
+                                        <td class="text-left">Gestión Comercial</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Manual de Atención al Cliente y Gestión de Reclamos" rel="popover" data-placement="bottom">Manual de Atención al Cliente y Gestión de Reclamos</span></td>
+                                        <td class="text-left">Manual</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-warning">Por Informar</span></td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(8)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="javascript:;" onclick="gestionarCapacitacion(8)" class="text-danger ml-2" title="Gestionar">
+                                                <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GRH-CAP-I-15</td>
+                                        <td class="text-left">Gerencia de Recursos Humanos</td>
+                                        <td class="text-left">Capacitación</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Instructivo de Evaluación de Desempeño" rel="popover" data-placement="bottom">Instructivo de Evaluación de Desempeño</span></td>
+                                        <td class="text-left">Instrucciones o Instructivos</td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-secondary">Sin Configurar</span></td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(9)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="javascript:;" onclick="gestionarCapacitacion(9)" class="text-danger ml-2" title="Gestionar">
+                                                <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GOP-OPE-P-20</td>
+                                        <td class="text-left">Gerencia de Operaciones</td>
+                                        <td class="text-left">Operaciones</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Procedimiento de Operación de Plantas Generadoras" rel="popover" data-placement="bottom">Procedimiento de Operación de Plantas Generadoras</span></td>
+                                        <td class="text-left">Procedimiento</td>
+                                        <td class="text-center">4</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-warning">Por Informar</span></td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(10)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="javascript:;" onclick="gestionarCapacitacion(10)" class="text-danger ml-2" title="Gestionar">
+                                                <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GON-DES-M-7</td>
+                                        <td class="text-left">Gerencia de Originación y Nuevos Negocios</td>
+                                        <td class="text-left">Desarrollo</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Manual de Gestión de Proyectos de Energía Renovable" rel="popover" data-placement="bottom">Manual de Gestión de Proyectos de Energía Renovable</span></td>
+                                        <td class="text-left">Manual</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-secondary">Sin Configurar</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tabla de Capacitaciones Informadas (oculta por defecto) -->
+        <div id="container-datos-informadas" class="row mt-2" style="display: none;">
+            <div class="col-12">
+                <div id="table-informadas_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="table-informadas" class="table table-sm table-hover table-bordered w-100 dataTable no-footer" role="grid">
+                                <thead>
+                                    <tr role="row">
+                                        <th data-priority="1" style="min-width: 3rem;" class="text-center align-middle sorting_asc">Acciones</th>
+                                        <th data-priority="2" class="text-left sorting">Código</th>
+                                        <th class="text-left sorting">Gerencia</th>
+                                        <th class="text-left sorting">Departamento</th>
+                                        <th data-priority="3" class="text-left truncate sorting">Nombre Documento</th>
+                                        <th class="text-left sorting">Tipo Documento</th>
+                                        <th class="text-center sorting">Versión</th>
+                                        <th class="text-left sorting">Estado</th>
+                                        <th class="text-left sorting">Estado Capacitación</th>
+                                        <th class="text-center sorting">Fecha Finalización</th>
+                                        <th class="text-center sorting">Personal Capacitado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Registros de capacitaciones informadas -->
+                                    <tr role="row" class="odd">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(11)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GOP-MAN-P-22</td>
+                                        <td class="text-left">Gerencia de Operaciones</td>
+                                        <td class="text-left">Mantenimiento</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Procedimiento de Mantenimiento de Subestaciones" rel="popover" data-placement="bottom">Procedimiento de Mantenimiento de Subestaciones</span></td>
+                                        <td class="text-left">Procedimiento</td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-success">Informado</span></td>
+                                        <td class="text-center">15/10/2024</td>
+                                        <td class="text-center">8/8</td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(12)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GFI-CON-I-18</td>
+                                        <td class="text-left">Gerencia de Finanzas</td>
+                                        <td class="text-left">Controller</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Instructivo de Cierre Contable Mensual" rel="popover" data-placement="bottom">Instructivo de Cierre Contable Mensual</span></td>
+                                        <td class="text-left">Instrucciones o Instructivos</td>
+                                        <td class="text-center">3</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-success">Informado</span></td>
+                                        <td class="text-center">20/10/2024</td>
+                                        <td class="text-center">3/3</td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(13)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GCO-COMB-M-11</td>
+                                        <td class="text-left">Gerencia Comercial</td>
+                                        <td class="text-left">Combustible</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Manual de Operación de Estaciones de Servicio" rel="popover" data-placement="bottom">Manual de Operación de Estaciones de Servicio</span></td>
+                                        <td class="text-left">Manual</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-success">Informado</span></td>
+                                        <td class="text-center">22/10/2024</td>
+                                        <td class="text-center">6/6</td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(14)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GOP-SEG-I-25</td>
+                                        <td class="text-left">Gerencia de Operaciones</td>
+                                        <td class="text-left">Seguridad</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Instructivo de Respuesta ante Emergencias" rel="popover" data-placement="bottom">Instructivo de Respuesta ante Emergencias</span></td>
+                                        <td class="text-left">Instrucciones o Instructivos</td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-success">Informado</span></td>
+                                        <td class="text-center">25/10/2024</td>
+                                        <td class="text-center">12/12</td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(15)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GRH-GP-P-30</td>
+                                        <td class="text-left">Gerencia de Recursos Humanos</td>
+                                        <td class="text-left">Gestión de Personas</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Procedimiento de Inducción de Personal Nuevo" rel="popover" data-placement="bottom">Procedimiento de Inducción de Personal Nuevo</span></td>
+                                        <td class="text-left">Procedimiento</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-success">Informado</span></td>
+                                        <td class="text-center">28/10/2024</td>
+                                        <td class="text-center">4/4</td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(16)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GOP-OPE-I-33</td>
+                                        <td class="text-left">Gerencia de Operaciones</td>
+                                        <td class="text-left">Operaciones</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Instructivo de Monitoreo de Sistemas SCADA" rel="popover" data-placement="bottom">Instructivo de Monitoreo de Sistemas SCADA</span></td>
+                                        <td class="text-left">Instrucciones o Instructivos</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-success">Informado</span></td>
+                                        <td class="text-center">30/10/2024</td>
+                                        <td class="text-center">5/5</td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(17)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GON-BMOD-PL-14</td>
+                                        <td class="text-left">Gerencia de Originación y Nuevos Negocios</td>
+                                        <td class="text-left">Business Modelling</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Política de Evaluación de Proyectos de Inversión" rel="popover" data-placement="bottom">Política de Evaluación de Proyectos de Inversión</span></td>
+                                        <td class="text-left">Política</td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-success">Informado</span></td>
+                                        <td class="text-center">01/11/2024</td>
+                                        <td class="text-center">7/7</td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(18)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GCO-GCOM-P-19</td>
+                                        <td class="text-left">Gerencia Comercial</td>
+                                        <td class="text-left">Gestión Comercial</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Procedimiento de Negociación de Contratos" rel="popover" data-placement="bottom">Procedimiento de Negociación de Contratos</span></td>
+                                        <td class="text-left">Procedimiento</td>
+                                        <td class="text-center">3</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-success">Informado</span></td>
+                                        <td class="text-center">03/11/2024</td>
+                                        <td class="text-center">9/10</td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(19)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GFI-ADM-M-21</td>
+                                        <td class="text-left">Gerencia de Finanzas</td>
+                                        <td class="text-left">Administración</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Manual de Gestión de Compras y Adquisiciones" rel="popover" data-placement="bottom">Manual de Gestión de Compras y Adquisiciones</span></td>
+                                        <td class="text-left">Manual</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-success">Informado</span></td>
+                                        <td class="text-center">04/11/2024</td>
+                                        <td class="text-center">6/6</td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="text-center align-middle sorting_1" tabindex="0">
+                                            <a href="javascript:;" onclick="verDetalleCapacitacion(20)" class="text-primary" title="Ver">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">GON-DES-I-28</td>
+                                        <td class="text-left">Gerencia de Originación y Nuevos Negocios</td>
+                                        <td class="text-left">Desarrollo</td>
+                                        <td class="text-left truncate"><span class="popoverDoc" data-content="Instructivo de Análisis de Viabilidad Técnica" rel="popover" data-placement="bottom">Instructivo de Análisis de Viabilidad Técnica</span></td>
+                                        <td class="text-left">Instrucciones o Instructivos</td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-left"><span class="badge badge-success">Publicado</span></td>
+                                        <td class="text-left"><span class="badge badge-success">Informado</span></td>
+                                        <td class="text-center">05/11/2024</td>
+                                        <td class="text-center">5/5</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIN VISTA REGISTRO DE CAPACITACIÓN -->
+
+<script>
+// Funciones placeholder para la funcionalidad de capacitación
+function limpiarFiltrosCapacitacion() {
+    $('#filtro-nombre').val('');
+    $('#filtro-curso').val('');
+    $('#filtro-estado-capacitacion').val('');
+    $('#filtro-area').val('');
+    $('#filtro-fecha-desde').val('');
+    $('#filtro-fecha-hasta').val('');
+    console.log('Filtros de capacitación limpiados');
+}
+
+function filtrarCapacitacion() {
+    console.log('Filtrando registros de capacitación...');
+    // Aquí se implementará la lógica de filtrado
+}
+
+function filtrarPorEstadoCapacitacion(estado) {
+    console.log('Filtrando por estado:', estado);
+    
+    if (estado === 'proceso') {
+        // Mostrar tabla de capacitaciones en proceso
+        $('#container-datos-capacitacion').show();
+        $('#container-datos-informadas').hide();
+    } else if (estado === 'informadas') {
+        // Mostrar tabla de capacitaciones informadas
+        $('#container-datos-capacitacion').hide();
+        $('#container-datos-informadas').show();
+    }
+}
+
+function verDetalleCapacitacion(id) {
+    console.log('Ver detalle de documento ID:', id);
+    
+    // Verificar si es un documento informado (IDs 11-20)
+    if (id >= 11 && id <= 20) {
+        verCapacitacionInformada(id);
+        return;
+    }
+    
+    // Datos de ejemplo (aquí se cargarían desde SharePoint)
+    const documentos = {
+        1: {
+            codigo: 'CNR-BMOD-I-3',
+            version: '1',
+            nombreDocumento: 'Procedimiento de Seguridad en Operaciones Eléctricas',
+            tipoDocumento: 'Instrucciones o Instructivos',
+            alcance: 'Nueva Renca',
+            gerencia: 'Gerencia de Originación y Nuevos Negocios',
+            departamento: 'Bussiness Modelling',
+            estado: 'Publicado',
+            estadoCapacitacion: 'Por Informar',
+            fechaVigencia: '15/10/2024',
+            fechaRevision: '15/10/2025',
+            responsableActual: 'Juan Pérez',
+            nombreArchivo: 'CNR-BMOD-I-3_Procedimiento_Seguridad_v1.pdf',
+            tamanoArchivo: '2.5 MB',
+            urlDocumento: '#',
+            id: '309',
+            creado: '01/10/2024 10:30',
+            actualizado: '15/10/2024 14:20',
+            creadoPor: 'Admin Sistema'
+        },
+        2: {
+            codigo: 'CRE-BMOD-PL-4',
+            version: '2',
+            nombreDocumento: 'Manual de Mantenimiento Preventivo de Equipos',
+            tipoDocumento: 'Política',
+            alcance: 'Renca',
+            gerencia: 'Gerencia de Originación y Nuevos Negocios',
+            departamento: 'Bussiness Modelling',
+            estado: 'Publicado',
+            estadoCapacitacion: 'Sin Configurar',
+            fechaVigencia: '20/09/2024',
+            fechaRevision: '20/12/2024',
+            responsableActual: 'María González',
+            nombreArchivo: 'CRE-BMOD-PL-4_Manual_Mantenimiento_v2.pdf',
+            tamanoArchivo: '3.8 MB',
+            urlDocumento: '#',
+            id: '310',
+            creado: '05/09/2024 09:15',
+            actualizado: '20/09/2024 16:45',
+            creadoPor: 'Admin Sistema'
+        },
+        3: {
+            codigo: 'SLI-COMB-P-5',
+            version: '1',
+            nombreDocumento: 'Protocolo de Primeros Auxilios',
+            tipoDocumento: 'Procedimiento',
+            alcance: 'Santa Lidia',
+            gerencia: 'Gerencia Comercial',
+            departamento: 'Combustible',
+            estado: 'Publicado',
+            estadoCapacitacion: 'Por Informar',
+            fechaVigencia: '05/08/2024',
+            fechaRevision: '05/08/2025',
+            responsableActual: 'Carlos Rodríguez',
+            nombreArchivo: 'SLI-COMB-P-5_Protocolo_Primeros_Auxilios_v1.pdf',
+            tamanoArchivo: '1.2 MB',
+            urlDocumento: '#',
+            id: '311',
+            creado: '20/07/2024 11:00',
+            actualizado: '05/08/2024 13:30',
+            creadoPor: 'Admin Sistema'
+        }
+    };
+    
+    const doc = documentos[id];
+    
+    if (doc) {
+        // Poblar modal con datos
+        $('#verCodigo').text(doc.codigo);
+        $('#verVersion').text(doc.version);
+        $('#verNombreDocumento').text(doc.nombreDocumento);
+        $('#verTipoDocumento').text(doc.tipoDocumento);
+        $('#verAlcance').text(doc.alcance);
+        $('#verGerencia').text(doc.gerencia);
+        $('#verDepartamento').text(doc.departamento);
+        
+        // Estado con badge
+        const badgeEstado = `<span class="badge badge-success">${doc.estado}</span>`;
+        $('#verEstado').html(badgeEstado);
+        
+        // Badge de estado de capacitación según el valor
+        let badgeCapacitacion;
+        if (doc.estadoCapacitacion === 'Informado') {
+            badgeCapacitacion = `<span class="badge badge-success">${doc.estadoCapacitacion}</span>`;
+        } else if (doc.estadoCapacitacion === 'Por Informar') {
+            badgeCapacitacion = `<span class="badge badge-warning">${doc.estadoCapacitacion}</span>`;
+        } else if (doc.estadoCapacitacion === 'Sin Configurar') {
+            badgeCapacitacion = `<span class="badge badge-secondary">${doc.estadoCapacitacion}</span>`;
+        } else {
+            badgeCapacitacion = `<span class="badge badge-secondary">${doc.estadoCapacitacion}</span>`;
+        }
+        $('#verEstadoCapacitacion').html(badgeCapacitacion);
+        
+        $('#verFechaVigencia').text(doc.fechaVigencia);
+        $('#verFechaRevision').text(doc.fechaRevision);
+        $('#verResponsableActual').text(doc.responsableActual);
+        
+        // Información del documento adjunto
+        if (doc.nombreArchivo) {
+            $('#verNombreArchivo').text(doc.nombreArchivo);
+            $('#verTamanoArchivo').text(doc.tamanoArchivo || '');
+            $('#btnDescargarDocumento').show().data('url', doc.urlDocumento);
+        } else {
+            $('#verNombreArchivo').text('Sin documento adjunto');
+            $('#verTamanoArchivo').text('');
+            $('#btnDescargarDocumento').hide();
+        }
+        
+        $('#verID').text(doc.id);
+        $('#verCreado').text(doc.creado);
+        $('#verActualizado').text(doc.actualizado);
+        $('#verCreadoPor').text(doc.creadoPor);
+        
+        // Abrir modal
+        $('#modalVerDocumento').modal('show');
+    }
+}
+
+function descargarDocumento() {
+    const url = $('#btnDescargarDocumento').data('url');
+    if (url) {
+        console.log('Descargando documento desde:', url);
+        // Aquí se implementará la lógica de descarga desde SharePoint
+        // Por ahora, simular descarga
+        window.open(url, '_blank');
+    } else {
+        alert('No hay documento disponible para descargar');
+    }
+}
+
+function gestionarCapacitacion(id) {
+    console.log('Gestionar capacitación para documento ID:', id);
+    
+    // Datos de ejemplo del documento
+    const documentos = {
+        1: {
+            codigo: 'CNR-BMOD-I-3',
+            nombreDocumento: 'Procedimiento de Seguridad en Operaciones Eléctricas',
+            estadoCapacitacion: 'Por Informar'
+        },
+        2: {
+            codigo: 'CRE-BMOD-PL-4',
+            nombreDocumento: 'Manual de Mantenimiento Preventivo de Equipos',
+            estadoCapacitacion: 'Sin Configurar'
+        },
+        3: {
+            codigo: 'SLI-COMB-P-5',
+            nombreDocumento: 'Protocolo de Primeros Auxilios',
+            estadoCapacitacion: 'Por Informar'
+        }
+    };
+    
+    const doc = documentos[id];
+    
+    if (!doc) {
+        alert('Documento no encontrado');
+        return;
+    }
+    
+    // Decidir qué modal abrir según el estado
+    if (doc.estadoCapacitacion === 'Sin Configurar') {
+        // Abrir modal de configuración de personal
+        abrirModalConfigurarPersonal(id, doc);
+    } else if (doc.estadoCapacitacion === 'Por Informar') {
+        // Abrir modal de gestión de capacitación
+        abrirModalGestionarCapacitacion(id, doc);
+    } else {
+        alert('Este documento no se puede gestionar en su estado actual.');
+    }
+}
+
+function abrirModalGestionarCapacitacion(id, doc) {
+    // Personal de ejemplo
+    const personal = [
+        { id: 1, nombre: 'Juan Pérez', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento', estado: 'Capacitado', fecha: '15/10/2024' },
+        { id: 2, nombre: 'María González', gerencia: 'Gerencia de Operaciones', departamento: 'Operaciones', estado: 'Pendiente', fecha: '' },
+        { id: 3, nombre: 'Carlos Rodríguez', gerencia: 'Gerencia Comercial', departamento: 'Combustible', estado: 'Capacitado', fecha: '20/10/2024' },
+        { id: 4, nombre: 'Ana Martínez', gerencia: 'Gerencia de Finanzas', departamento: 'Administración', estado: 'Pendiente', fecha: '' },
+        { id: 5, nombre: 'Pedro López', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento', estado: 'Pendiente', fecha: '' },
+        { id: 6, nombre: 'Laura Silva', gerencia: 'Gerencia Comercial', departamento: 'Gestión Comercial', estado: 'Capacitado', fecha: '18/10/2024' },
+        { id: 7, nombre: 'Roberto Torres', gerencia: 'Gerencia de Operaciones', departamento: 'Operaciones', estado: 'Pendiente', fecha: '' },
+        { id: 8, nombre: 'Carmen Díaz', gerencia: 'Gerencia de Finanzas', departamento: 'Controller', estado: 'Capacitado', fecha: '22/10/2024' }
+    ];
+    
+    // Poblar información del documento
+    $('#gestionarCodigo').text(doc.codigo);
+    $('#gestionarNombreDocumento').text(doc.nombreDocumento);
+    
+    const badgeEstado = doc.estadoCapacitacion === 'Por Informar' 
+        ? `<span class="badge badge-warning">${doc.estadoCapacitacion}</span>`
+        : `<span class="badge badge-secondary">${doc.estadoCapacitacion}</span>`;
+    $('#gestionarEstadoCapacitacion').html(badgeEstado);
+    
+    // Guardar ID del documento
+    $('#gestionarDocumentoId').val(id);
+    
+    // Calcular estadísticas
+    const totalCapacitados = personal.filter(p => p.estado === 'Capacitado').length;
+    const totalPendientes = personal.filter(p => p.estado === 'Pendiente').length;
+    
+    $('#totalPersonal').text(personal.length);
+    $('#totalCapacitados').text(totalCapacitados);
+    $('#totalPendientes').text(totalPendientes);
+    
+    // Llenar tabla de personal
+    let html = '';
+    personal.forEach(persona => {
+        const checked = persona.estado === 'Capacitado' ? 'checked' : '';
+        const badgeClass = persona.estado === 'Capacitado' ? 'badge-success' : 'badge-warning';
+        const rowClass = persona.estado === 'Capacitado' ? 'table-success' : '';
+        
+        html += `
+            <tr class="${rowClass}" data-persona-id="${persona.id}">
+                <td class="text-center">
+                    <input type="checkbox" class="check-persona" ${checked} onchange="toggleEstadoPersona(${persona.id}, this)">
+                </td>
+                <td>${persona.nombre}</td>
+                <td>${persona.gerencia}</td>
+                <td>${persona.departamento}</td>
+                <td class="text-center">
+                    <span class="badge ${badgeClass}" id="badge-${persona.id}">${persona.estado}</span>
+                </td>
+                <td class="text-center">
+                    <span id="fecha-${persona.id}">${persona.fecha || '-'}</span>
+                </td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="editarFechaCapacitacion(${persona.id})" title="Editar fecha">
+                        <i class="fas fa-calendar-alt"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+    
+    $('#tbodyPersonalCapacitacion').html(html);
+    
+    // Llenar filtro de gerencias
+    const gerencias = [...new Set(personal.map(p => p.gerencia))];
+    let optionsGerencia = '<option value="">Todas las gerencias</option>';
+    gerencias.forEach(g => {
+        optionsGerencia += `<option value="${g}">${g}</option>`;
+    });
+    $('#filtroGerenciaPersonal').html(optionsGerencia);
+    
+    // Verificar que el modal existe antes de abrirlo
+    if ($('#modalGestionarCapacitacion').length) {
+        $('#modalGestionarCapacitacion').modal('show');
+    } else {
+        console.error('Modal de gestionar capacitación no encontrado. Esperando carga...');
+        // Intentar de nuevo después de un breve delay
+        setTimeout(function() {
+            if ($('#modalGestionarCapacitacion').length) {
+                $('#modalGestionarCapacitacion').modal('show');
+            } else {
+                alert('Error: No se pudo cargar el modal de gestión. Por favor, recargue la página.');
+            }
+        }, 500);
+    }
+}
+
+function toggleEstadoPersona(personaId, checkbox) {
+    const isChecked = checkbox.checked;
+    const row = $(`tr[data-persona-id="${personaId}"]`);
+    const badge = $(`#badge-${personaId}`);
+    const fechaSpan = $(`#fecha-${personaId}`);
+    
+    if (isChecked) {
+        // Marcar como capacitado
+        row.addClass('table-success');
+        badge.removeClass('badge-warning').addClass('badge-success').text('Capacitado');
+        
+        // Asignar fecha actual si no tiene
+        if (fechaSpan.text() === '-') {
+            const hoy = new Date().toLocaleDateString('es-CL');
+            fechaSpan.text(hoy);
+        }
+    } else {
+        // Marcar como pendiente
+        row.removeClass('table-success');
+        badge.removeClass('badge-success').addClass('badge-warning').text('Pendiente');
+        fechaSpan.text('-');
+    }
+    
+    // Actualizar estadísticas
+    actualizarEstadisticas();
+}
+
+function toggleTodosCheckboxes(masterCheckbox) {
+    const checkboxes = document.querySelectorAll('.check-persona');
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked !== masterCheckbox.checked) {
+            checkbox.checked = masterCheckbox.checked;
+            const personaId = checkbox.closest('tr').dataset.personaId;
+            toggleEstadoPersona(parseInt(personaId), checkbox);
+        }
+    });
+}
+
+function marcarTodosCapacitados() {
+    const checkboxes = document.querySelectorAll('.check-persona');
+    checkboxes.forEach(checkbox => {
+        if (!checkbox.checked) {
+            checkbox.checked = true;
+            const personaId = checkbox.closest('tr').dataset.personaId;
+            toggleEstadoPersona(parseInt(personaId), checkbox);
+        }
+    });
+    document.getElementById('checkTodos').checked = true;
+}
+
+function actualizarEstadisticas() {
+    const totalChecked = document.querySelectorAll('.check-persona:checked').length;
+    const total = document.querySelectorAll('.check-persona').length;
+    
+    $('#totalCapacitados').text(totalChecked);
+    $('#totalPendientes').text(total - totalChecked);
+}
+
+function editarFechaCapacitacion(personaId) {
+    const fechaActual = $(`#fecha-${personaId}`).text();
+    const nuevaFecha = prompt('Ingrese la fecha de capacitación (DD/MM/YYYY):', fechaActual !== '-' ? fechaActual : '');
+    
+    if (nuevaFecha) {
+        $(`#fecha-${personaId}`).text(nuevaFecha);
+    }
+}
+
+function actualizarInformacionDocumento() {
+    console.log('Actualizando información del documento...');
+    
+    // Recopilar datos de personal capacitado
+    const personalCapacitado = [];
+    document.querySelectorAll('.check-persona:checked').forEach(checkbox => {
+        const row = checkbox.closest('tr');
+        const personaId = row.dataset.personaId;
+        const nombre = row.cells[1].textContent;
+        const fecha = $(`#fecha-${personaId}`).text();
+        
+        personalCapacitado.push({
+            id: personaId,
+            nombre: nombre,
+            fecha: fecha
+        });
+    });
+    
+    console.log('Personal capacitado:', personalCapacitado);
+    
+    // Aquí se implementará la lógica para guardar en SharePoint
+    alert(`Se actualizará la información de ${personalCapacitado.length} personas capacitadas.`);
+}
+
+function finalizarRegistroCapacitacion() {
+    const totalCapacitados = document.querySelectorAll('.check-persona:checked').length;
+    const total = document.querySelectorAll('.check-persona').length;
+    
+    if (totalCapacitados === 0) {
+        alert('Debe marcar al menos una persona como capacitada antes de finalizar.');
+        return;
+    }
+    
+    if (confirm(`¿Está seguro de finalizar el registro de capacitación?\n\nPersonal capacitado: ${totalCapacitados} de ${total}\n\nEsto cambiará el estado a "Informado".`)) {
+        console.log('Finalizando registro de capacitación...');
+        
+        // Aquí se implementará la lógica para cambiar el estado en SharePoint
+        alert('Registro de capacitación finalizado exitosamente.');
+        
+        // Cerrar modal y recargar tabla
+        $('#modalGestionarCapacitacion').modal('hide');
+        
+        // Aquí se debería recargar la tabla principal
+        // location.reload(); // o actualizar solo la tabla
+    }
+}
+
+// ============================================
+// FUNCIONES PARA MODAL CONFIGURAR PERSONAL
+// ============================================
+
+// Variable global para almacenar el personal disponible y seleccionado
+let personalDisponibleGlobal = [];
+let personalSeleccionadoGlobal = [];
+
+function abrirModalConfigurarPersonal(id, doc) {
+    console.log('Abriendo modal configurar personal para documento:', id);
+    
+    // Personal completo de ejemplo (todos disponibles inicialmente)
+    personalDisponibleGlobal = [
+        // Gerencia de Operaciones - Mantenimiento
+        { id: 1, nombre: 'Juan Pérez', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento' },
+        { id: 2, nombre: 'Pedro López', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento' },
+        { id: 3, nombre: 'Diego Morales', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento' },
+        { id: 4, nombre: 'Luis Vargas', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento' },
+        { id: 5, nombre: 'Andrés Muñoz', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento' },
+        { id: 6, nombre: 'Ricardo Flores', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento' },
+        
+        // Gerencia de Operaciones - Operaciones
+        { id: 7, nombre: 'María González', gerencia: 'Gerencia de Operaciones', departamento: 'Operaciones' },
+        { id: 8, nombre: 'Roberto Torres', gerencia: 'Gerencia de Operaciones', departamento: 'Operaciones' },
+        { id: 9, nombre: 'Gabriela Rojas', gerencia: 'Gerencia de Operaciones', departamento: 'Operaciones' },
+        { id: 10, nombre: 'Sebastián Castro', gerencia: 'Gerencia de Operaciones', departamento: 'Operaciones' },
+        { id: 11, nombre: 'Valentina Herrera', gerencia: 'Gerencia de Operaciones', departamento: 'Operaciones' },
+        
+        // Gerencia de Operaciones - Seguridad
+        { id: 12, nombre: 'Miguel Ángel Soto', gerencia: 'Gerencia de Operaciones', departamento: 'Seguridad' },
+        { id: 13, nombre: 'Carolina Bravo', gerencia: 'Gerencia de Operaciones', departamento: 'Seguridad' },
+        { id: 14, nombre: 'Javier Núñez', gerencia: 'Gerencia de Operaciones', departamento: 'Seguridad' },
+        
+        // Gerencia Comercial - Combustible
+        { id: 15, nombre: 'Carlos Rodríguez', gerencia: 'Gerencia Comercial', departamento: 'Combustible' },
+        { id: 16, nombre: 'Patricia Vega', gerencia: 'Gerencia Comercial', departamento: 'Combustible' },
+        { id: 17, nombre: 'Rodrigo Pinto', gerencia: 'Gerencia Comercial', departamento: 'Combustible' },
+        { id: 18, nombre: 'Daniela Campos', gerencia: 'Gerencia Comercial', departamento: 'Combustible' },
+        
+        // Gerencia Comercial - Gestión Comercial
+        { id: 19, nombre: 'Laura Silva', gerencia: 'Gerencia Comercial', departamento: 'Gestión Comercial' },
+        { id: 20, nombre: 'Francisco Reyes', gerencia: 'Gerencia Comercial', departamento: 'Gestión Comercial' },
+        { id: 21, nombre: 'Camila Ortiz', gerencia: 'Gerencia Comercial', departamento: 'Gestión Comercial' },
+        { id: 22, nombre: 'Ignacio Fuentes', gerencia: 'Gerencia Comercial', departamento: 'Gestión Comercial' },
+        
+        // Gerencia de Finanzas - Administración
+        { id: 23, nombre: 'Ana Martínez', gerencia: 'Gerencia de Finanzas', departamento: 'Administración' },
+        { id: 24, nombre: 'Fernando Soto', gerencia: 'Gerencia de Finanzas', departamento: 'Administración' },
+        { id: 25, nombre: 'Claudia Ramírez', gerencia: 'Gerencia de Finanzas', departamento: 'Administración' },
+        { id: 26, nombre: 'Tomás Gutiérrez', gerencia: 'Gerencia de Finanzas', departamento: 'Administración' },
+        
+        // Gerencia de Finanzas - Controller
+        { id: 27, nombre: 'Carmen Díaz', gerencia: 'Gerencia de Finanzas', departamento: 'Controller' },
+        { id: 28, nombre: 'Marcelo Espinoza', gerencia: 'Gerencia de Finanzas', departamento: 'Controller' },
+        { id: 29, nombre: 'Francisca Medina', gerencia: 'Gerencia de Finanzas', departamento: 'Controller' },
+        
+        // Gerencia de Originación y Nuevos Negocios - Business Modelling
+        { id: 30, nombre: 'Sofía Contreras', gerencia: 'Gerencia de Originación y Nuevos Negocios', departamento: 'Business Modelling' },
+        { id: 31, nombre: 'Matías Valenzuela', gerencia: 'Gerencia de Originación y Nuevos Negocios', departamento: 'Business Modelling' },
+        { id: 32, nombre: 'Javiera Navarro', gerencia: 'Gerencia de Originación y Nuevos Negocios', departamento: 'Business Modelling' },
+        { id: 33, nombre: 'Pablo Santana', gerencia: 'Gerencia de Originación y Nuevos Negocios', departamento: 'Business Modelling' },
+        
+        // Gerencia de Originación y Nuevos Negocios - Desarrollo
+        { id: 34, nombre: 'Constanza Paredes', gerencia: 'Gerencia de Originación y Nuevos Negocios', departamento: 'Desarrollo' },
+        { id: 35, nombre: 'Nicolás Bustos', gerencia: 'Gerencia de Originación y Nuevos Negocios', departamento: 'Desarrollo' },
+        { id: 36, nombre: 'Isidora Lagos', gerencia: 'Gerencia de Originación y Nuevos Negocios', departamento: 'Desarrollo' },
+        
+        // Gerencia de Recursos Humanos
+        { id: 37, nombre: 'Verónica Parra', gerencia: 'Gerencia de Recursos Humanos', departamento: 'Gestión de Personas' },
+        { id: 38, nombre: 'Cristian Molina', gerencia: 'Gerencia de Recursos Humanos', departamento: 'Gestión de Personas' },
+        { id: 39, nombre: 'Bárbara Figueroa', gerencia: 'Gerencia de Recursos Humanos', departamento: 'Capacitación' },
+        { id: 40, nombre: 'Gonzalo Tapia', gerencia: 'Gerencia de Recursos Humanos', departamento: 'Capacitación' }
+    ];
+    
+    personalSeleccionadoGlobal = [];
+    
+    // Poblar información del documento
+    $('#configurarCodigo').text(doc.codigo);
+    $('#configurarNombreDocumento').text(doc.nombreDocumento);
+    
+    const badgeEstado = `<span class="badge badge-secondary">${doc.estadoCapacitacion}</span>`;
+    $('#configurarEstadoCapacitacion').html(badgeEstado);
+    
+    // Guardar ID del documento
+    $('#configurarDocumentoId').val(id);
+    
+    // Llenar filtros de gerencia y departamento
+    const gerencias = [...new Set(personalDisponibleGlobal.map(p => p.gerencia))];
+    let optionsGerencia = '<option value="">Todas las gerencias</option>';
+    gerencias.forEach(g => {
+        optionsGerencia += `<option value="${g}">${g}</option>`;
+    });
+    $('#filtroBusquedaGerencia').html(optionsGerencia);
+    
+    const departamentos = [...new Set(personalDisponibleGlobal.map(p => p.departamento))];
+    let optionsDepartamento = '<option value="">Todos los departamentos</option>';
+    departamentos.forEach(d => {
+        optionsDepartamento += `<option value="${d}">${d}</option>`;
+    });
+    $('#filtroBusquedaDepartamento').html(optionsDepartamento);
+    
+    // Mostrar personal disponible
+    mostrarPersonalDisponible();
+    actualizarListaCapacitacion();
+    
+    // Verificar que el modal existe antes de abrirlo
+    if ($('#modalConfigurarPersonal').length) {
+        $('#modalConfigurarPersonal').modal('show');
+    } else {
+        console.error('Modal de configurar personal no encontrado. Esperando carga...');
+        setTimeout(function() {
+            if ($('#modalConfigurarPersonal').length) {
+                $('#modalConfigurarPersonal').modal('show');
+            } else {
+                alert('Error: No se pudo cargar el modal de configuración. Por favor, recargue la página.');
+            }
+        }, 500);
+    }
+}
+
+function mostrarPersonalDisponible() {
+    const filtroGerencia = $('#filtroBusquedaGerencia').val();
+    const filtroDepartamento = $('#filtroBusquedaDepartamento').val();
+    const filtroNombre = $('#filtroBusquedaNombre').val().toLowerCase();
+    
+    // Filtrar personal que no está en la lista de seleccionados
+    const idsSeleccionados = personalSeleccionadoGlobal.map(p => p.id);
+    let personalFiltrado = personalDisponibleGlobal.filter(p => !idsSeleccionados.includes(p.id));
+    
+    // Aplicar filtros
+    if (filtroGerencia) {
+        personalFiltrado = personalFiltrado.filter(p => p.gerencia === filtroGerencia);
+    }
+    if (filtroDepartamento) {
+        personalFiltrado = personalFiltrado.filter(p => p.departamento === filtroDepartamento);
+    }
+    if (filtroNombre) {
+        personalFiltrado = personalFiltrado.filter(p => p.nombre.toLowerCase().includes(filtroNombre));
+    }
+    
+    // Generar HTML
+    let html = '';
+    personalFiltrado.forEach(persona => {
+        html += `
+            <tr>
+                <td class="text-center">
+                    <input type="checkbox" class="check-disponible" value="${persona.id}">
+                </td>
+                <td>${persona.nombre}</td>
+                <td>${persona.gerencia}</td>
+                <td>${persona.departamento}</td>
+            </tr>
+        `;
+    });
+    
+    if (html === '') {
+        html = '<tr><td colspan="4" class="text-center text-muted">No hay personal disponible con los filtros seleccionados</td></tr>';
+    }
+    
+    $('#tbodyPersonalDisponible').html(html);
+    $('#countDisponibles').text(personalFiltrado.length);
+    $('#checkTodosDisponibles').prop('checked', false);
+}
+
+function filtrarPersonalDisponible() {
+    mostrarPersonalDisponible();
+}
+
+function toggleTodosDisponibles(checkbox) {
+    $('.check-disponible').prop('checked', checkbox.checked);
+}
+
+function seleccionarTodosDisponibles() {
+    $('.check-disponible').prop('checked', true);
+}
+
+function deseleccionarTodosDisponibles() {
+    $('.check-disponible').prop('checked', false);
+}
+
+function agregarSeleccionadosALista() {
+    const checkboxes = document.querySelectorAll('.check-disponible:checked');
+    
+    if (checkboxes.length === 0) {
+        alert('Debe seleccionar al menos una persona para agregar a la lista.');
+        return;
+    }
+    
+    checkboxes.forEach(checkbox => {
+        const personaId = parseInt(checkbox.value);
+        const persona = personalDisponibleGlobal.find(p => p.id === personaId);
+        
+        if (persona && !personalSeleccionadoGlobal.find(p => p.id === personaId)) {
+            personalSeleccionadoGlobal.push(persona);
+        }
+    });
+    
+    // Actualizar ambas listas
+    mostrarPersonalDisponible();
+    actualizarListaCapacitacion();
+}
+
+function actualizarListaCapacitacion() {
+    let html = '';
+    
+    if (personalSeleccionadoGlobal.length === 0) {
+        html = `
+            <tr>
+                <td colspan="3" class="text-center text-muted">
+                    <i class="fas fa-inbox fa-2x mb-2"></i>
+                    <p class="mb-0">No hay personas agregadas</p>
+                    <small>Selecciona personas de la lista de la izquierda</small>
+                </td>
+            </tr>
+        `;
+    } else {
+        personalSeleccionadoGlobal.forEach(persona => {
+            html += `
+                <tr>
+                    <td>${persona.nombre}</td>
+                    <td><small>${persona.gerencia}</small></td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-sm btn-danger" onclick="quitarDeListaCapacitacion(${persona.id})" title="Quitar">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+    
+    $('#tbodyListaCapacitacion').html(html);
+    $('#countSeleccionados').text(personalSeleccionadoGlobal.length);
+}
+
+function quitarDeListaCapacitacion(personaId) {
+    personalSeleccionadoGlobal = personalSeleccionadoGlobal.filter(p => p.id !== personaId);
+    mostrarPersonalDisponible();
+    actualizarListaCapacitacion();
+}
+
+function filtrarListaCapacitacion() {
+    const filtro = $('#filtroListaCapacitacion').val().toLowerCase();
+    $('#tbodyListaCapacitacion tr').each(function() {
+        const texto = $(this).text().toLowerCase();
+        $(this).toggle(texto.includes(filtro));
+    });
+}
+
+function limpiarListaCapacitacion() {
+    if (personalSeleccionadoGlobal.length === 0) {
+        return;
+    }
+    
+    if (confirm('¿Está seguro de limpiar toda la lista de capacitación?')) {
+        personalSeleccionadoGlobal = [];
+        mostrarPersonalDisponible();
+        actualizarListaCapacitacion();
+    }
+}
+
+function guardarConfiguracionPersonal() {
+    if (personalSeleccionadoGlobal.length === 0) {
+        alert('Debe agregar al menos una persona a la lista de capacitación antes de guardar.');
+        return;
+    }
+    
+    const documentoId = $('#configurarDocumentoId').val();
+    
+    if (confirm(`¿Está seguro de guardar la configuración?\n\n${personalSeleccionadoGlobal.length} personas serán asignadas para capacitación en este documento.\n\nEsto cambiará el estado a "Por Informar".`)) {
+        console.log('Guardando configuración de personal...');
+        console.log('Documento ID:', documentoId);
+        console.log('Personal seleccionado:', personalSeleccionadoGlobal);
+        
+        // Aquí se implementará la lógica para guardar en SharePoint
+        alert('Configuración guardada exitosamente.\n\nEl documento ahora está en estado "Por Informar".');
+        
+        // Cerrar modal y recargar tabla
+        $('#modalConfigurarPersonal').modal('hide');
+        
+        // Aquí se debería recargar la tabla principal
+        // location.reload(); // o actualizar solo la tabla
+    }
+}
+
+// ============================================
+// FUNCIÓN PARA VER CAPACITACIÓN INFORMADA
+// ============================================
+
+function verCapacitacionInformada(id) {
+    console.log('Ver capacitación informada ID:', id);
+    
+    // Datos de ejemplo de documentos informados
+    const documentosInformados = {
+        11: {
+            codigo: 'GOP-MAN-P-22',
+            version: '2',
+            nombreDocumento: 'Procedimiento de Mantenimiento de Subestaciones',
+            tipoDocumento: 'Procedimiento',
+            alcance: 'Todas las Subestaciones',
+            gerencia: 'Gerencia de Operaciones',
+            departamento: 'Mantenimiento',
+            estado: 'Publicado',
+            estadoCapacitacion: 'Informado',
+            fechaFinalizacion: '15/10/2024',
+            nombreArchivo: 'GOP-MAN-P-22_Mantenimiento_Subestaciones_v2.pdf',
+            tamanoArchivo: '4.2 MB',
+            urlDocumento: '#'
+        },
+        12: {
+            codigo: 'GFI-CON-I-18',
+            version: '3',
+            nombreDocumento: 'Instructivo de Cierre Contable Mensual',
+            tipoDocumento: 'Instrucciones o Instructivos',
+            alcance: 'Área Finanzas',
+            gerencia: 'Gerencia de Finanzas',
+            departamento: 'Controller',
+            estado: 'Publicado',
+            estadoCapacitacion: 'Informado',
+            fechaFinalizacion: '20/10/2024',
+            nombreArchivo: 'GFI-CON-I-18_Cierre_Contable_v3.pdf',
+            tamanoArchivo: '1.8 MB',
+            urlDocumento: '#'
+        },
+        13: {
+            codigo: 'GCO-COMB-M-11',
+            version: '1',
+            nombreDocumento: 'Manual de Operación de Estaciones de Servicio',
+            tipoDocumento: 'Manual',
+            alcance: 'Estaciones de Servicio',
+            gerencia: 'Gerencia Comercial',
+            departamento: 'Combustible',
+            estado: 'Publicado',
+            estadoCapacitacion: 'Informado',
+            fechaFinalizacion: '22/10/2024',
+            nombreArchivo: 'GCO-COMB-M-11_Operacion_EESS_v1.pdf',
+            tamanoArchivo: '5.6 MB',
+            urlDocumento: '#'
+        }
+    };
+    
+    // Personal capacitado de ejemplo
+    const personalCapacitado = {
+        11: [
+            { id: 1, nombre: 'Juan Pérez', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento', estado: 'Capacitado', fecha: '10/10/2024' },
+            { id: 2, nombre: 'Pedro López', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento', estado: 'Capacitado', fecha: '10/10/2024' },
+            { id: 3, nombre: 'Diego Morales', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento', estado: 'Capacitado', fecha: '12/10/2024' },
+            { id: 4, nombre: 'Luis Vargas', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento', estado: 'Capacitado', fecha: '12/10/2024' },
+            { id: 5, nombre: 'Andrés Muñoz', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento', estado: 'Capacitado', fecha: '14/10/2024' },
+            { id: 6, nombre: 'Ricardo Flores', gerencia: 'Gerencia de Operaciones', departamento: 'Mantenimiento', estado: 'Capacitado', fecha: '14/10/2024' },
+            { id: 7, nombre: 'Roberto Torres', gerencia: 'Gerencia de Operaciones', departamento: 'Operaciones', estado: 'Capacitado', fecha: '15/10/2024' },
+            { id: 8, nombre: 'Sebastián Castro', gerencia: 'Gerencia de Operaciones', departamento: 'Operaciones', estado: 'Capacitado', fecha: '15/10/2024' }
+        ],
+        12: [
+            { id: 1, nombre: 'Carmen Díaz', gerencia: 'Gerencia de Finanzas', departamento: 'Controller', estado: 'Capacitado', fecha: '18/10/2024' },
+            { id: 2, nombre: 'Marcelo Espinoza', gerencia: 'Gerencia de Finanzas', departamento: 'Controller', estado: 'Capacitado', fecha: '18/10/2024' },
+            { id: 3, nombre: 'Francisca Medina', gerencia: 'Gerencia de Finanzas', departamento: 'Controller', estado: 'Capacitado', fecha: '20/10/2024' }
+        ],
+        13: [
+            { id: 1, nombre: 'Carlos Rodríguez', gerencia: 'Gerencia Comercial', departamento: 'Combustible', estado: 'Capacitado', fecha: '20/10/2024' },
+            { id: 2, nombre: 'Patricia Vega', gerencia: 'Gerencia Comercial', departamento: 'Combustible', estado: 'Capacitado', fecha: '20/10/2024' },
+            { id: 3, nombre: 'Rodrigo Pinto', gerencia: 'Gerencia Comercial', departamento: 'Combustible', estado: 'Capacitado', fecha: '21/10/2024' },
+            { id: 4, nombre: 'Daniela Campos', gerencia: 'Gerencia Comercial', departamento: 'Combustible', estado: 'Capacitado', fecha: '21/10/2024' },
+            { id: 5, nombre: 'Laura Silva', gerencia: 'Gerencia Comercial', departamento: 'Gestión Comercial', estado: 'Capacitado', fecha: '22/10/2024' },
+            { id: 6, nombre: 'Francisco Reyes', gerencia: 'Gerencia Comercial', departamento: 'Gestión Comercial', estado: 'Capacitado', fecha: '22/10/2024' }
+        ]
+    };
+    
+    const doc = documentosInformados[id] || documentosInformados[11]; // Default al primero si no existe
+    const personal = personalCapacitado[id] || personalCapacitado[11];
+    
+    // Poblar TAB 1: Metadata del documento
+    $('#verInformadoCodigo').text(doc.codigo);
+    $('#verInformadoVersion').text(doc.version);
+    $('#verInformadoNombreDocumento').text(doc.nombreDocumento);
+    $('#verInformadoTipoDocumento').text(doc.tipoDocumento);
+    $('#verInformadoAlcance').text(doc.alcance);
+    $('#verInformadoGerencia').text(doc.gerencia);
+    $('#verInformadoDepartamento').text(doc.departamento);
+    
+    const badgeEstadoDoc = `<span class="badge badge-success">${doc.estado}</span>`;
+    $('#verInformadoEstadoDocumento').html(badgeEstadoDoc);
+    
+    const badgeEstadoCap = `<span class="badge badge-success">${doc.estadoCapacitacion}</span>`;
+    $('#verInformadoEstadoCapacitacion').html(badgeEstadoCap);
+    
+    $('#verInformadoFechaFinalizacion').text(doc.fechaFinalizacion);
+    $('#verInformadoNombreArchivo').text(doc.nombreArchivo);
+    $('#verInformadoTamanoArchivo').text(doc.tamanoArchivo);
+    $('#verInformadoDocumentoId').val(id);
+    
+    // Poblar TAB 2: Estado de capacitación
+    const totalCapacitados = personal.filter(p => p.estado === 'Capacitado').length;
+    const totalNoCapacitados = personal.filter(p => p.estado === 'No Capacitado').length;
+    
+    $('#totalPersonalInformado').text(personal.length);
+    $('#totalCapacitadosInformado').text(totalCapacitados);
+    $('#totalNoCapacitadosInformado').text(totalNoCapacitados);
+    
+    // Llenar tabla de personal
+    let html = '';
+    personal.forEach((persona, index) => {
+        const badgeClass = persona.estado === 'Capacitado' ? 'badge-success' : 'badge-danger';
+        const rowClass = persona.estado === 'Capacitado' ? 'table-success' : 'table-danger';
+        
+        html += `
+            <tr class="${rowClass}">
+                <td class="text-center">${index + 1}</td>
+                <td>${persona.nombre}</td>
+                <td>${persona.gerencia}</td>
+                <td>${persona.departamento}</td>
+                <td class="text-center">
+                    <span class="badge ${badgeClass}">${persona.estado}</span>
+                </td>
+                <td class="text-center">${persona.fecha}</td>
+            </tr>
+        `;
+    });
+    
+    $('#tbodyPersonalCapacitacionInformado').html(html);
+    
+    // Llenar filtro de gerencias
+    const gerencias = [...new Set(personal.map(p => p.gerencia))];
+    let optionsGerencia = '<option value="">Todas las gerencias</option>';
+    gerencias.forEach(g => {
+        optionsGerencia += `<option value="${g}">${g}</option>`;
+    });
+    $('#filtroGerenciaPersonalInformado').html(optionsGerencia);
+    
+    // Abrir modal
+    if ($('#modalVerCapacitacionInformada').length) {
+        $('#modalVerCapacitacionInformada').modal('show');
+    } else {
+        console.error('Modal de capacitación informada no encontrado. Esperando carga...');
+        setTimeout(function() {
+            if ($('#modalVerCapacitacionInformada').length) {
+                $('#modalVerCapacitacionInformada').modal('show');
+            } else {
+                alert('Error: No se pudo cargar el modal. Por favor, recargue la página.');
+            }
+        }, 500);
+    }
+}
+
+function filtrarPersonalInformado() {
+    const filtroNombre = $('#filtroNombrePersonalInformado').val().toLowerCase();
+    const filtroEstado = $('#filtroEstadoPersonalInformado').val();
+    const filtroGerencia = $('#filtroGerenciaPersonalInformado').val();
+    
+    $('#tbodyPersonalCapacitacionInformado tr').each(function() {
+        const nombre = $(this).find('td:eq(1)').text().toLowerCase();
+        const gerencia = $(this).find('td:eq(2)').text();
+        const estado = $(this).find('td:eq(4)').text().trim();
+        
+        let mostrar = true;
+        
+        if (filtroNombre && !nombre.includes(filtroNombre)) {
+            mostrar = false;
+        }
+        
+        if (filtroEstado && estado !== filtroEstado) {
+            mostrar = false;
+        }
+        
+        if (filtroGerencia && gerencia !== filtroGerencia) {
+            mostrar = false;
+        }
+        
+        $(this).toggle(mostrar);
+    });
+}
+
+function descargarDocumentoInformado() {
+    const urlDocumento = '#'; // Aquí iría la URL real del documento
+    console.log('Descargando documento desde:', urlDocumento);
+    window.open(urlDocumento, '_blank');
+}
+
+// ============================================
+// INICIALIZACIÓN
+// ============================================
+
+// Inicializar DataTable cuando se cargue la vista
+$(document).ready(function() {
+    // DataTable para capacitaciones en proceso
+    if ($('#table-capacitacion').length) {
+        $('#table-capacitacion').DataTable({
+            "language": {
+                "lengthMenu": "Mostrando _MENU_ registros por página",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Total registros: _TOTAL_. Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+            "pageLength": 10,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Mostrar todo"]],
+            "order": [[1, "asc"]],
+            "responsive": false  // Desactivar responsive para evitar el símbolo +
+        });
+    }
+    
+    // DataTable para capacitaciones informadas
+    if ($('#table-informadas').length) {
+        $('#table-informadas').DataTable({
+            "language": {
+                "lengthMenu": "Mostrando _MENU_ registros por página",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Total registros: _TOTAL_. Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+            "pageLength": 10,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Mostrar todo"]],
+            "order": [[9, "desc"]],  // Ordenar por fecha de finalización descendente
+            "responsive": false
+        });
+    }
+});
+</script>
+
+<!-- Cargar modales de capacitación -->
+<script src="modals/capacitacion/modals-loader.js?v=4" defer></script>

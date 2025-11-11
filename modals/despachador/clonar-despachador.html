@@ -170,7 +170,10 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Instalaciones/Equipos a intervenir <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="clonarDespEquipos" name="equipos" required placeholder="Ej: Paño 1, Transformador T1">
+                                    <select class="form-control" id="clonarDespEquipos" name="equipos" multiple required size="4" disabled>
+                                        <option value="">Primero seleccione Instalación GM</option>
+                                    </select>
+                                    <small class="form-text text-muted">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
                                 </div>
                             </div>
                         </div>
@@ -222,13 +225,13 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Campo condicional: Descripción del Riesgo -->
-                        <div class="row" id="clonarDespDescripcionRiesgoContainer" style="display: none;">
+                        <!-- Campo condicional: Descripción del Riesgo del Trabajo -->
+                        <div class="row" id="clonarDespDescripcionRiesgoContainer">
                             <div class="col-md-12">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Descripción del Riesgo <span class="text-danger">*</span></label>
+                                    <label class="text-muted small mb-1">Descripción del Riesgo del Trabajo <span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="clonarDespDescripcionRiesgo" name="descripcionRiesgo" rows="2" placeholder="Describa el riesgo identificado..."></textarea>
-                                    <small class="form-text text-muted">Obligatorio cuando el riesgo es Medio o Alto</small>
+                                    <small class="form-text text-muted">Describa el riesgo identificado para cualquier nivel de clasificación</small>
                                 </div>
                             </div>
                         </div>
@@ -345,18 +348,16 @@
 <!-- Script para lógica condicional del modal clonar despachador -->
 <script>
 $(document).ready(function() {
-    // Lógica condicional para DESCRIPCION_RIESGO
+    // Lógica condicional para DESCRIPCION_RIESGO - Ahora se muestra siempre
     $('#clonarDespRiesgo').on('change', function() {
         const riesgo = $(this).val();
-        const container = $('#clonarDespDescripcionRiesgoContainer');
         const textarea = $('#clonarDespDescripcionRiesgo');
         
-        if (riesgo === 'Medio' || riesgo === 'Alto') {
-            container.slideDown();
+        // El campo siempre es obligatorio cuando se selecciona un riesgo
+        if (riesgo && riesgo !== '') {
             textarea.attr('required', 'required');
         } else {
-            container.slideUp();
-            textarea.removeAttr('required').val('');
+            textarea.removeAttr('required');
         }
     });
     

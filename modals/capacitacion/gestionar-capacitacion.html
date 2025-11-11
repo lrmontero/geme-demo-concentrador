@@ -1,0 +1,141 @@
+<!-- MODAL GESTIONAR CAPACITACIÓN -->
+<div class="modal fade" id="modalGestionarCapacitacion" tabindex="-1" role="dialog" aria-labelledby="modalGestionarCapacitacionLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="modalGestionarCapacitacionLabel">
+                    <i class="fas fa-tasks mr-2"></i>Gestionar Capacitación
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Información del Documento -->
+                <div class="card mb-3 border-primary">
+                    <div class="card-header bg-primary text-white py-2">
+                        <h6 class="mb-0"><i class="fas fa-file-alt mr-2"></i>Documento</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1"><strong>Código</strong></label>
+                                    <p class="mb-0" id="gestionarCodigo">-</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1"><strong>Nombre del Documento</strong></label>
+                                    <p class="mb-0" id="gestionarNombreDocumento">-</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1"><strong>Estado Capacitación</strong></label>
+                                    <p class="mb-0" id="gestionarEstadoCapacitacion">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estadísticas de Capacitación -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h3 class="mb-0" id="totalPersonal">0</h3>
+                                <small class="text-muted">Total Personal</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h3 class="mb-0" id="totalCapacitados">0</h3>
+                                <small>Capacitados</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body text-center">
+                                <h3 class="mb-0" id="totalPendientes">0</h3>
+                                <small>Pendientes</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lista de Personal -->
+                <div class="card">
+                    <div class="card-header bg-light py-2">
+                        <h6 class="mb-0 text-primary"><i class="fas fa-users mr-2"></i>Personal a Capacitar</h6>
+                    </div>
+                    <div class="card-body">
+                        <!-- Filtro rápido -->
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" id="filtroPersonal" placeholder="Buscar por nombre...">
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm" id="filtroEstadoPersonal">
+                                    <option value="">Todos los estados</option>
+                                    <option value="Capacitado">Capacitados</option>
+                                    <option value="Pendiente">Pendientes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm" id="filtroGerenciaPersonal">
+                                    <option value="">Todas las gerencias</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-sm btn-success btn-block" onclick="marcarTodosCapacitados()">
+                                    <i class="fas fa-check-double mr-1"></i>Marcar Todos
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de Personal -->
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover table-bordered" id="tablaPersonalCapacitacion">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="text-center" style="width: 50px;">
+                                            <input type="checkbox" id="checkTodos" onchange="toggleTodosCheckboxes(this)">
+                                        </th>
+                                        <th>Nombre</th>
+                                        <th>Gerencia</th>
+                                        <th>Departamento</th>
+                                        <th class="text-center" style="width: 150px;">Estado</th>
+                                        <th class="text-center" style="width: 120px;">Fecha Capacitación</th>
+                                        <th class="text-center" style="width: 100px;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyPersonalCapacitacion">
+                                    <!-- Se llenará dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campo oculto para guardar ID del documento -->
+                <input type="hidden" id="gestionarDocumentoId">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-times mr-2"></i>Cerrar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="actualizarInformacionDocumento()">
+                    <i class="fas fa-sync-alt mr-2"></i>Actualizar Información
+                </button>
+                <button type="button" class="btn btn-success" onclick="finalizarRegistroCapacitacion()">
+                    <i class="fas fa-check-circle mr-2"></i>Finalizar Registro
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -24,7 +24,7 @@ ver vacio -> 13 - Nombre campo: EQUIPOS - label: Instalaciones/equipos a interve
 
 Características de la Intervención
 ver vacio -> 14 - Nombre campo: TIPO_INTERVENCION - label: Tipo de intervención - Descripción: En esté modulo se deberá si la aplica a una intervención o desconexión.
-ver vacio -> 15 - Nombre campo: RIESGOS - label: Descripción del Riesgo del Trabajo - Descripción: En esté modulo se deberá identificar el tipo de riesgo. (riesgo bajo, medio alto).
+ver vacio -> 15 - Nombre campo: RIESGOS - label: Descripción del Riesgo del Trabajo del Trabajo - Descripción: En esté modulo se deberá identificar el tipo de riesgo. (riesgo bajo, medio alto).
 ver vacio -> 16 - Nombre campo: SODI - label: SODI - Descripción: Aplica o no aplica.
 editar -> 17 - Nombre campo: POTENCIA - label: Potencia KwH - Descripción: campo numerico
 

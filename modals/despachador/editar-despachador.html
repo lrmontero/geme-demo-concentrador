@@ -155,8 +155,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group mb-0">
                                         <label class="text-muted small mb-1">Instalaciones/equipos a intervenir</label>
-                                        <input type="text" class="form-control" id="editarDespEquipos" name="equipos" readonly placeholder="Campo vacío (solo lectura)">
-                                        <small class="form-text text-muted">Este campo se mantiene vacío según especificación</small>
+                                        <select class="form-control" id="editarDespEquipos" name="equipos" multiple readonly size="4">
+                                            <option value="">No hay equipos seleccionados</option>
+                                        </select>
+                                        <small class="form-text text-muted">Campo de solo lectura</small>
                                     </div>
                                 </div>
                             </div>

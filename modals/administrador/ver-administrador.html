@@ -153,7 +153,9 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
                                     <label class="text-muted small mb-1">Equipos a intervenir</label>
-                                    <input type="text" class="form-control" id="verAdminEquipos" readonly>
+                                    <select class="form-control" id="verAdminEquipos" multiple readonly size="4">
+                                        <option value="">No hay equipos seleccionados</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -192,11 +194,10 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Campo condicional: Descripción del Riesgo -->
-                        <div class="row" id="verAdminDescripcionRiesgoContainer" style="display: none;">
+                        <div class="row" id="verAdminDescripcionRiesgoContainer">
                             <div class="col-md-12">
                                 <div class="form-group mb-0">
-                                    <label class="text-muted small mb-1">Descripción del Riesgo</label>
+                                    <label class="text-muted small mb-1">Descripción del Riesgo del Trabajo</label>
                                     <textarea class="form-control" id="verAdminDescripcionRiesgo" rows="2" readonly></textarea>
                                 </div>
                             </div>

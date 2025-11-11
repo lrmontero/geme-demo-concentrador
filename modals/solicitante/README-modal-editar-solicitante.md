@@ -19,7 +19,7 @@ editar -> 14 - Nombre campo: TIPO_INTERVENCION - label: Tipo de intervención - 
 editar -> 15 - Nombre campo: POTENCIA - label: Potencia MWH - Descripción: campo numerico dos decimales
 editar -> 16 - Nombre campo: APLICA_SODI - label: SODI - Descripción: Aplica o no aplica.
 editar -> 17 - Nombre campo: RIESGO - label: Clasificación del Riesgo - Descripción: En este campo se deberá identificar el tipo de riesgo. (riesgo bajo, medio alto).
-editar -> 18 - Nombre campo: DESCRIPCION_RIESGO - label: Descripción del Riesgo - Descripción: En este campo se debera describir el riesgo de forma obligatoria en el caso que el riesgo se haya clasificado como medio o alto.
+editar -> 18 - Nombre campo: DESCRIPCION_RIESGO - label: Descripción del Riesgo del Trabajo - Descripción: En este campo se debera describir el riesgo de forma obligatoria en el caso que el riesgo se haya clasificado como medio o alto.
 
 Descripción y Condiciones
 editar -> 19 - Nombre campo: DESCRIPCION - label: Descripción del trabajo a realizar - Descripción: En esté modulo se deberá dejar la descripción del trabajo a realizar (libre para escribir).

@@ -89,9 +89,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group mb-0">
                                         <label class="text-muted small mb-1">Instalaciones/equipos a intervenir <span class="text-danger">*</span></label>
-                                        <select class="form-control" id="editarSolicEquipos" name="equipos" required disabled>
+                                        <select class="form-control" id="editarSolicEquipos" name="equipos" multiple required disabled size="4">
                                             <option value="">Primero seleccione Instalación GM</option>
                                         </select>
+                                        <small class="form-text text-muted">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
                                     </div>
                                 </div>
                             </div>
@@ -149,13 +150,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Campo condicional: Descripción del Riesgo -->
-                            <div class="row" id="editarSolicDescripcionRiesgoContainer" style="display: none;">
+                            <!-- Campo condicional: Descripción del Riesgo del Trabajo -->
+                            <div class="row" id="editarSolicDescripcionRiesgoContainer">
                                 <div class="col-md-12">
                                     <div class="form-group mb-0">
-                                        <label class="text-muted small mb-1">Descripción del Riesgo <span class="text-danger">*</span></label>
+                                        <label class="text-muted small mb-1">Descripción del Riesgo del Trabajo <span class="text-danger">*</span></label>
                                         <textarea class="form-control" id="editarSolicDescripcionRiesgo" name="descripcionRiesgo" rows="2" placeholder="Describa el riesgo identificado..."></textarea>
-                                        <small class="form-text text-muted">Obligatorio cuando el riesgo es Medio o Alto</small>
+                                        <small class="form-text text-muted">Describa el riesgo identificado para cualquier nivel de clasificación</small>
                                     </div>
                                 </div>
                             </div>
@@ -264,19 +265,16 @@
 <!-- Script para lógica condicional del formulario de edición -->
 <script>
 $(document).ready(function() {
-    // Lógica condicional para DESCRIPCION_RIESGO
+    // Lógica condicional para DESCRIPCION_RIESGO - Ahora se muestra siempre
     $('#editarSolicRiesgo').on('change', function() {
         const riesgo = $(this).val();
-        const container = $('#editarSolicDescripcionRiesgoContainer');
         const textarea = $('#editarSolicDescripcionRiesgo');
         
-        if (riesgo === 'Medio' || riesgo === 'Alto') {
-            container.slideDown(300);
+        // El campo siempre es obligatorio cuando se selecciona un riesgo
+        if (riesgo && riesgo !== '') {
             textarea.prop('required', true);
         } else {
-            container.slideUp(300);
             textarea.prop('required', false);
-            textarea.val(''); // Limpiar el campo
         }
     });
     
@@ -298,7 +296,6 @@ $(document).ready(function() {
     
     // Limpiar campos condicionales al cerrar el modal
     $('#modalEditarSolicitudSolic').on('hidden.bs.modal', function() {
-        $('#editarSolicDescripcionRiesgoContainer').hide();
         $('#editarSolicDescripcionRiesgo').prop('required', false).val('');
         $('#editarSolicDescripcionAfectacionContainer').hide();
         $('#editarSolicDescripcionAfectacion').prop('required', false).val('');

@@ -1,0 +1,230 @@
+<!-- MODAL VER CAPACITACIÓN INFORMADA -->
+<div class="modal fade" id="modalVerCapacitacionInformada" tabindex="-1" role="dialog" aria-labelledby="modalVerCapacitacionInformadaLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="modalVerCapacitacionInformadaLabel">
+                    <i class="fas fa-check-circle mr-2"></i>Capacitación Informada - Detalle Completo
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Tabs de Navegación -->
+                <ul class="nav nav-tabs" id="tabsCapacitacionInformada" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="tab-metadata-link" data-toggle="tab" href="#tab-metadata" role="tab" aria-controls="tab-metadata" aria-selected="true">
+                            <i class="fas fa-file-alt mr-2"></i>Información del Documento
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tab-capacitacion-link" data-toggle="tab" href="#tab-capacitacion" role="tab" aria-controls="tab-capacitacion" aria-selected="false">
+                            <i class="fas fa-users mr-2"></i>Estado de Capacitación
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Contenido de los Tabs -->
+                <div class="tab-content mt-3" id="tabsCapacitacionInformadaContent">
+                    <!-- TAB 1: METADATA DEL DOCUMENTO -->
+                    <div class="tab-pane fade show active" id="tab-metadata" role="tabpanel" aria-labelledby="tab-metadata-link">
+                        <!-- Información del Documento -->
+                        <div class="card mb-3">
+                            <div class="card-header bg-light py-2">
+                                <h6 class="mb-0 text-primary"><i class="fas fa-info-circle mr-2"></i>Información del Documento</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-muted small mb-1"><strong>Código</strong></label>
+                                            <p class="mb-0" id="verInformadoCodigo">-</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-muted small mb-1"><strong>Versión</strong></label>
+                                            <p class="mb-0" id="verInformadoVersion">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="text-muted small mb-1"><strong>Nombre del Documento</strong></label>
+                                            <p class="mb-0" id="verInformadoNombreDocumento">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-muted small mb-1"><strong>Tipo de Documento</strong></label>
+                                            <p class="mb-0" id="verInformadoTipoDocumento">-</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-muted small mb-1"><strong>Alcance</strong></label>
+                                            <p class="mb-0" id="verInformadoAlcance">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Organización -->
+                        <div class="card mb-3">
+                            <div class="card-header bg-light py-2">
+                                <h6 class="mb-0 text-primary"><i class="fas fa-sitemap mr-2"></i>Organización</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-muted small mb-1"><strong>Gerencia</strong></label>
+                                            <p class="mb-0" id="verInformadoGerencia">-</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-muted small mb-1"><strong>Departamento</strong></label>
+                                            <p class="mb-0" id="verInformadoDepartamento">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Estados -->
+                        <div class="card mb-3">
+                            <div class="card-header bg-light py-2">
+                                <h6 class="mb-0 text-primary"><i class="fas fa-flag mr-2"></i>Estados</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="text-muted small mb-1"><strong>Estado Documento</strong></label>
+                                            <p class="mb-0" id="verInformadoEstadoDocumento">-</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="text-muted small mb-1"><strong>Estado Capacitación</strong></label>
+                                            <p class="mb-0" id="verInformadoEstadoCapacitacion">-</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="text-muted small mb-1"><strong>Fecha Finalización</strong></label>
+                                            <p class="mb-0" id="verInformadoFechaFinalizacion">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documento Adjunto -->
+                        <div class="card mb-3 border-info">
+                            <div class="card-header bg-info text-white py-2">
+                                <h6 class="mb-0"><i class="fas fa-paperclip mr-2"></i>Documento Adjunto</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <div class="form-group mb-0">
+                                            <label class="text-muted small mb-1"><strong>Archivo</strong></label>
+                                            <p class="mb-0">
+                                                <i class="fas fa-file-pdf text-danger mr-2"></i>
+                                                <span id="verInformadoNombreArchivo">-</span>
+                                                <span class="text-muted ml-2">(<span id="verInformadoTamanoArchivo">-</span>)</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <button type="button" class="btn btn-primary" onclick="descargarDocumentoInformado()">
+                                            <i class="fas fa-download mr-2"></i>Descargar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: ESTADO DE CAPACITACIÓN -->
+                    <div class="tab-pane fade" id="tab-capacitacion" role="tabpanel" aria-labelledby="tab-capacitacion-link">
+                        <!-- Resumen de Capacitación -->
+                        <div class="alert alert-success" role="alert">
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <h5 class="mb-0"><i class="fas fa-users mr-2"></i><span id="totalPersonalInformado">0</span></h5>
+                                    <small>Total Personal</small>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5 class="mb-0 text-success"><i class="fas fa-check-circle mr-2"></i><span id="totalCapacitadosInformado">0</span></h5>
+                                    <small>Capacitados</small>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5 class="mb-0 text-danger"><i class="fas fa-times-circle mr-2"></i><span id="totalNoCapacitadosInformado">0</span></h5>
+                                    <small>No Capacitados</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Filtros -->
+                        <div class="card mb-3">
+                            <div class="card-body py-2">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control form-control-sm" id="filtroNombrePersonalInformado" placeholder="Buscar por nombre..." onkeyup="filtrarPersonalInformado()">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control form-control-sm" id="filtroEstadoPersonalInformado" onchange="filtrarPersonalInformado()">
+                                            <option value="">Todos los estados</option>
+                                            <option value="Capacitado">Capacitado</option>
+                                            <option value="No Capacitado">No Capacitado</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control form-control-sm" id="filtroGerenciaPersonalInformado" onchange="filtrarPersonalInformado()">
+                                            <option value="">Todas las gerencias</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de Personal Capacitado -->
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="text-center" style="width: 50px;">#</th>
+                                        <th>Nombre</th>
+                                        <th>Gerencia</th>
+                                        <th>Departamento</th>
+                                        <th class="text-center" style="width: 150px;">Estado</th>
+                                        <th class="text-center" style="width: 120px;">Fecha Capacitación</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyPersonalCapacitacionInformado">
+                                    <!-- Se llenará dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campo oculto para guardar ID del documento -->
+                <input type="hidden" id="verInformadoDocumentoId">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-times mr-2"></i>Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

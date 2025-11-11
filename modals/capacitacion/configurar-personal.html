@@ -1,0 +1,174 @@
+<!-- MODAL CONFIGURAR PERSONAL A CAPACITAR -->
+<div class="modal fade" id="modalConfigurarPersonal" tabindex="-1" role="dialog" aria-labelledby="modalConfigurarPersonalLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="modalConfigurarPersonalLabel">
+                    <i class="fas fa-users-cog mr-2"></i>Configurar Personal a Capacitar
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Información del Documento -->
+                <div class="card mb-3 border-info">
+                    <div class="card-header bg-info text-white py-2">
+                        <h6 class="mb-0"><i class="fas fa-file-alt mr-2"></i>Documento</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1"><strong>Código</strong></label>
+                                    <p class="mb-0" id="configurarCodigo">-</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1"><strong>Nombre del Documento</strong></label>
+                                    <p class="mb-0" id="configurarNombreDocumento">-</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-0">
+                                    <label class="text-muted small mb-1"><strong>Estado</strong></label>
+                                    <p class="mb-0" id="configurarEstadoCapacitacion">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Panel Izquierdo: Búsqueda de Personal -->
+                    <div class="col-md-7">
+                        <div class="card">
+                            <div class="card-header bg-light py-2">
+                                <h6 class="mb-0 text-primary"><i class="fas fa-search mr-2"></i>Buscar Personal</h6>
+                            </div>
+                            <div class="card-body">
+                                <!-- Filtros -->
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <label class="small mb-1"><strong>Gerencia</strong></label>
+                                        <select class="form-control form-control-sm" id="filtroBusquedaGerencia" onchange="filtrarPersonalDisponible()">
+                                            <option value="">Todas las gerencias</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="small mb-1"><strong>Departamento</strong></label>
+                                        <select class="form-control form-control-sm" id="filtroBusquedaDepartamento" onchange="filtrarPersonalDisponible()">
+                                            <option value="">Todos los departamentos</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="small mb-1"><strong>Buscar</strong></label>
+                                        <input type="text" class="form-control form-control-sm" id="filtroBusquedaNombre" placeholder="Nombre..." onkeyup="filtrarPersonalDisponible()">
+                                    </div>
+                                </div>
+
+                                <!-- Botones de acción -->
+                                <div class="mb-2">
+                                    <button type="button" class="btn btn-sm btn-success" onclick="seleccionarTodosDisponibles()">
+                                        <i class="fas fa-check-square mr-1"></i>Seleccionar Todos
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="deseleccionarTodosDisponibles()">
+                                        <i class="far fa-square mr-1"></i>Deseleccionar Todos
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="agregarSeleccionadosALista()">
+                                        <i class="fas fa-arrow-right mr-1"></i>Agregar a Lista
+                                    </button>
+                                </div>
+
+                                <!-- Tabla de Personal Disponible -->
+                                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table table-sm table-hover table-bordered">
+                                        <thead class="thead-light sticky-top">
+                                            <tr>
+                                                <th class="text-center" style="width: 40px;">
+                                                    <input type="checkbox" id="checkTodosDisponibles" onchange="toggleTodosDisponibles(this)">
+                                                </th>
+                                                <th>Nombre</th>
+                                                <th>Gerencia</th>
+                                                <th>Departamento</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbodyPersonalDisponible">
+                                            <!-- Se llenará dinámicamente -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="text-muted small mt-2">
+                                    <span id="countDisponibles">0</span> personas disponibles
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel Derecho: Lista de Capacitación -->
+                    <div class="col-md-5">
+                        <div class="card border-success">
+                            <div class="card-header bg-success text-white py-2">
+                                <h6 class="mb-0"><i class="fas fa-list-check mr-2"></i>Lista de Capacitación</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info py-2 mb-3">
+                                    <i class="fas fa-info-circle mr-2"></i>
+                                    <strong><span id="countSeleccionados">0</span></strong> personas agregadas
+                                </div>
+
+                                <!-- Filtro en lista de capacitación -->
+                                <div class="mb-2">
+                                    <input type="text" class="form-control form-control-sm" id="filtroListaCapacitacion" placeholder="Buscar en lista..." onkeyup="filtrarListaCapacitacion()">
+                                </div>
+
+                                <!-- Lista de Personal Seleccionado -->
+                                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table table-sm table-hover table-bordered">
+                                        <thead class="thead-light sticky-top">
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Gerencia</th>
+                                                <th class="text-center" style="width: 50px;">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbodyListaCapacitacion">
+                                            <tr>
+                                                <td colspan="3" class="text-center text-muted">
+                                                    <i class="fas fa-inbox fa-2x mb-2"></i>
+                                                    <p class="mb-0">No hay personas agregadas</p>
+                                                    <small>Selecciona personas de la lista de la izquierda</small>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="mt-2">
+                                    <button type="button" class="btn btn-sm btn-outline-danger btn-block" onclick="limpiarListaCapacitacion()">
+                                        <i class="fas fa-trash mr-1"></i>Limpiar Lista
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campo oculto para guardar ID del documento -->
+                <input type="hidden" id="configurarDocumentoId">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-times mr-2"></i>Cancelar
+                </button>
+                <button type="button" class="btn btn-success" onclick="guardarConfiguracionPersonal()">
+                    <i class="fas fa-save mr-2"></i>Guardar Configuración
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

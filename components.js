@@ -505,6 +505,30 @@ const equiposPorInstalacion = {
 // Exponer globalmente para que esté disponible en todos los modales
 window.equiposPorInstalacion = equiposPorInstalacion;
 
+// Función auxiliar para poblar select múltiple de equipos (solo lectura)
+function poblarEquiposSelectMultiple(selectId, equiposString) {
+    const $select = $(selectId);
+    $select.empty();
+    
+    if (!equiposString || equiposString === '' || equiposString === '-') {
+        $select.append('<option value="">No hay equipos seleccionados</option>');
+        return;
+    }
+    
+    // Separar equipos por coma
+    const equipos = equiposString.split(',').map(e => e.trim()).filter(e => e !== '');
+    
+    if (equipos.length === 0) {
+        $select.append('<option value="">No hay equipos seleccionados</option>');
+        return;
+    }
+    
+    // Agregar cada equipo como opción seleccionada
+    equipos.forEach(equipo => {
+        $select.append(`<option value="${equipo}" selected>${equipo}</option>`);
+    });
+}
+
 // Función para abrir modal de nueva solicitud - SOLICITANTE
 function abrirNuevaSolicitud() {
     $('#modalNuevaSolicitud').modal('show');
@@ -533,6 +557,93 @@ $(document).on('change', '#instalacionGM', function() {
     
     if (instalacion && equiposPorInstalacion[instalacion]) {
         $equipos.prop('disabled', false).html('<option value="">Seleccione equipo...</option>');
+        equiposPorInstalacion[instalacion].forEach(equipo => {
+            $equipos.append(`<option value="${equipo}">${equipo}</option>`);
+        });
+    } else {
+        $equipos.prop('disabled', true).html('<option value="">Primero seleccione Instalación GM</option>');
+    }
+});
+
+// Cambiar equipos según instalación seleccionada - MODALES ADMINISTRADOR
+$(document).on('change', '#clonarAdminInstalacionGM, #editarInstalacionGM, #nuevaInstalacionGM, #gestionarInstalacionGM', function() {
+    const instalacion = $(this).val();
+    const modalId = $(this).closest('.modal').attr('id');
+    let equiposSelector = '';
+    
+    // Determinar el selector correcto según el modal
+    if (modalId === 'modalClonarAdmin') {
+        equiposSelector = '#clonarAdminEquipos';
+    } else if (modalId === 'modalEditarAdmin') {
+        equiposSelector = '#editarEquipos';
+    } else if (modalId === 'modalNuevaAdmin') {
+        equiposSelector = '#nuevaEquipos';
+    } else if (modalId === 'modalGestionarAdmin') {
+        equiposSelector = '#gestionarEquipos';
+    }
+    
+    const $equipos = $(equiposSelector);
+    
+    if (instalacion && equiposPorInstalacion[instalacion]) {
+        $equipos.prop('disabled', false).html('');
+        equiposPorInstalacion[instalacion].forEach(equipo => {
+            $equipos.append(`<option value="${equipo}">${equipo}</option>`);
+        });
+    } else {
+        $equipos.prop('disabled', true).html('<option value="">Primero seleccione Instalación GM</option>');
+    }
+});
+
+// Cambiar equipos según instalación seleccionada - MODALES DESPACHADOR
+$(document).on('change', '#clonarDespInstalacionGM, #editarDespInstalacionGM, #nuevaDespInstalacionGM, #gestionarDespInstalacionGM', function() {
+    const instalacion = $(this).val();
+    const modalId = $(this).closest('.modal').attr('id');
+    let equiposSelector = '';
+    
+    // Determinar el selector correcto según el modal
+    if (modalId === 'modalClonarDesp') {
+        equiposSelector = '#clonarDespEquipos';
+    } else if (modalId === 'modalEditarDesp') {
+        equiposSelector = '#editarDespEquipos';
+    } else if (modalId === 'modalNuevaDesp') {
+        equiposSelector = '#nuevaDespEquipos';
+    } else if (modalId === 'modalGestionarDesp') {
+        equiposSelector = '#gestionarDespEquipos';
+    }
+    
+    const $equipos = $(equiposSelector);
+    
+    if (instalacion && equiposPorInstalacion[instalacion]) {
+        $equipos.prop('disabled', false).html('');
+        equiposPorInstalacion[instalacion].forEach(equipo => {
+            $equipos.append(`<option value="${equipo}">${equipo}</option>`);
+        });
+    } else {
+        $equipos.prop('disabled', true).html('<option value="">Primero seleccione Instalación GM</option>');
+    }
+});
+
+// Cambiar equipos según instalación seleccionada - MODALES SOLICITANTE
+$(document).on('change', '#clonarSolicInstalacionGM, #editarSolicInstalacionGM, #nuevaSolicInstalacionGM, #gestionarSolicInstalacionGM', function() {
+    const instalacion = $(this).val();
+    const modalId = $(this).closest('.modal').attr('id');
+    let equiposSelector = '';
+    
+    // Determinar el selector correcto según el modal
+    if (modalId === 'modalClonarSolic') {
+        equiposSelector = '#clonarSolicEquipos';
+    } else if (modalId === 'modalEditarSolic') {
+        equiposSelector = '#editarSolicEquipos';
+    } else if (modalId === 'modalNuevaSolic') {
+        equiposSelector = '#nuevaSolicEquipos';
+    } else if (modalId === 'modalGestionarSolic') {
+        equiposSelector = '#gestionarSolicEquipos';
+    }
+    
+    const $equipos = $(equiposSelector);
+    
+    if (instalacion && equiposPorInstalacion[instalacion]) {
+        $equipos.prop('disabled', false).html('');
         equiposPorInstalacion[instalacion].forEach(equipo => {
             $equipos.append(`<option value="${equipo}">${equipo}</option>`);
         });
@@ -867,7 +978,7 @@ function poblarModalClonarAdmin(solicitud) {
     $(`${modalContext} #clonarAdminAplicaSODI`).val(solicitud.APLICA_SODI || '');
     $(`${modalContext} #clonarAdminRiesgo`).val(solicitud.RIESGO || '');
     
-    // Descripción del Riesgo (condicional) - se copia
+    // Descripción del Riesgo del Trabajo (condicional) - se copia
     if (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto') {
         $(`${modalContext} #clonarAdminDescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO || '');
         $(`${modalContext} #clonarAdminDescripcionRiesgoContainer`).show();
@@ -960,7 +1071,7 @@ function poblarModalGestionar(solicitud) {
     
     // Instalación y Equipos (SOLO LECTURA)
     $(`${modalContext} #gestionarInstalacionGM`).val(solicitud.INSTALACION_GM || '');
-    $(`${modalContext} #gestionarEquipos`).val(solicitud.EQUIPOS || '');
+    poblarEquiposSelectMultiple(`${modalContext} #gestionarEquipos`, solicitud.EQUIPOS);
     
     // Características de la Intervención (SOLO LECTURA)
     $(`${modalContext} #gestionarTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '');
@@ -968,7 +1079,7 @@ function poblarModalGestionar(solicitud) {
     $(`${modalContext} #gestionarAplicaSODI`).val(solicitud.APLICA_SODI || '');
     $(`${modalContext} #gestionarRiesgo`).val(solicitud.RIESGO || '');
     
-    // Descripción del Riesgo (condicional - solo si es Medio o Alto)
+    // Descripción del Riesgo del Trabajo (condicional - solo si es Medio o Alto)
     if (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto') {
         $(`${modalContext} #gestionarDescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO || '');
         $(`${modalContext} #gestionarDescripcionRiesgoContainer`).show();
@@ -1386,7 +1497,7 @@ function poblarModalEditar(solicitud) {
     $(`${modalContext} #editarAplicaSODI`).val(solicitud.APLICA_SODI || '').prop('disabled', creadoPorSolicitante);
     $(`${modalContext} #editarRiesgo`).val(solicitud.RIESGO || '').prop('disabled', creadoPorSolicitante);
     
-    // Descripción del Riesgo (condicional)
+    // Descripción del Riesgo del Trabajo (condicional)
     // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
     // Si CREADO_POR = "Administrador" -> EDITABLE
     if (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto') {
@@ -1649,7 +1760,7 @@ function poblarModalVerAdmin(solicitud) {
     
     // Instalación y Equipos
     $('#verAdminInstalacionGM').val(solicitud.INSTALACION_GM || '');
-    $('#verAdminEquipos').val(solicitud.EQUIPOS || '');
+    poblarEquiposSelectMultiple('#verAdminEquipos', solicitud.EQUIPOS);
     
     // Características de la Intervención
     $('#verAdminTipoIntervencion').val(solicitud.TIPO_INTERVENCION || '');
@@ -1949,7 +2060,7 @@ function poblarModalGestionarDespachador(solicitud) {
     
     // Instalación y Equipos (SOLO LECTURA)
     $('#gestionarDespInstalacionGM').val(solicitud.INSTALACION_GM || '');
-    $('#gestionarDespEquipos').val(solicitud.EQUIPOS || '');
+    poblarEquiposSelectMultiple('#gestionarDespEquipos', solicitud.EQUIPOS);
     
     // Características de la Intervención (SOLO LECTURA)
     $('#gestionarDespTipoIntervencion').val(solicitud.TIPO_INTERVENCION || '');
@@ -1957,7 +2068,7 @@ function poblarModalGestionarDespachador(solicitud) {
     $('#gestionarDespAplicaSODI').val(solicitud.APLICA_SODI || '');
     $('#gestionarDespRiesgo').val(solicitud.RIESGO || '');
     
-    // Descripción del Riesgo (condicional - solo si es Medio o Alto)
+    // Descripción del Riesgo del Trabajo (condicional - solo si es Medio o Alto)
     if (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto') {
         $('#gestionarDespDescripcionRiesgo').val(solicitud.DESCRIPCION_RIESGO || '');
         $('#gestionarDespDescripcionRiesgoContainer').show();
@@ -2173,7 +2284,13 @@ function aplicarReglasEditabilidadDespachador(estado) {
         $(`${modalContext} .card:has(#gestionarDespDescripcion) .card-header`).removeClass('bg-light').addClass('bg-warning text-dark').append(' <span class="badge badge-light ml-2">EDITABLE</span>');
         
     } else if (estado === 'Vigente' || estado === 'Extendida') {
-        // Todo en solo lectura, excepto FIN_EFECTIVO que es obligatorio para finalizar
+        // Todo en solo lectura, excepto las fechas efectivas que son editables
+        // INICIO_EFECTIVO: Obligatorio y editable
+        $(`${modalContext} #gestionarDespInicioEfectivo`).prop('readonly', false).attr('required', 'required');
+        // Agregar asterisco de obligatoriedad
+        $(`${modalContext} label[for="gestionarDespInicioEfectivo"], ${modalContext} #gestionarDespInicioEfectivo`).closest('.form-group').find('label').append(' <span class="text-danger">*</span>');
+        
+        // FIN_EFECTIVO: Editable (obligatorio para finalizar, opcional para suspender/rechazar)
         $(`${modalContext} #gestionarDespFinEfectivo`).prop('readonly', false);
         
         // Marcar sección de Fechas Efectivas como editable
@@ -2366,7 +2483,7 @@ function poblarModalVerDespachador(solicitud) {
     
     // Instalación y Equipos
     $(`${modalContext} #verDespInstalacionGM`).val(solicitud.INSTALACION_GM || '-');
-    $(`${modalContext} #verDespEquipos`).val(solicitud.EQUIPOS || '-');
+    poblarEquiposSelectMultiple(`${modalContext} #verDespEquipos`, solicitud.EQUIPOS);
     
     // Características de la Intervención
     $(`${modalContext} #verDespTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '-');
@@ -2960,7 +3077,7 @@ function poblarModalVerSolicitante(solicitud) {
     
     // Instalación y Equipos
     $(`${modalContext} #verSolicInstalacionGM`).val(solicitud.INSTALACION_GM || '-');
-    $(`${modalContext} #verSolicEquipos`).val(solicitud.EQUIPOS || '-');
+    poblarEquiposSelectMultiple(`${modalContext} #verSolicEquipos`, solicitud.EQUIPOS);
     
     // Características de la Intervención
     $(`${modalContext} #verSolicTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '-');
@@ -3046,7 +3163,7 @@ function poblarModalClonar(solicitud, tipo) {
     $(`${modalContext} #${prefix}AplicaSODI`).val(solicitud.APLICA_SODI || '');
     $(`${modalContext} #${prefix}Riesgo`).val(solicitud.RIESGO || '');
     
-    // Descripción del Riesgo (condicional) - se copia
+    // Descripción del Riesgo del Trabajo (condicional) - se copia
     if (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto') {
         $(`${modalContext} #${prefix}DescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO || '');
         $(`${modalContext} #${prefix}DescripcionRiesgoContainer`).show();
