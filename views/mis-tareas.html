@@ -1,0 +1,427 @@
+<!-- Vista: Mis Tareas -->
+<div class="container-fluid">
+    <h3 class="mb-2">Mis Tareas</h3>
+    <p class="text-muted mb-3">Muestra todas mis tareas pendientes o cerradas del Concentrador de Solicitudes</p>
+    <hr class="mb-4">
+
+    <!-- Alerta de error -->
+    <div id="alerta-error-tareas" class="alert alert-danger d-none" role="alert">
+        <i class="fas fa-exclamation-triangle mr-2"></i>
+        <span id="text-error-tareas"></span>
+    </div>
+
+    <!-- Loading overlay -->
+    <div class="loading-overlay d-none" id="loading-tareas">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Cargando...</span>
+        </div>
+    </div>
+
+    <!-- Zona de filtros -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="btn-group" role="group">
+                <button id="showHideFilterTareas" class="btn btn-secondary" type="button" data-toggle="collapse" 
+                        data-target="#zona-filtro-tareas" aria-expanded="false">
+                    <i class="fa fa-filter mr-2"></i>
+                    <span>Mostrar filtro</span>
+                </button>
+                <button id="clearFilterTareas" class="btn btn-outline-dark" type="button" onclick="limpiarFiltroTareas()">
+                    <i class="fas fa-broom mr-2"></i>
+                    <span>Limpiar filtro</span>
+                </button>
+            </div>
+
+            <!-- Panel de filtros colapsable -->
+            <div class="collapse mt-3" id="zona-filtro-tareas">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-md-3">
+                                <label for="filtro-rol">Rol</label>
+                                <select class="form-control" id="filtro-rol">
+                                    <option value="">Todos los roles</option>
+                                    <option value="administrador">Administrador</option>
+                                    <option value="despachador">Despachador</option>
+                                    <option value="solicitante">Solicitante</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="filtro-estado-tarea">Estado</label>
+                                <select class="form-control" id="filtro-estado-tarea">
+                                    <option value="pendiente">Pendientes</option>
+                                    <option value="todas">Todas</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="filtro-instalacion-tarea">Instalación GM</label>
+                                <select class="form-control" id="filtro-instalacion-tarea">
+                                    <option value="">Todas las instalaciones</option>
+                                    <option value="Santiago Solar">Santiago Solar</option>
+                                    <option value="Nueva Renca">Nueva Renca</option>
+                                    <option value="Los Vientos">Los Vientos</option>
+                                    <option value="Santa Lidia">Santa Lidia</option>
+                                    <option value="CEME1">CEME1</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="text-white">Acción</label>
+                                <button type="button" class="btn btn-success btn-block" onclick="filtrarTareas()">
+                                    <i class="fas fa-search mr-2"></i>Filtrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla de tareas -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table id="table-tareas" class="table table-sm table-hover table-bordered w-100">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-center" style="min-width: 80px;">Acciones</th>
+                                <th>ID Registro</th>
+                                <th>Tarea Identificador</th>
+                                <th>Tarea</th>
+                                <th>Tipo Tarea</th>
+                                <th>Fecha Inicial</th>
+                                <th>Estado Inicial</th>
+                                <th>Responsable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los datos se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Cambiar texto del botón al colapsar/expandir
+$('#zona-filtro-tareas').on('show.bs.collapse', function () {
+    $('#showHideFilterTareas').html('<i class="fa fa-sort-up mr-2" aria-hidden="true"></i> Ocultar filtro');
+});
+
+$('#zona-filtro-tareas').on('hide.bs.collapse', function () {
+    $('#showHideFilterTareas').html('<i class="fa fa-filter mr-2" aria-hidden="true"></i> Mostrar filtro');
+});
+
+// ============================================
+// CARGAR DATOS DINÁMICAMENTE
+// ============================================
+(function() {
+    console.log('🔄 Cargando Mis Tareas...');
+    
+    // Obtener datos de tareas (en producción, desde SharePoint/API)
+    const tareas = obtenerTareasMock();
+    console.log(`📊 Encontradas ${tareas.length} tareas`);
+    
+    const tbody = $('#table-tareas tbody');
+    tbody.empty(); // Limpiar tabla
+    
+    // Generar cada fila
+    tareas.forEach(tarea => {
+        // Determinar badge de estado
+        let badgeEstado = 'badge-secondary';
+        switch(tarea.ESTADO_INICIAL) {
+            case 'Pendiente': badgeEstado = 'badge-warning'; break;
+            case 'En Análisis': badgeEstado = 'badge-info'; break;
+            case 'Devuelta': badgeEstado = 'badge-danger'; break;
+            case 'Programada': badgeEstado = 'badge-success'; break;
+            case 'Vigente': badgeEstado = 'badge-primary'; break;
+            case 'Analizado': badgeEstado = 'badge-info'; break;
+            case 'Ingresada': badgeEstado = 'badge-secondary'; break;
+            case 'Completar': badgeEstado = 'badge-warning'; break;
+            case 'Finalizada': badgeEstado = 'badge-secondary'; break;
+        }
+        
+        // Formatear fecha
+        const fechaFormateada = tarea.FECHA_INICIAL ? moment(tarea.FECHA_INICIAL).format('DD/MM/YYYY') : '-';
+        
+        // Generar HTML de acciones
+        const acciones = `
+            <a href="javascript:;" onclick="gestionarSolicitudTarea(${tarea.ID_REGISTRO}, '${tarea.ROL}')" class="text-danger" title="Gestionar">
+                <i class="fas fa-arrow-circle-right"></i>
+            </a>
+            <a href="javascript:;" onclick="abrirBitacoraTarea(${tarea.ID_REGISTRO})" class="text-success ml-2" title="Bitácora">
+                <i class="fas fa-clipboard-list"></i>
+            </a>
+        `;
+        
+        // Crear fila
+        const fila = `
+            <tr>
+                <td class="text-center align-middle">${acciones}</td>
+                <td>${tarea.ID_REGISTRO}</td>
+                <td>${tarea.TAREA_IDENTIFICADOR}</td>
+                <td>${tarea.TAREA}</td>
+                <td>${tarea.TIPO_TAREA}</td>
+                <td>${fechaFormateada}</td>
+                <td><span class="badge ${badgeEstado}">${tarea.ESTADO_INICIAL}</span></td>
+                <td>${tarea.RESPONSABLE}</td>
+            </tr>
+        `;
+        
+        tbody.append(fila);
+    });
+    
+    console.log('✅ Mis Tareas cargadas correctamente');
+})();
+
+function obtenerTareasMock() {
+    // Datos de ejemplo - en producción, obtener de SharePoint/API
+    // El correlativo -01, -02, etc. representa el número de plazo en el flujo según el estado
+    return [
+        {
+            ID: 1,
+            ID_REGISTRO: 101,
+            TAREA_IDENTIFICADOR: 'CEN-2025-001-01',
+            TAREA: 'Revisar Solicitud',
+            TIPO_TAREA: 'Solicitud de Intervención',
+            FECHA_INICIAL: '2025-01-15',
+            ESTADO_INICIAL: 'Pendiente',
+            RESPONSABLE: 'Demo Novakem 10',
+            ROL: 'administrador'
+        },
+        {
+            ID: 2,
+            ID_REGISTRO: 102,
+            TAREA_IDENTIFICADOR: 'CEN-2025-002-02',
+            TAREA: 'Aprobar Desconexión',
+            TIPO_TAREA: 'Solicitud de Desconexión',
+            FECHA_INICIAL: '2025-01-20',
+            ESTADO_INICIAL: 'En Análisis',
+            RESPONSABLE: 'Demo Novakem 10',
+            ROL: 'despachador'
+        },
+        {
+            ID: 3,
+            ID_REGISTRO: 103,
+            TAREA_IDENTIFICADOR: 'CEN-2025-003-03',
+            TAREA: 'Validar Información',
+            TIPO_TAREA: 'Solicitud de Intervención',
+            FECHA_INICIAL: '2025-01-18',
+            ESTADO_INICIAL: 'Programada',
+            RESPONSABLE: 'Demo Novakem 10',
+            ROL: 'administrador'
+        },
+        {
+            ID: 4,
+            ID_REGISTRO: 104,
+            TAREA_IDENTIFICADOR: 'CEN-2025-004-01',
+            TAREA: 'Completar Datos',
+            TIPO_TAREA: 'Solicitud de Intervención',
+            FECHA_INICIAL: '2025-01-22',
+            ESTADO_INICIAL: 'Devuelta',
+            RESPONSABLE: 'Demo Novakem 10',
+            ROL: 'solicitante'
+        },
+        {
+            ID: 5,
+            ID_REGISTRO: 105,
+            TAREA_IDENTIFICADOR: 'CEN-2025-005-04',
+            TAREA: 'Confirmar Ejecución',
+            TIPO_TAREA: 'Solicitud de Desconexión',
+            FECHA_INICIAL: '2025-01-10',
+            ESTADO_INICIAL: 'Vigente',
+            RESPONSABLE: 'Demo Novakem 10',
+            ROL: 'administrador'
+        }
+    ];
+}
+
+// Función para renderizar tareas en la tabla
+function renderizarTareas(tareas) {
+    const tbody = $('#table-tareas tbody');
+    tbody.empty();
+    
+    if (tareas.length === 0) {
+        tbody.append('<tr><td colspan="8" class="text-center text-muted">No se encontraron tareas</td></tr>');
+        return;
+    }
+    
+    tareas.forEach(tarea => {
+        // Determinar badge de estado
+        let badgeEstado = 'badge-secondary';
+        switch(tarea.ESTADO_INICIAL) {
+            case 'Pendiente': badgeEstado = 'badge-warning'; break;
+            case 'En Análisis': badgeEstado = 'badge-info'; break;
+            case 'Devuelta': badgeEstado = 'badge-danger'; break;
+            case 'Programada': badgeEstado = 'badge-success'; break;
+            case 'Vigente': badgeEstado = 'badge-primary'; break;
+            case 'Analizado': badgeEstado = 'badge-info'; break;
+            case 'Ingresada': badgeEstado = 'badge-secondary'; break;
+            case 'Completar': badgeEstado = 'badge-warning'; break;
+            case 'Finalizada': badgeEstado = 'badge-secondary'; break;
+        }
+        
+        // Formatear fecha
+        const fechaFormateada = tarea.FECHA_INICIAL ? moment(tarea.FECHA_INICIAL).format('DD/MM/YYYY') : '-';
+        
+        // Generar HTML de acciones
+        const acciones = `
+            <a href="javascript:;" onclick="gestionarSolicitudTarea(${tarea.ID_REGISTRO}, '${tarea.ROL}')" class="text-danger" title="Gestionar">
+                <i class="fas fa-arrow-circle-right"></i>
+            </a>
+            <a href="javascript:;" onclick="abrirBitacoraTarea(${tarea.ID_REGISTRO})" class="text-success ml-2" title="Bitácora">
+                <i class="fas fa-clipboard-list"></i>
+            </a>
+        `;
+        
+        // Crear fila
+        const fila = `
+            <tr>
+                <td class="text-center align-middle">${acciones}</td>
+                <td>${tarea.ID_REGISTRO}</td>
+                <td>${tarea.TAREA_IDENTIFICADOR}</td>
+                <td>${tarea.TAREA}</td>
+                <td>${tarea.TIPO_TAREA}</td>
+                <td>${fechaFormateada}</td>
+                <td><span class="badge ${badgeEstado}">${tarea.ESTADO_INICIAL}</span></td>
+                <td>${tarea.RESPONSABLE}</td>
+            </tr>
+        `;
+        
+        tbody.append(fila);
+    });
+}
+
+function filtrarTareas() {
+    const rol = $("#filtro-rol").val();
+    const estado = $("#filtro-estado-tarea").val();
+
+    let tareas = obtenerTareasMock();
+
+    // Aplicar filtros
+    if (rol) {
+        tareas = tareas.filter(t => t.ROL === rol);
+    }
+    if (estado === 'pendiente') {
+        tareas = tareas.filter(t => ['Pendiente', 'En Análisis', 'Devuelta'].includes(t.ESTADO_INICIAL));
+    }
+
+    renderizarTareas(tareas);
+}
+
+function limpiarFiltroTareas() {
+    $("#filtro-rol").val("");
+    $("#filtro-estado-tarea").val("pendiente");
+    
+    // Recargar todas las tareas
+    const tareas = obtenerTareasMock();
+    renderizarTareas(tareas);
+}
+
+function verSolicitudTarea(id, rol) {
+    console.log('Ver solicitud:', id, 'Rol:', rol);
+    
+    // Llamar a la función correspondiente según el rol
+    switch(rol) {
+        case 'administrador':
+            if (typeof verSolicitudAdmin === 'function') {
+                verSolicitudAdmin(id);
+            } else {
+                console.error('Función verSolicitudAdmin no encontrada');
+            }
+            break;
+        case 'despachador':
+            if (typeof verSolicitudDesp === 'function') {
+                verSolicitudDesp(id);
+            } else {
+                console.error('Función verSolicitudDesp no encontrada');
+            }
+            break;
+        case 'solicitante':
+            if (typeof verSolicitudSolic === 'function') {
+                verSolicitudSolic(id);
+            } else {
+                console.error('Función verSolicitudSolic no encontrada');
+            }
+            break;
+        default:
+            console.error('Rol no reconocido:', rol);
+    }
+}
+
+function gestionarSolicitudTarea(idRegistro, rol) {
+    console.log('Gestionar solicitud:', idRegistro, 'Rol:', rol);
+    
+    // Llamar a la función correspondiente según el rol
+    switch(rol) {
+        case 'administrador':
+            if (typeof gestionarSolicitudAdmin === 'function') {
+                gestionarSolicitudAdmin(idRegistro);
+            } else {
+                console.error('Función gestionarSolicitudAdmin no encontrada');
+            }
+            break;
+        case 'despachador':
+            if (typeof gestionarSolicitudDesp === 'function') {
+                gestionarSolicitudDesp(idRegistro);
+            } else {
+                console.error('Función gestionarSolicitudDesp no encontrada');
+            }
+            break;
+        case 'solicitante':
+            if (typeof gestionarSolicitudSolic === 'function') {
+                gestionarSolicitudSolic(idRegistro);
+            } else {
+                console.error('Función gestionarSolicitudSolic no encontrada');
+            }
+            break;
+        default:
+            console.error('Rol no reconocido:', rol);
+    }
+}
+
+function abrirBitacoraTarea(idRegistro) {
+    console.log('Abrir bitácora para ID Registro:', idRegistro);
+    
+    // Llamar a la función global de bitácora si existe
+    if (typeof abrirBitacora === 'function') {
+        abrirBitacora(idRegistro);
+    } else {
+        console.error('Función abrirBitacora no encontrada');
+        alert('Abrir bitácora para registro: ' + idRegistro);
+    }
+}
+</script>
+
+<style>
+#table-tareas {
+    font-size: 0.85rem !important;
+}
+
+#table-tareas thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 0.35em 0.65em;
+}
+</style>

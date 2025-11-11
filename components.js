@@ -242,8 +242,7 @@ $(document).ready(function() {
     // Función para ver mis tareas
     window.verMisTarea = function() {
         console.log('Ver Mis Tareas');
-        alert('Navegando a Mis Tareas');
-        // window.location.href = '/sites/geme/SitePages/MisTareas.aspx';
+        loadView('views/mis-tareas.html?v=3');
     };
     
     // Variable global para filtros de tareas
@@ -1454,100 +1453,98 @@ function poblarModalEditar(solicitud) {
     // Header: Estado
     $(`${modalContext} #editarEstadoBadge`).text(solicitud.ESTADO);
     
-    // Determinar comportamiento según CREADO_POR
-    const creadoPorSolicitante = solicitud.CREADO_POR === 'Solicitante';
-    const creadoPorAdministrador = solicitud.CREADO_POR === 'Administrador';
+    // TODOS LOS CAMPOS SON EDITABLES PARA EL ADMINISTRADOR
+    // (independiente de quién creó la solicitud)
     
-    // Identificación (SIEMPRE EDITABLE)
+    // Identificación
     $(`${modalContext} #editarIDSolicitud`).val(solicitud.ID_SOLICITUD || '').prop('readonly', false);
     $(`${modalContext} #editarTipo`).val(solicitud.TIPO || '').prop('disabled', false);
     $(`${modalContext} #editarRelacionSODICEN`).val(solicitud.RELACION_SODI_CEN || '').prop('readonly', false);
     
-    // Fechas Programadas
-    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
-    // Si CREADO_POR = "Administrador" -> EDITABLE
+    // Fechas Programadas - EDITABLE
     if (solicitud.INICIO_PROGRAMADO) {
         const fechaInicio = convertirFechaParaInput(solicitud.INICIO_PROGRAMADO);
-        $(`${modalContext} #editarInicioProgramado`).val(fechaInicio).prop('readonly', creadoPorSolicitante);
+        $(`${modalContext} #editarInicioProgramado`).val(fechaInicio).prop('readonly', false);
     }
     if (solicitud.FIN_PROGRAMADO) {
         const fechaFin = convertirFechaParaInput(solicitud.FIN_PROGRAMADO);
-        $(`${modalContext} #editarFinProgramado`).val(fechaFin).prop('readonly', creadoPorSolicitante);
+        $(`${modalContext} #editarFinProgramado`).val(fechaFin).prop('readonly', false);
     }
     
-    // Empresas Involucradas (SIEMPRE EDITABLE)
+    // Empresas Involucradas - EDITABLE
     $(`${modalContext} #editarEmpresaSolicitante`).val(solicitud.EMPRESA_SOLICITANTE || '').prop('disabled', false);
     $(`${modalContext} #editarEmpresaReceptora`).val(solicitud.EMPRESA_RECEPTORA || '').prop('disabled', false);
     
-    // Instalación GM
-    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
-    // Si CREADO_POR = "Administrador" -> EDITABLE
-    $(`${modalContext} #editarInstalacionGM`).val(solicitud.INSTALACION_GM || '').prop('disabled', creadoPorSolicitante);
+    // Instalación GM - EDITABLE
+    $(`${modalContext} #editarInstalacionGM`).val(solicitud.INSTALACION_GM || '').prop('disabled', false);
     
-    // Equipos
-    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
-    // Si CREADO_POR = "Administrador" -> EDITABLE
-    $(`${modalContext} #editarEquipos`).val(solicitud.EQUIPOS || '').prop('readonly', creadoPorSolicitante);
+    // Equipos - EDITABLE (se poblará dinámicamente según instalación)
+    // Primero poblar los equipos si hay una instalación seleccionada
+    if (solicitud.INSTALACION_GM && solicitud.EQUIPOS) {
+        // Habilitar el select de equipos
+        $(`${modalContext} #editarEquipos`).prop('disabled', false);
+        
+        // Poblar con los equipos de la instalación
+        const equiposArray = solicitud.EQUIPOS.split(',').map(e => e.trim());
+        const $equiposSelect = $(`${modalContext} #editarEquipos`);
+        $equiposSelect.empty();
+        
+        // Agregar opciones de equipos disponibles para esta instalación
+        if (window.equiposPorInstalacion && window.equiposPorInstalacion[solicitud.INSTALACION_GM]) {
+            window.equiposPorInstalacion[solicitud.INSTALACION_GM].forEach(equipo => {
+                const selected = equiposArray.includes(equipo) ? 'selected' : '';
+                $equiposSelect.append(`<option value="${equipo}" ${selected}>${equipo}</option>`);
+            });
+        }
+    }
     
-    // Características de la Intervención
-    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
-    // Si CREADO_POR = "Administrador" -> EDITABLE
-    $(`${modalContext} #editarTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '').prop('disabled', creadoPorSolicitante);
-    $(`${modalContext} #editarPotencia`).val(solicitud.POTENCIA || '').prop('readonly', creadoPorSolicitante);
-    $(`${modalContext} #editarAplicaSODI`).val(solicitud.APLICA_SODI || '').prop('disabled', creadoPorSolicitante);
-    $(`${modalContext} #editarRiesgo`).val(solicitud.RIESGO || '').prop('disabled', creadoPorSolicitante);
+    // Características de la Intervención - EDITABLE
+    $(`${modalContext} #editarTipoIntervencion`).val(solicitud.TIPO_INTERVENCION || '').prop('disabled', false);
+    $(`${modalContext} #editarPotencia`).val(solicitud.POTENCIA || '').prop('readonly', false);
+    $(`${modalContext} #editarAplicaSODI`).val(solicitud.APLICA_SODI || '').prop('disabled', false);
+    $(`${modalContext} #editarRiesgo`).val(solicitud.RIESGO || '').prop('disabled', false);
     
-    // Descripción del Riesgo del Trabajo (condicional)
-    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
-    // Si CREADO_POR = "Administrador" -> EDITABLE
+    // Descripción del Riesgo del Trabajo (condicional) - EDITABLE
     if (solicitud.RIESGO === 'Medio' || solicitud.RIESGO === 'Alto') {
-        $(`${modalContext} #editarDescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO || '').prop('readonly', creadoPorSolicitante);
+        $(`${modalContext} #editarDescripcionRiesgo`).val(solicitud.DESCRIPCION_RIESGO || '').prop('readonly', false);
         $(`${modalContext} #editarDescripcionRiesgoContainer`).show();
     } else {
         $(`${modalContext} #editarDescripcionRiesgoContainer`).hide();
         $(`${modalContext} #editarDescripcionRiesgo`).val('');
     }
     
-    // Descripción y Condiciones
-    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
-    // Si CREADO_POR = "Administrador" -> EDITABLE
-    $(`${modalContext} #editarDescripcion`).val(solicitud.DESCRIPCION || '').prop('readonly', creadoPorSolicitante);
-    $(`${modalContext} #editarCondiciones`).val(solicitud.CONDICIONES || '').prop('readonly', creadoPorSolicitante);
-    $(`${modalContext} #editarComentarios`).val(solicitud.COMENTARIOS || '').prop('readonly', creadoPorSolicitante);
+    // Descripción y Condiciones - EDITABLE
+    $(`${modalContext} #editarDescripcion`).val(solicitud.DESCRIPCION || '').prop('readonly', false);
+    $(`${modalContext} #editarCondiciones`).val(solicitud.CONDICIONES || '').prop('readonly', false);
+    $(`${modalContext} #editarComentarios`).val(solicitud.COMENTARIOS || '').prop('readonly', false);
     
-    // Afectaciones
-    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
-    // Si CREADO_POR = "Administrador" -> EDITABLE
-    $(`${modalContext} #editarAfectaciones`).val(solicitud.AFECTACIONES || '').prop('disabled', creadoPorSolicitante);
+    // Afectaciones - EDITABLE
+    $(`${modalContext} #editarAfectaciones`).val(solicitud.AFECTACIONES || '').prop('disabled', false);
     
-    // Descripción de Afectación (condicional)
-    // Si CREADO_POR = "Solicitante" -> SOLO LECTURA
-    // Si CREADO_POR = "Administrador" -> EDITABLE
+    // Descripción de Afectación (condicional) - EDITABLE
     if (solicitud.AFECTACIONES && solicitud.AFECTACIONES !== '') {
-        $(`${modalContext} #editarDescripcionAfectacion`).val(solicitud.DESCRIPCION_AFECTACION || '').prop('readonly', creadoPorSolicitante);
+        $(`${modalContext} #editarDescripcionAfectacion`).val(solicitud.DESCRIPCION_AFECTACION || '').prop('readonly', false);
         $(`${modalContext} #editarDescripcionAfectacionContainer`).show();
     } else {
         $(`${modalContext} #editarDescripcionAfectacionContainer`).hide();
         $(`${modalContext} #editarDescripcionAfectacion`).val('');
     }
     
-    // Archivo Adjunto (SIEMPRE EDITABLE - se maneja en el HTML)
-    if (solicitud.ADJUNTO && solicitud.ADJUNTO !== '-') {
-        $(`${modalContext} #editarAdjuntoActual`).text(solicitud.ADJUNTO);
-        $(`${modalContext} #editarDescargarAdjunto`).show();
+    // Archivos Adjuntos - EDITABLE
+    if (solicitud.ARCHIVOS_ADJUNTOS && solicitud.ARCHIVOS_ADJUNTOS !== '-') {
+        $(`${modalContext} #editarArchivosAdjuntos`).val(solicitud.ARCHIVOS_ADJUNTOS);
     } else {
-        $(`${modalContext} #editarAdjuntoActual`).text('Sin archivo adjunto');
-        $(`${modalContext} #editarDescargarAdjunto`).hide();
+        $(`${modalContext} #editarArchivosAdjuntos`).val('');
     }
     
-    // SODI Adjunto (SIEMPRE EDITABLE)
+    // SODI Adjunto - EDITABLE
     $(`${modalContext} #editarSODIAdjunto`).val(solicitud.SODI_ADJUNTO || '')
     
     // Guardar ID de solicitud y CREADO_POR para usar en la actualización
     $(`${modalContext} #editSolicitudId`).val(solicitud.ID_REGISTRO);
     $(`${modalContext} #editCreadoPor`).val(solicitud.CREADO_POR);
     
-    console.log('Modal editar poblado. CREADO_POR:', solicitud.CREADO_POR, '| Todos los campos editables:', creadoPorAdministrador);
+    console.log('Modal editar poblado. CREADO_POR:', solicitud.CREADO_POR, '| Todos los campos EDITABLES para Administrador');
 }
 
 // Función auxiliar para convertir fecha del formato "DD/MM/YYYY HH:MM" a "YYYY-MM-DDTHH:MM"
